@@ -6,19 +6,20 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import s3.ind.domain.CreateUserRequest;
-import s3.ind.domain.CreateUserResponse;
+import s3.ind.bussiness.UserService;
+import s3.ind.domain.request.CreateUserRequest;
+import s3.ind.domain.response.CreateUserResponse;
 import s3.ind.domain.User;
+import s3.ind.domain.response.UserResponse;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
-public class UsersController {
+@CrossOrigin(origins = "http://localhost:5173")
+public class UserController {
+    private final UserService userService;
     private List<User> users;
 
     @PostConstruct
@@ -27,28 +28,24 @@ public class UsersController {
                 .id(1)
                 .firstName("John")
                 .lastName("Doe")
-                .country("USA")
                 .build();
 
         User user2 = User.builder()
                 .id(2)
                 .firstName("Rali")
                 .lastName("Stoyanova")
-                .country("Burgas")
                 .build();
 
         User user3 = User.builder()
                 .id(3)
                 .firstName("Daniel")
                 .lastName("Langov")
-                .country("Moreto")
                 .build();
 
         User user4 = User.builder()
                 .id(4)
                 .firstName("Peter")
                 .lastName("Parker")
-                .country("New York")
                 .build();
 
         users.add(user1);
@@ -58,9 +55,10 @@ public class UsersController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> response = new ArrayList<>(users);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<Map<Integer, UserResponse>> getAllUsers() {
+        // List<User> response = new ArrayList<>(users);
+        // return ResponseEntity.ok(this.userService.get);
+        return null;
     }
 
     @GetMapping("{id}")
@@ -77,7 +75,6 @@ public class UsersController {
                 .id(newId)
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
-                .country(request.getCountry())
                 .build();
         users.add(newUser);
 

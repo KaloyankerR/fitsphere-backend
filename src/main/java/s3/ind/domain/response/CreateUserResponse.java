@@ -1,4 +1,4 @@
-package s3.ind.domain;
+package s3.ind.domain.response;
 
 import lombok.Builder;
 import lombok.Data;

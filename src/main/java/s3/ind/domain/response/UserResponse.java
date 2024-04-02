@@ -1,5 +1,4 @@
-package s3.ind.domain;
-
+package s3.ind.domain.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,15 +7,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@AllArgsConstructor
+public class UserResponse {
     private Integer id;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private String phoneNumber;
-    // private Role role;
-    // private String country;
 }

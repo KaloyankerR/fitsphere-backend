@@ -1,4 +1,4 @@
-package s3.ind.domain;
+package s3.ind.domain.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -10,13 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateUserRequest {
+public class UserLoginRequest {
     @NotBlank
-    private String firstName;
-
+    private String email;
     @NotBlank
-    private String lastName;
-
-    @NotBlank
-    private String country;
+    private String password;
 }
