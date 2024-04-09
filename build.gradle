@@ -25,6 +25,7 @@ repositories {
     mavenCentral()
 }
 
+
 // Software metrics
 jacocoTestReport {
     reports {
