@@ -1,4 +1,4 @@
-package s3.ind.domain;
+package s3.ind.domain.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Workout {
+public class UpdateWorkoutRequest {
     private Integer id;
     private Integer trainerId;
     private String title;

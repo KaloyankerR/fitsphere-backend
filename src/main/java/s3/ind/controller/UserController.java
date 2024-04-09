@@ -6,21 +6,24 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import s3.ind.bussiness.UserService;
+import s3.ind.business.UserService;
 import s3.ind.domain.request.CreateUserRequest;
 import s3.ind.domain.response.CreateUserResponse;
 import s3.ind.domain.User;
 import s3.ind.domain.response.UserResponse;
+import s3.ind.persistence.UserRepository;
 
 import java.util.*;
 
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:8099")
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
     private List<User> users;
+
 
     @PostConstruct
     private void initUsers() {
@@ -55,14 +58,12 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<Map<Integer, UserResponse>> getAllUsers() {
-        // List<User> response = new ArrayList<>(users);
-        // return ResponseEntity.ok(this.userService.get);
-        return null;
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        return ResponseEntity.ok((userService.getAllUsers()));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<User> getUser(@PathVariable(value = "id") final long id) {
+    public ResponseEntity<User> getUser(@PathVariable(value = "id") final Integer id) {
         final Optional<User> userOptional = users.stream().filter(user -> user.getId() == id).findFirst();
         return userOptional.map(user -> ResponseEntity.ok().body(user)).orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -86,7 +87,7 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteCountry(@PathVariable int id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
         Iterator<User> iterator = users.iterator();
         while (iterator.hasNext()) {
             User user = iterator.next();

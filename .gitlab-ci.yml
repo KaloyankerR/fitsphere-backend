@@ -19,4 +19,4 @@ test:
 sonar:
   stage: sonar
   script:
-    - ./gradlew test jacocoTestReport
+    - ./gradlew sonar test jacocoTestReport

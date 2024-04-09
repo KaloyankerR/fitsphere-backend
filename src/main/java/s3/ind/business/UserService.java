@@ -1,16 +1,17 @@
-package s3.ind.bussiness;
+package s3.ind.business;
 
 import s3.ind.domain.request.UserRequest;
 import s3.ind.domain.response.UserResponse;
 
 // import java.util.List;
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
-    void createUser(UserRequest userRequest, String password);
-    void deleteUser(int id);
+    boolean createUser(UserRequest userRequest, String password);
+    boolean deleteUser(int id);
     UserResponse getUser(int id);
-    Map<Integer, UserResponse> getAllUsers();
-    void updateUser(int id, UserRequest userUpdates);
+    List<UserResponse> getAllUsers();
+    boolean updateUser(int id, UserRequest userUpdates);
     void checkUserPermission(int id);
 }

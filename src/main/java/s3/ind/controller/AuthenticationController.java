@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import s3.ind.bussiness.AuthenticationService;
+import s3.ind.business.AuthenticationService;
 import s3.ind.domain.request.UserLoginRequest;
 import s3.ind.domain.response.UserLoginResponse;
 

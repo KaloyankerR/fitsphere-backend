@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class Appointment {
-    private long id;
+    private Integer id;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Trainer trainer;

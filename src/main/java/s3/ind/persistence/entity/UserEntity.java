@@ -7,11 +7,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import s3.ind.domain.Role;
-//import s3.ind.domain.Role;
 
 @Entity
-@Table(name="Users")
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,37 +18,29 @@ import s3.ind.domain.Role;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserID")
+    @Column(name = "user_id")
     private Integer userId;
 
     @NotBlank
     @Length(min = 6, max = 20)
-    @Column(name = "FirstName")
+    @Column(name = "first_name")
     private String firstName;
 
     @NotBlank
     @Length(min = 6, max = 20)
-    @Column(name = "LastName")
+    @Column(name = "last_name")
     private String lastName;
 
     @NotBlank
     @Length(min = 8, max = 50)
-    @Column(name = "Email")
+    @Column(name = "email")
     private String email;
 
-/*
-    @NotBlank
-    @Length(min = 5, max = 50)
-    @Column(name = "PasswordHash")
-    private String password;
-*/
-
     @Length(min = 8, max = 12)
-    @Column(name = "PhoneNumber")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @NotBlank
-    @Enumerated(EnumType.STRING)
-    @Column(name = "Role")
-    private Role role;
+    @Length(min = 4, max = 20)
+    @Column(name = "role")
+    private String role;
 }

@@ -1,8 +1,8 @@
-package s3.ind.bussiness.impl;
+package s3.ind.business.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import s3.ind.bussiness.AuthenticationService;
+import s3.ind.business.AuthenticationService;
 import s3.ind.domain.request.UserLoginRequest;
 import s3.ind.domain.response.UserLoginResponse;
 

@@ -7,18 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Admins")
-@Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-public class AdminEntity {
-    @Id
-    @Column(name = "UserID")
-    private Integer userId;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "UserID")
-    private UserEntity user;
+public class AdminEntity extends UserEntity {
 }
