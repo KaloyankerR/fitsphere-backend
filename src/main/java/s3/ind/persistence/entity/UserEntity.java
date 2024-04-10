@@ -36,6 +36,11 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
+    @NotBlank
+    @Length(min = 5, max = 50)
+    @Column(name = "password")
+    private String password;
+
     @Length(min = 8, max = 12)
     @Column(name = "phone_number")
     private String phoneNumber;
