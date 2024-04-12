@@ -12,7 +12,6 @@ class UserConverterTest {
     void fromDTO() {
         UserConverter userConverter = new UserConverter();
 
-        // Create a UserDTO object with sample data
         UserDTO userDTO = UserDTO.builder()
                 .id(1)
                 .firstName("John")
@@ -21,10 +20,8 @@ class UserConverterTest {
                 .phoneNumber("123456789")
                 .build();
 
-        // Convert UserDTO to User using the converter
         User user = userConverter.fromDTO(userDTO);
 
-        // Assert that the conversion is correct
         assertEquals(userDTO.getId(), user.getId());
         assertEquals(userDTO.getFirstName(), user.getFirstName());
         assertEquals(userDTO.getLastName(), user.getLastName());
@@ -36,7 +33,6 @@ class UserConverterTest {
     void toDTO() {
         UserConverter userConverter = new UserConverter();
 
-        // Create a User object with sample data
         User user = User.builder()
                 .id(1)
                 .firstName("John")
@@ -45,10 +41,8 @@ class UserConverterTest {
                 .phoneNumber("123456789")
                 .build();
 
-        // Convert User to UserDTO using the converter
         UserDTO userDTO = userConverter.toDTO(user);
 
-        // Assert that the conversion is correct
         assertEquals(user.getId(), userDTO.getId());
         assertEquals(user.getFirstName(), userDTO.getFirstName());
         assertEquals(user.getLastName(), userDTO.getLastName());

@@ -8,7 +8,7 @@ import s3.ind.domain.response.WorkoutResponse;
 import java.util.List;
 
 public interface WorkoutService {
-    boolean createWorkout(CreateWorkoutRequest request);
+    boolean createWorkout(Workout workout);
 
     boolean deleteWorkout(Integer id);
 

@@ -1,14 +1,15 @@
-package s3.ind.domain;
+package s3.ind.business.dto;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Data
+// @Data
+@Getter
+@Setter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class Trainer extends User {
+public class TrainerDTO extends UserDTO {
     private String bio;
     private String igLink;
     private String image;

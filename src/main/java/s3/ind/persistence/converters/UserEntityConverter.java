@@ -3,15 +3,12 @@ package s3.ind.persistence.converters;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import s3.ind.domain.User;
-import s3.ind.persistence.UserRepository;
 import s3.ind.persistence.entity.UserEntity;
 
 @Service
 @AllArgsConstructor
 public class UserEntityConverter {
-    private final UserRepository userRepository;
-
-    public User fromEntity(UserEntity entity){
+    public User fromEntity(UserEntity entity) {
         if (entity == null) {
             return null;
         }

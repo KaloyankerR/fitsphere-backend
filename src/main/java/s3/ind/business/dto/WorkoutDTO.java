@@ -1,4 +1,4 @@
-package s3.ind.domain;
+package s3.ind.business.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Workout {
+public class WorkoutDTO {
     private Integer id;
-    private Trainer trainer;
+    private TrainerDTO trainer;
     private String title;
     private String description;
 }

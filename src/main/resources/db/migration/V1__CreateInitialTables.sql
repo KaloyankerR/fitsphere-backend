@@ -24,9 +24,9 @@ CREATE TABLE `clients`
 CREATE TABLE `trainers`
 (
     user_id            INT  NOT NULL PRIMARY KEY,
-#     bio                TEXT NOT NULL,
-#     ig_link            VARCHAR(255),
-#     profile_image_link VARCHAR(255),
+    bio                TEXT NOT NULL,
+    ig_link            VARCHAR(255),
+    profile_image_link VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 

@@ -4,7 +4,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import s3.ind.business.WorkoutService;
-import s3.ind.business.mapper.WorkoutMapper;
+import s3.ind.business.converters.TrainerConverter;
+import s3.ind.business.converters.WorkoutConverter;
 import s3.ind.domain.Workout;
 import s3.ind.domain.request.CreateWorkoutRequest;
 import s3.ind.domain.request.UpdateWorkoutRequest;
@@ -20,11 +21,13 @@ import java.util.stream.Collectors;
 // @Transactional check it out
 public class WorkoutServiceImpl implements WorkoutService {
     private final WorkoutRepository workoutRepository;
-    private final WorkoutMapper workoutMapper;
+    // private final WorkoutMapper workoutMapper;
+    private final WorkoutConverter workoutConverter = new WorkoutConverter(new TrainerConverter());
 
     @Override
-    public boolean createWorkout(CreateWorkoutRequest request) {
+    public boolean createWorkout(Workout workout) {
         return false;
+        // return workoutConverter.fromEntity(workoutRepository.save(converter.toEntity(pet)));
     }
 
     @Override
@@ -41,10 +44,10 @@ public class WorkoutServiceImpl implements WorkoutService {
     public List<Workout> getWorkouts() {
         List<WorkoutEntity> workouts = workoutRepository.findAll();
 
-        return workouts.stream()
-                .map(workoutMapper::toDomainObject)
-                .collect(Collectors.toList());
-
+//        return workouts.stream()
+//                .map(workoutMapper::toDomainObject)
+//                .collect(Collectors.toList());
+        return null;
 //        return workouts.stream()
 //                .collect(Collectors.toMap(
 //                        WorkoutEntity::getWorkoutId,

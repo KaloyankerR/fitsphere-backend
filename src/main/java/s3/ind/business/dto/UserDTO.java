@@ -1,12 +1,12 @@
 package s3.ind.business.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
@@ -14,5 +14,6 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
     private String phoneNumber;
 }
