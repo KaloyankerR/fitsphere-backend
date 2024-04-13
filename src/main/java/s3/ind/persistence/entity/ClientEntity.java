@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "clients")
 public class ClientEntity extends UserEntity {
 //    @NotBlank
 //    @Column(name = "University")

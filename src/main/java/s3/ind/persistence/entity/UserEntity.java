@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @SuperBuilder
 @AllArgsConstructor

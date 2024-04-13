@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "admins")
 public class AdminEntity extends UserEntity {
 }

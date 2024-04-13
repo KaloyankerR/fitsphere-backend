@@ -12,6 +12,8 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
+@Table(name = "trainers")
+@PrimaryKeyJoinColumn(name = "user_id")
 public class TrainerEntity extends UserEntity {
     @Lob
     @NotBlank

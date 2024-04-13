@@ -58,14 +58,13 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUsers() {
+    public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok((userService.getAllUsers()));
     }
 
     @GetMapping("{id}")
     public ResponseEntity<User> getUser(@PathVariable(value = "id") final Integer id) {
-        final Optional<User> userOptional = users.stream().filter(user -> user.getId() == id).findFirst();
-        return userOptional.map(user -> ResponseEntity.ok().body(user)).orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok().body(userService.getUserById(id));
     }
 
     @PostMapping()
@@ -84,6 +83,17 @@ public class UserController {
                 .build();
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable("id") Integer id, @RequestBody User userUpdates) {
+        try{
+            userService.updateUser(id, userUpdates);
+            return ResponseEntity.status(HttpStatus.OK).body("Updated successfully!");
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("{id}")

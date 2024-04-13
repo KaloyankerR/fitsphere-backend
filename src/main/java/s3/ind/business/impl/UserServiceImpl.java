@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service;
 import s3.ind.business.UserService;
 // import s3.ind.business.mapper.UserMapper;
 import s3.ind.configuration.security.token.AccessToken;
+import s3.ind.domain.User;
 import s3.ind.domain.request.AdminRequest;
 import s3.ind.domain.request.ClientRequest;
 import s3.ind.domain.request.TrainerRequest;
 import s3.ind.domain.request.UserRequest;
 import s3.ind.domain.response.UserResponse;
 import s3.ind.persistence.UserRepository;
+import s3.ind.persistence.converters.UserEntityConverter;
 import s3.ind.persistence.entity.UserEntity;
 
 import javax.management.relation.InvalidRoleValueException;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    // private final UserMapper userMapper;
+    private final UserEntityConverter userEntityConverter;
     private final PasswordEncoder passwordEncoder;
     // private AccessToken accessToken;
 
@@ -63,28 +65,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(int id) {
-        return false;
+    public void deleteUser(Integer id) {
+        userRepository.deleteById(Long.valueOf(id));
+        // TODO: check why is it long instead of integer
     }
 
     @Override
-    public UserResponse getUser(int id) {
-        return null;
+    public User getUserById(Integer id) {
+        return userEntityConverter.fromEntity(userRepository.getUserEntityByUserId(id));
     }
 
     @Override
-    public List<UserResponse> getAllUsers() {
+    public List<User> getAllUsers() {
         List<UserEntity> users = userRepository.findAll();
 
-//        return users.stream()
-//                .map(userMapper::toUserResponse)
-//                .collect(Collectors.toList());
-        return null;
+        return users.stream()
+                .map(userEntityConverter::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public boolean updateUser(int id, UserRequest userUpdates) {
-        return false;
+    public void updateUser(int id, User userUpdates) throws Exception {
+        UserEntity existingUser = userRepository.findById((long) id)
+                .orElseThrow(() -> new Exception("Invalid User id"));
+
+        if (userUpdates.getFirstName() != null) {
+            existingUser.setFirstName(userUpdates.getFirstName());
+        }
+        if (userUpdates.getLastName() != null) {
+            existingUser.setLastName(userUpdates.getLastName());
+        }
+        if (userUpdates.getPhoneNumber() != null) {
+            existingUser.setLastName(userUpdates.getPhoneNumber());
+        }
+
+        userRepository.save(existingUser);
     }
 
     @Override
