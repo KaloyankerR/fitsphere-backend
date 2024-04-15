@@ -4,6 +4,7 @@ variables:
 stages:
   - build
   - test
+  - build_image
   - sonar
 
 build:
@@ -15,6 +16,14 @@ test:
   stage: test
   script:
     - ./gradlew test
+
+build_image:
+  stage: build_image
+#  image: docker:24.0.5
+  script:
+    - docker-compose build
+    - docker-compose up -d
+
 
 sonar:
   stage: sonar

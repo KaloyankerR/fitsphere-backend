@@ -1,3 +1,2 @@
 # exclude hidden dirs .git etc.
-.*
-
+# ../../.idea
