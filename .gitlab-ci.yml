@@ -11,6 +11,9 @@ build:
   stage: build
   script:
     - ./gradlew assemble
+  artifacts:
+    paths:
+      - build/libs/*.jar
 
 test:
   stage: test
@@ -23,9 +26,7 @@ build_image:
   script:
     - docker-compose build
     - docker-compose up -d
-  artifacts:
-    paths:
-      - build/libs/*.jar
+
 
 sonar:
   stage: sonar
