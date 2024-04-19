@@ -19,8 +19,8 @@ import java.time.LocalDateTime;
 public class AppointmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "appointment_id")
-    private Integer appointmentId;
+    @Column(name = "id")
+    private Integer id;
 
     @NotBlank
     @Column(name = "start_time", nullable = false)

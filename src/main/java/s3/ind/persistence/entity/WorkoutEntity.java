@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 public class WorkoutEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "workout_id")
-    private Integer workoutId;
+    @Column(name = "id")
+    private Integer id;
 
     @NotBlank
     @ManyToOne

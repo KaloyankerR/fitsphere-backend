@@ -16,7 +16,7 @@ class WorkoutEntityConverterTest {
         TrainerEntityConverter trainerConverter = mock(TrainerEntityConverter.class);
 
         WorkoutEntity entity = new WorkoutEntity();
-        entity.setWorkoutId(1);
+        entity.setId(1);
         entity.setTitle("Test Workout");
         entity.setDescription("This is a test workout");
 
@@ -25,7 +25,7 @@ class WorkoutEntityConverterTest {
         WorkoutEntityConverter converter = new WorkoutEntityConverter(trainerConverter);
         Workout workout = converter.fromEntity(entity);
 
-        assertEquals(entity.getWorkoutId(), workout.getId());
+        assertEquals(entity.getId(), workout.getId());
         assertEquals(entity.getTitle(), workout.getTitle());
         assertEquals(entity.getDescription(), workout.getDescription());
     }
@@ -45,7 +45,7 @@ class WorkoutEntityConverterTest {
         WorkoutEntityConverter converter = new WorkoutEntityConverter(trainerConverter);
         WorkoutEntity entity = converter.toEntity(workout);
 
-        assertEquals(workout.getId(), entity.getWorkoutId());
+        assertEquals(workout.getId(), entity.getId());
         assertEquals(workout.getTitle(), entity.getTitle());
         assertEquals(workout.getDescription(), entity.getDescription());
     }

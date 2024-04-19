@@ -10,10 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateWorkoutRequest {
-    private Integer id;
+public class LoginRequest {
     @NotBlank
-    private String title;
+    private String email;
     @NotBlank
-    private String description;
+    private String password;
 }

@@ -2,6 +2,7 @@ package s3.ind.persistence.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,12 +23,12 @@ public class UserEntity {
     private Integer userId;
 
     @NotBlank
-    @Length(min = 6, max = 20)
+    @Length(min = 4, max = 20)
     @Column(name = "first_name")
     private String firstName;
 
     @NotBlank
-    @Length(min = 6, max = 20)
+    @Length(min = 4, max = 20)
     @Column(name = "last_name")
     private String lastName;
 
@@ -37,14 +38,15 @@ public class UserEntity {
     private String email;
 
     @NotBlank
-    @Length(min = 5, max = 50)
+    @Length(max = 100)
     @Column(name = "password")
     private String password;
 
-    @Length(min = 8, max = 12)
+    @Length(min = 4, max = 12)
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @NotBlank
     @Length(min = 4, max = 20)
     @Column(name = "role")
     private String role;

@@ -10,10 +10,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateWorkoutRequest {
-    private Integer id;
+public class UpdateUserRequest {
+    private Long userId;
     @NotBlank
-    private String title;
+    private String firstName;
     @NotBlank
-    private String description;
+    private String lastName;
+    @NotBlank
+    private String email;
+    @NotBlank
+    private String phoneNumber;
 }

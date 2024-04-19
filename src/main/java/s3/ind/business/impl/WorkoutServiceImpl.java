@@ -6,14 +6,23 @@ import org.springframework.stereotype.Service;
 import s3.ind.business.WorkoutService;
 import s3.ind.business.converters.TrainerConverter;
 import s3.ind.business.converters.WorkoutConverter;
+import s3.ind.business.exception.EmailAlreadyExistsException;
+import s3.ind.business.exception.InvalidUserException;
+import s3.ind.business.exception.InvalidWorkoutException;
 import s3.ind.domain.Workout;
+import s3.ind.domain.request.CreateUserRequest;
 import s3.ind.domain.request.CreateWorkoutRequest;
+import s3.ind.domain.request.UpdateUserRequest;
 import s3.ind.domain.request.UpdateWorkoutRequest;
+import s3.ind.domain.response.CreateUserResponse;
+import s3.ind.domain.response.CreateWorkoutResponse;
 import s3.ind.domain.response.WorkoutResponse;
 import s3.ind.persistence.WorkoutRepository;
+import s3.ind.persistence.entity.UserEntity;
 import s3.ind.persistence.entity.WorkoutEntity;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,18 +30,39 @@ import java.util.stream.Collectors;
 // @Transactional check it out
 public class WorkoutServiceImpl implements WorkoutService {
     private final WorkoutRepository workoutRepository;
-    // private final WorkoutMapper workoutMapper;
     private final WorkoutConverter workoutConverter = new WorkoutConverter(new TrainerConverter());
 
+    // CREATE
     @Override
-    public boolean createWorkout(Workout workout) {
-        return false;
-        // return workoutConverter.fromEntity(workoutRepository.save(converter.toEntity(pet)));
+    @Transactional
+    public CreateWorkoutResponse createWorkout(CreateWorkoutRequest request) {
+        if (workoutRepository.existsByTitle(request.getTitle())) {
+            // TODO: make one general exception where you can add the text in the cases
+            throw new EmailAlreadyExistsException();
+        }
+
+        WorkoutEntity newWorkout = saveNewWorkout(request);
+
+        return CreateWorkoutResponse.builder()
+                .id(newWorkout.getId())
+                .build();
     }
 
+    private WorkoutEntity saveNewWorkout(CreateWorkoutRequest request) {
+        WorkoutEntity newWorkout = WorkoutEntity.builder()
+                // .trainer(request.getTrainerId())
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .build();
+
+        return workoutRepository.save(newWorkout);
+    }
+
+    // DELETE
     @Override
-    public boolean deleteWorkout(Integer id) {
-        return false;
+    @Transactional
+    public void deleteWorkout(Integer id) {
+        workoutRepository.deleteById(id);
     }
 
     @Override
@@ -55,8 +85,24 @@ public class WorkoutServiceImpl implements WorkoutService {
 //                ));
     }
 
+    // UPDATE
     @Override
-    public boolean updateWorkout(UpdateWorkoutRequest request) {
-        return false;
+    @Transactional
+    public void updateWorkout(UpdateWorkoutRequest request) {
+        Optional<WorkoutEntity> workoutEntityOptional = workoutRepository.findById(request.getId());
+
+        if (workoutEntityOptional.isEmpty()) {
+            throw new InvalidWorkoutException("WORKOUT_ID_INVALID");
+        }
+
+        WorkoutEntity workout = workoutEntityOptional.get();
+        updateFields(request, workout);
+    }
+
+    private void updateFields(UpdateWorkoutRequest request, WorkoutEntity workout) {
+        workout.setTitle(request.getTitle());
+        workout.setDescription(request.getDescription());
+
+        workoutRepository.save(workout);
     }
 }

@@ -1,20 +1,23 @@
 package s3.ind.business;
 
 import s3.ind.domain.User;
+import s3.ind.domain.request.CreateUserRequest;
+import s3.ind.domain.request.UpdateUserRequest;
 import s3.ind.domain.request.UserRequest;
+import s3.ind.domain.response.CreateUserResponse;
 
 import java.util.List;
 
 public interface UserService {
-    boolean createUser(UserRequest userRequest, String password);
+    CreateUserResponse createUser(CreateUserRequest request);
 
-    void deleteUser(Integer id);
+    void deleteUser(Long userId);
 
     User getUserById(Integer id);
 
     List<User> getAllUsers();
 
-    void updateUser(int id, User userUpdates) throws Exception;
+    void updateUser(UpdateUserRequest request);
 
     void checkUserPermission(int id);
 }

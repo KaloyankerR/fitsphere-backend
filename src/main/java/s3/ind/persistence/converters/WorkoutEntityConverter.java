@@ -16,7 +16,7 @@ public class WorkoutEntityConverter {
         }
 
         return Workout.builder()
-                .id(entity.getWorkoutId())
+                .id(entity.getId())
                 .trainer(trainerConverter.fromEntity(entity.getTrainer()))
                 .title(entity.getTitle())
                 .description(entity.getDescription())
@@ -29,7 +29,7 @@ public class WorkoutEntityConverter {
         }
 
         return WorkoutEntity.builder()
-                .workoutId(workout.getId())
+                .id(workout.getId())
                 .trainer(trainerConverter.toEntity(workout.getTrainer()))
                 .title(workout.getTitle())
                 .description(workout.getDescription())
