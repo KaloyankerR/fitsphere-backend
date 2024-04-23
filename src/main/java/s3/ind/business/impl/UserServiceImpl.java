@@ -70,18 +70,6 @@ public class UserServiceImpl implements UserService {
     private UserEntity saveNewUser(CreateUserRequest request) {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-//        switch (request.getRole()) {
-//            case "ADMIN":
-//                TrainerEntity trainerEntity = TrainerEntity.builder()
-//                        .firstName(request.getFirstName())
-//                        .lastName(request.getLastName())
-//                        .email(request.getEmail())
-//                        .password(encodedPassword)
-//                        .phoneNumber(request.getPhoneNumber())
-//                        .role(RoleEnum.valueOf(request.getRole()))
-//
-//        }
-
         UserEntity newUser = UserEntity.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
