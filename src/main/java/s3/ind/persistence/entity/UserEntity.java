@@ -11,11 +11,11 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,8 +46,13 @@ public class UserEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @NotBlank
-    @Length(min = 4, max = 20)
+    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private String role;
+    private RoleEnum role;
+
 }
+
+
+
+

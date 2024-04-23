@@ -19,6 +19,11 @@ test:
   stage: test
   script:
     - ./gradlew test
+    - ./gradlew jacocoTestReport
+  artifacts:
+    paths:
+      - build/customJacocoReportDir/test/jacocoTestReport.xml
+      - build/test-results/test/
 
 build_image:
   stage: build_image
@@ -26,7 +31,6 @@ build_image:
   script:
     - docker-compose build
     - docker-compose up -d
-
 
 sonar:
   stage: sonar

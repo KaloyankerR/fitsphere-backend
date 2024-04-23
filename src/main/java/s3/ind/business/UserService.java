@@ -1,21 +1,25 @@
 package s3.ind.business;
 
 import s3.ind.domain.User;
-import s3.ind.domain.request.CreateUserRequest;
-import s3.ind.domain.request.UpdateUserRequest;
-import s3.ind.domain.request.UserRequest;
+import s3.ind.domain.request.users.CreateTrainerRequest;
+import s3.ind.domain.request.users.CreateUserRequest;
+import s3.ind.domain.request.users.UpdateUserRequest;
 import s3.ind.domain.response.CreateUserResponse;
+import s3.ind.domain.response.GetAllUsersResponse;
+import s3.ind.domain.response.user.GetAllTrainersResponse;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     CreateUserResponse createUser(CreateUserRequest request);
+    CreateUserResponse createTrainer(CreateTrainerRequest request);
 
     void deleteUser(Long userId);
 
-    User getUserById(Integer id);
+    Optional<User> getUserById(Integer id);
 
-    List<User> getAllUsers();
+    GetAllUsersResponse getAllUsers();
+    GetAllTrainersResponse getAllTrainers();
 
     void updateUser(UpdateUserRequest request);
 

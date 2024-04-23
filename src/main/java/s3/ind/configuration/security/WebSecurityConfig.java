@@ -38,7 +38,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()                 // CORS pre-flight requests should be public
                                 .requestMatchers(HttpMethod.GET, "/users").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/users", "/tokens").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/workouts").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/users/{id}/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/users", "/tokens", "/users/trainer", "workouts").permitAll()
                                 .requestMatchers(HttpMethod.DELETE).permitAll()
                                 .requestMatchers(HttpMethod.PUT).permitAll()
                                 // .requestMatchers(HttpMethod.DELETE, "/users").permitAll()

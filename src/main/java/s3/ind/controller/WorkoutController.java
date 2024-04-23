@@ -4,16 +4,13 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import s3.ind.business.WorkoutService;
 import s3.ind.domain.Workout;
 import s3.ind.domain.request.CreateWorkoutRequest;
-import s3.ind.domain.response.UserResponse;
+import s3.ind.domain.response.workout.CreateWorkoutResponse;
+import s3.ind.domain.response.workout.GetAllWorkoutsResponse;
 import s3.ind.domain.response.WorkoutResponse;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/workouts")
@@ -23,8 +20,8 @@ public class WorkoutController {
     private WorkoutService workoutService;
 
     @GetMapping
-    public ResponseEntity<List<Workout>> getAllWorkouts() {
-        return ResponseEntity.ok(workoutService.getWorkouts());
+    public ResponseEntity<GetAllWorkoutsResponse> getAllWorkouts() {
+        return ResponseEntity.ok(workoutService.getAllWorkouts());
     }
 
     @GetMapping("{id}")
@@ -38,8 +35,9 @@ public class WorkoutController {
     }
 
     @PostMapping()
-    public ResponseEntity<Object> createWorkout(@RequestBody @Valid CreateWorkoutRequest request) {
-        return null;
+    public ResponseEntity<CreateWorkoutResponse> createWorkout(@RequestBody @Valid CreateWorkoutRequest request) {
+        CreateWorkoutResponse response = workoutService.createWorkout(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @DeleteMapping("{id}")

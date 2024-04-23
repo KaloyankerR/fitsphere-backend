@@ -20,9 +20,8 @@ public class WorkoutEntity {
     @Column(name = "id")
     private Integer id;
 
-    @NotBlank
     @ManyToOne
-    @JoinColumn(name = "trainer_id")
+    @JoinColumn(name = "trainer_id", nullable = false)
     private TrainerEntity trainer;
 
     @NotBlank

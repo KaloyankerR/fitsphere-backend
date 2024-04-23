@@ -1,5 +1,6 @@
 package s3.ind.business.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -7,30 +8,32 @@ import s3.ind.business.WorkoutService;
 import s3.ind.business.converters.TrainerConverter;
 import s3.ind.business.converters.WorkoutConverter;
 import s3.ind.business.exception.EmailAlreadyExistsException;
-import s3.ind.business.exception.InvalidUserException;
 import s3.ind.business.exception.InvalidWorkoutException;
 import s3.ind.domain.Workout;
-import s3.ind.domain.request.CreateUserRequest;
 import s3.ind.domain.request.CreateWorkoutRequest;
-import s3.ind.domain.request.UpdateUserRequest;
 import s3.ind.domain.request.UpdateWorkoutRequest;
-import s3.ind.domain.response.CreateUserResponse;
-import s3.ind.domain.response.CreateWorkoutResponse;
+import s3.ind.domain.response.workout.CreateWorkoutResponse;
+import s3.ind.domain.response.workout.GetAllWorkoutsResponse;
 import s3.ind.domain.response.WorkoutResponse;
+import s3.ind.persistence.TrainerRepository;
 import s3.ind.persistence.WorkoutRepository;
-import s3.ind.persistence.entity.UserEntity;
+import s3.ind.persistence.converters.TrainerEntityConverter;
+import s3.ind.persistence.converters.WorkoutEntityConverter;
+import s3.ind.persistence.entity.TrainerEntity;
 import s3.ind.persistence.entity.WorkoutEntity;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 // @Transactional check it out
 public class WorkoutServiceImpl implements WorkoutService {
     private final WorkoutRepository workoutRepository;
+    private final TrainerRepository trainerRepository;
+
     private final WorkoutConverter workoutConverter = new WorkoutConverter(new TrainerConverter());
+    private final WorkoutEntityConverter workoutEntityConverter = new WorkoutEntityConverter(new TrainerEntityConverter());
 
     // CREATE
     @Override
@@ -49,8 +52,13 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     private WorkoutEntity saveNewWorkout(CreateWorkoutRequest request) {
+        Optional<TrainerEntity> trainerEntityOptional = trainerRepository.findById(Long.valueOf(request.getTrainerId()));
+
+        TrainerEntity trainerEntity = trainerEntityOptional.orElseThrow(() ->
+                new EntityNotFoundException("Trainer with ID " + request.getTrainerId() + " not found."));
+
         WorkoutEntity newWorkout = WorkoutEntity.builder()
-                // .trainer(request.getTrainerId())
+                .trainer(trainerEntity)
                 .title(request.getTitle())
                 .description(request.getDescription())
                 .build();
@@ -71,18 +79,16 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
-    public List<Workout> getWorkouts() {
-        List<WorkoutEntity> workouts = workoutRepository.findAll();
+    public GetAllWorkoutsResponse getAllWorkouts() {
+        List<WorkoutEntity> workoutsEntity = workoutRepository.findAll();
+        List<Workout> workouts = workoutsEntity.stream()
+                .map(workoutEntityConverter::fromEntity)
+                .toList();
 
-//        return workouts.stream()
-//                .map(workoutMapper::toDomainObject)
-//                .collect(Collectors.toList());
-        return null;
-//        return workouts.stream()
-//                .collect(Collectors.toMap(
-//                        WorkoutEntity::getWorkoutId,
-//                        workoutMapper::toDomainObject
-//                ));
+        final GetAllWorkoutsResponse response = new GetAllWorkoutsResponse();
+        response.setWorkouts(workouts);
+
+        return response;
     }
 
     // UPDATE
