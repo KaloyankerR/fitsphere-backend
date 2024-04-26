@@ -25,12 +25,18 @@ repositories {
     mavenCentral()
 }
 
-
 // Software metrics
 jacocoTestReport {
     reports {
         xml.required = true
     }
+}
+
+flyway {
+    url = 'jdbc:mysql://localhost:3306/fitsphere'
+    user = 'root'
+    password = 'rihanna2912'
+    driver = 'com.mysql.jdbc.Driver'
 }
 
 sonar {
@@ -50,7 +56,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-test'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'
@@ -63,6 +68,7 @@ dependencies {
     // Flyway
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.flywaydb:flyway-mysql'
+    // compile "org.flywaydb:flyway-mysql"
 
     // H2 Database
     runtimeOnly 'com.h2database:h2'
@@ -79,6 +85,8 @@ dependencies {
 
     // MySQL Connector
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
+    runtimeOnly 'mysql:mysql-connector-java'
+    // TODO: Remove the version
 
     // JJWT (JSON Web Token)
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -94,7 +102,6 @@ dependencies {
     testImplementation 'org.mockito:mockito-core'
     testImplementation 'org.mockito:mockito-junit-jupiter'
 }
-
 
 test {
     useJUnitPlatform()
