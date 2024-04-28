@@ -19,7 +19,7 @@ public class UserEntityConverter {
                 .lastName(entity.getLastName())
                 .email(entity.getEmail())
                 .password(entity.getPassword())
-                .phoneNumber(entity.getPhoneNumber())
+                .role(entity.getRole())
                 .build();
     }
 
@@ -34,7 +34,7 @@ public class UserEntityConverter {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .password(user.getPassword())
-                .phoneNumber(user.getPhoneNumber())
+                .role(user.getRole())
                 .build();
     }
 }

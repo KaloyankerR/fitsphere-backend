@@ -15,7 +15,7 @@ public class UserConverter {
                 .lastName(dto.getLastName())
                 .email(dto.getEmail())
                 // .password()
-                .phoneNumber(dto.getPhoneNumber())
+//                .phoneNumber(dto.getPhoneNumber())
                 .build();
     }
 
@@ -30,7 +30,7 @@ public class UserConverter {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 // .password()
-                .phoneNumber(user.getPhoneNumber())
+//                .phoneNumber(user.getPhoneNumber())
                 .build();
     }
 }

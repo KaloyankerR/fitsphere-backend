@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Length;
+import s3.ind.domain.RoleEnum;
 
 @Entity
 @Table(name = "users")
@@ -23,34 +24,29 @@ public class UserEntity {
     private Integer userId;
 
     @NotBlank
-    @Length(min = 4, max = 20)
+    @Length(min = 3, max = 20)
     @Column(name = "first_name")
     private String firstName;
 
     @NotBlank
-    @Length(min = 4, max = 20)
+    @Length(min = 3, max = 20)
     @Column(name = "last_name")
     private String lastName;
 
     @NotBlank
-    @Length(min = 8, max = 50)
+    @Length(min = 5, max = 50)
     @Column(name = "email")
     private String email;
 
     @NotBlank
-    @Length(max = 100)
+    // @Length(max = 100)
     @Column(name = "password")
     private String password;
-
-    @Length(min = 4, max = 12)
-    @Column(name = "phone_number")
-    private String phoneNumber;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private RoleEnum role;
-
 }
 
 

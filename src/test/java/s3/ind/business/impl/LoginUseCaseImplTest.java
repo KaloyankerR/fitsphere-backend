@@ -12,7 +12,7 @@ import s3.ind.configuration.security.token.AccessTokenEncoder;
 import s3.ind.domain.request.LoginRequest;
 import s3.ind.domain.response.LoginResponse;
 import s3.ind.persistence.UserRepository;
-import s3.ind.persistence.entity.RoleEnum;
+import s3.ind.domain.RoleEnum;
 import s3.ind.persistence.entity.UserEntity;
 
 import static org.junit.jupiter.api.Assertions.*;

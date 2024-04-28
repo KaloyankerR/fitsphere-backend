@@ -1,11 +1,11 @@
 package s3.ind.business;
 
 import s3.ind.domain.User;
-import s3.ind.domain.request.users.CreateTrainerRequest;
-import s3.ind.domain.request.users.CreateUserRequest;
-import s3.ind.domain.request.users.UpdateUserRequest;
-import s3.ind.domain.response.CreateUserResponse;
-import s3.ind.domain.response.GetAllUsersResponse;
+import s3.ind.domain.request.user.CreateTrainerRequest;
+import s3.ind.domain.request.user.CreateUserRequest;
+import s3.ind.domain.request.user.UpdateUserRequest;
+import s3.ind.domain.response.user.CreateUserResponse;
+import s3.ind.domain.response.user.GetAllUsersResponse;
 import s3.ind.domain.response.user.GetAllTrainersResponse;
 
 import java.util.Optional;

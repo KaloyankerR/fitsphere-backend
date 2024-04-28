@@ -10,17 +10,17 @@ import s3.ind.business.exception.EmailAlreadyExistsException;
 import s3.ind.business.exception.InvalidUserException;
 import s3.ind.domain.Trainer;
 import s3.ind.domain.User;
-import s3.ind.domain.request.users.CreateTrainerRequest;
-import s3.ind.domain.request.users.CreateUserRequest;
-import s3.ind.domain.request.users.UpdateUserRequest;
-import s3.ind.domain.response.CreateUserResponse;
-import s3.ind.domain.response.GetAllUsersResponse;
+import s3.ind.domain.request.user.CreateTrainerRequest;
+import s3.ind.domain.request.user.CreateUserRequest;
+import s3.ind.domain.request.user.UpdateUserRequest;
+import s3.ind.domain.response.user.CreateUserResponse;
+import s3.ind.domain.response.user.GetAllUsersResponse;
 import s3.ind.domain.response.user.GetAllTrainersResponse;
 import s3.ind.persistence.TrainerRepository;
 import s3.ind.persistence.UserRepository;
 import s3.ind.persistence.converters.TrainerEntityConverter;
 import s3.ind.persistence.converters.UserEntityConverter;
-import s3.ind.persistence.entity.RoleEnum;
+import s3.ind.domain.RoleEnum;
 import s3.ind.persistence.entity.TrainerEntity;
 import s3.ind.persistence.entity.UserEntity;
 
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(encodedPassword)
-                .phoneNumber(request.getPhoneNumber())
+//                .phoneNumber(request.getPhoneNumber())
                 .role(RoleEnum.valueOf(request.getRole()))
                 .build();
 
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(encodedPassword)
-                .phoneNumber(request.getPhoneNumber())
+//                .phoneNumber(request.getPhoneNumber())
                 .role(RoleEnum.valueOf(request.getRole()))
                 .bio(request.getBio())
                 .igLink(request.getIgLink())
@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
-        user.setPhoneNumber(request.getPhoneNumber());
+//        user.setPhoneNumber(request.getPhoneNumber());
 
         userRepository.save(user);
     }

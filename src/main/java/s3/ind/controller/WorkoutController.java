@@ -7,10 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import s3.ind.business.WorkoutService;
 import s3.ind.domain.Workout;
-import s3.ind.domain.request.CreateWorkoutRequest;
+import s3.ind.domain.request.workout.CreateWorkoutRequest;
 import s3.ind.domain.response.workout.CreateWorkoutResponse;
 import s3.ind.domain.response.workout.GetAllWorkoutsResponse;
-import s3.ind.domain.response.WorkoutResponse;
+import s3.ind.domain.response.workout.WorkoutResponse;
 
 @RestController
 @RequestMapping("/workouts")

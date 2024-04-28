@@ -1,10 +1,10 @@
 package s3.ind.business;
 
-import s3.ind.domain.request.CreateWorkoutRequest;
-import s3.ind.domain.request.UpdateWorkoutRequest;
+import s3.ind.domain.request.workout.CreateWorkoutRequest;
+import s3.ind.domain.request.workout.UpdateWorkoutRequest;
 import s3.ind.domain.response.workout.CreateWorkoutResponse;
 import s3.ind.domain.response.workout.GetAllWorkoutsResponse;
-import s3.ind.domain.response.WorkoutResponse;
+import s3.ind.domain.response.workout.WorkoutResponse;
 
 public interface WorkoutService {
     CreateWorkoutResponse createWorkout(CreateWorkoutRequest request);

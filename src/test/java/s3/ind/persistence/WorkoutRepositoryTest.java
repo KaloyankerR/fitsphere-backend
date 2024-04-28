@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import s3.ind.persistence.entity.RoleEnum;
+import s3.ind.domain.RoleEnum;
 import s3.ind.persistence.entity.TrainerEntity;
 import s3.ind.persistence.entity.WorkoutEntity;
 

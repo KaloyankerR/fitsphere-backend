@@ -5,8 +5,7 @@ CREATE TABLE `users`
     last_name    VARCHAR(20)  NOT NULL,
     email        VARCHAR(50)  NOT NULL,
     password     VARCHAR(100)  NOT NULL,
-    role         VARCHAR(20)  NOT NULL,
-    phone_number VARCHAR(12)
+    role         VARCHAR(20)  NOT NULL
 );
 
 CREATE TABLE `admins`
