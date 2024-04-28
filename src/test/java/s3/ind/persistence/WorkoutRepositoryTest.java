@@ -28,7 +28,6 @@ class WorkoutRepositoryTest {
                 .lastName("Donovan")   // Complies with the minimum length of 4
                 .email("john.donovan@example.com")  // Complies with the minimum length of 8
                 .password("securePassword123")  // Complies with the constraints
-                .phoneNumber("1234567890")  // Complies with the length constraints
                 .role(RoleEnum.TRAINER)  // Assuming RoleEnum is correctly defined with a value for TRAINERS
                 .bio("Experienced fitness trainer specialized in yoga and pilates.")
                 .igLink("http://instagram.com/johnfit")

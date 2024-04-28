@@ -30,7 +30,6 @@ class TrainerConverterTest {
         assertEquals(dto.getLastName(), trainer.getLastName());
         assertEquals(dto.getEmail(), trainer.getEmail());
         assertEquals(dto.getPassword(), trainer.getPassword());
-        assertEquals(dto.getPhoneNumber(), trainer.getPhoneNumber());
         assertEquals(dto.getBio(), trainer.getBio());
         assertEquals(dto.getIgLink(), trainer.getIgLink());
         assertEquals(dto.getImage(), trainer.getImage());
@@ -44,7 +43,6 @@ class TrainerConverterTest {
                 .lastName("Doe")
                 .email("jane.doe@example.com")
                 .password("password456")
-                .phoneNumber("0987654321")
                 .bio("Yoga instructor")
                 .igLink("https://instagram.com/janedoe")
                 .image("profile.jpg")
@@ -58,7 +56,6 @@ class TrainerConverterTest {
         assertEquals(trainer.getLastName(), dto.getLastName());
         assertEquals(trainer.getEmail(), dto.getEmail());
         assertEquals(trainer.getPassword(), dto.getPassword());
-        assertEquals(trainer.getPhoneNumber(), dto.getPhoneNumber());
         assertEquals(trainer.getBio(), dto.getBio());
         assertEquals(trainer.getIgLink(), dto.getIgLink());
         assertEquals(trainer.getImage(), dto.getImage());

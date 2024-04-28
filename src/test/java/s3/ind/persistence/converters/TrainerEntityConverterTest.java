@@ -16,7 +16,6 @@ class TrainerEntityConverterTest {
         entity.setLastName("Doe");
         entity.setEmail("john.doe@example.com");
         entity.setPassword("password123");
-        entity.setPhoneNumber("1234567890");
         entity.setBio("Fitness enthusiast");
         entity.setIgLink("https://instagram.com/johndoe");
         entity.setProfileImageUrl("profile.jpg");
@@ -29,7 +28,6 @@ class TrainerEntityConverterTest {
         assertEquals(entity.getLastName(), trainer.getLastName());
         assertEquals(entity.getEmail(), trainer.getEmail());
         assertEquals(entity.getPassword(), trainer.getPassword());
-        assertEquals(entity.getPhoneNumber(), trainer.getPhoneNumber());
         assertEquals(entity.getBio(), trainer.getBio());
         assertEquals(entity.getIgLink(), trainer.getIgLink());
         assertEquals(entity.getProfileImageUrl(), trainer.getImage());
@@ -43,7 +41,6 @@ class TrainerEntityConverterTest {
                 .lastName("Doe")
                 .email("jane.doe@example.com")
                 .password("password456")
-                .phoneNumber("0987654321")
                 .bio("Yoga instructor")
                 .igLink("https://instagram.com/janedoe")
                 .image("profile.jpg")
@@ -57,7 +54,6 @@ class TrainerEntityConverterTest {
         assertEquals(trainer.getLastName(), entity.getLastName());
         assertEquals(trainer.getEmail(), entity.getEmail());
         assertEquals(trainer.getPassword(), entity.getPassword());
-        assertEquals(trainer.getPhoneNumber(), entity.getPhoneNumber());
         assertEquals(trainer.getBio(), entity.getBio());
         assertEquals(trainer.getIgLink(), entity.getIgLink());
         assertEquals(trainer.getImage(), entity.getProfileImageUrl());

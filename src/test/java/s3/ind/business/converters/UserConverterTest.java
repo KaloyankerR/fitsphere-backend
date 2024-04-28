@@ -26,7 +26,6 @@ class UserConverterTest {
         assertEquals(userDTO.getFirstName(), user.getFirstName());
         assertEquals(userDTO.getLastName(), user.getLastName());
         assertEquals(userDTO.getEmail(), user.getEmail());
-        assertEquals(userDTO.getPhoneNumber(), user.getPhoneNumber());
     }
 
     @Test
@@ -38,7 +37,6 @@ class UserConverterTest {
                 .firstName("John")
                 .lastName("Doe")
                 .email("john@example.com")
-                .phoneNumber("123456789")
                 .build();
 
         UserDTO userDTO = userConverter.toDTO(user);
@@ -47,6 +45,5 @@ class UserConverterTest {
         assertEquals(user.getFirstName(), userDTO.getFirstName());
         assertEquals(user.getLastName(), userDTO.getLastName());
         assertEquals(user.getEmail(), userDTO.getEmail());
-        assertEquals(user.getPhoneNumber(), userDTO.getPhoneNumber());
     }
 }

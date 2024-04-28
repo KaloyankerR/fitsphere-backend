@@ -40,7 +40,7 @@ class UserServiceImplTest {
     @Test
     void createUser_Successful() {
         // Arrange
-        CreateUserRequest request = new CreateUserRequest("John", "Doe", "john.doe@example.com", "password123", "1234567890", "CLIENT");
+        CreateUserRequest request = new CreateUserRequest("John", "Doe", "john.doe@example.com", "password123", "CLIENT");
         UserEntity newUser = new UserEntity();
         newUser.setUserId(1);
 
@@ -60,7 +60,7 @@ class UserServiceImplTest {
     @Test
     void createUser_EmailAlreadyExists() {
         // Arrange
-        CreateUserRequest request = new CreateUserRequest("John", "Doe", "john.doe@example.com", "password123", "1234567890", "CLIENT");
+        CreateUserRequest request = new CreateUserRequest("John", "Doe", "john.doe@example.com", "password123", "CLIENT");
 
         when(userRepository.existsByEmail(request.getEmail())).thenReturn(true);
 

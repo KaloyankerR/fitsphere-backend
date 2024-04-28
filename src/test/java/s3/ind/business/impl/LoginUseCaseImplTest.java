@@ -37,7 +37,6 @@ class LoginUseCaseImplTest {
     private final String email = "user@example.com";
     private final String password = "securePassword";
     private final String encodedPassword = "encodedSecurePassword";
-    private final String accessToken = "access_token";
 
     @BeforeEach
     void setUp() {
@@ -53,6 +52,7 @@ class LoginUseCaseImplTest {
         // Arrange
         when(userRepository.findByEmail(email)).thenReturn(user);
         when(passwordEncoder.matches(password, encodedPassword)).thenReturn(true);
+        String accessToken = "access_token";
         when(accessTokenEncoder.encode(any())).thenReturn(accessToken);
 
         LoginRequest loginRequest = new LoginRequest(email, password);

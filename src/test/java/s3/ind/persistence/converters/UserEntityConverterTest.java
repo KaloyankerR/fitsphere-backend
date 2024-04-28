@@ -16,7 +16,6 @@ class UserEntityConverterTest {
         entity.setLastName("Doe");
         entity.setEmail("john.doe@example.com");
         entity.setPassword("password123");
-        entity.setPhoneNumber("1234567890");
 
         UserEntityConverter converter = new UserEntityConverter();
         User user = converter.fromEntity(entity);
@@ -26,7 +25,6 @@ class UserEntityConverterTest {
         assertEquals(entity.getLastName(), user.getLastName());
         assertEquals(entity.getEmail(), user.getEmail());
         assertEquals(entity.getPassword(), user.getPassword());
-        assertEquals(entity.getPhoneNumber(), user.getPhoneNumber());
     }
 
     @Test
@@ -37,7 +35,6 @@ class UserEntityConverterTest {
                 .lastName("Doe")
                 .email("jane.doe@example.com")
                 .password("password456")
-                .phoneNumber("0987654321")
                 .build();
 
         UserEntityConverter converter = new UserEntityConverter();
@@ -48,7 +45,6 @@ class UserEntityConverterTest {
         assertEquals(user.getLastName(), entity.getLastName());
         assertEquals(user.getEmail(), entity.getEmail());
         assertEquals(user.getPassword(), entity.getPassword());
-        assertEquals(user.getPhoneNumber(), entity.getPhoneNumber());
     }
 
     @Test
