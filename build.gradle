@@ -38,6 +38,7 @@ flyway {
     user = 'root'
     password = 'rihanna2912'
     driver = 'com.mysql.cj.jdbc.Driver'
+    baselineOnMigrate = false
     // driver = 'com.mysql.jdbc.Driver'
 }
 
