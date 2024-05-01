@@ -14,8 +14,6 @@ public class UserConverter {
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .email(dto.getEmail())
-                // .password()
-//                .phoneNumber(dto.getPhoneNumber())
                 .build();
     }
 
@@ -29,8 +27,6 @@ public class UserConverter {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
-                // .password()
-//                .phoneNumber(user.getPhoneNumber())
                 .build();
     }
 }

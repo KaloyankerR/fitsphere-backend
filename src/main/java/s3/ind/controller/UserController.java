@@ -28,7 +28,6 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllTrainers());
     }
 
-
     @GetMapping
     public ResponseEntity<GetAllUsersResponse> getAllUsers() {
 

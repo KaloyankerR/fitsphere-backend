@@ -46,7 +46,8 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
         return Jwts.builder()
                 .setSubject(accessToken.getSubject())
                 .setIssuedAt(Date.from(now))
-                .setExpiration(Date.from(now.plus(30, ChronoUnit.MINUTES)))
+                // .setExpiration(Date.from(now.plus(30, ChronoUnit.MINUTES)))
+                .setExpiration(Date.from(now.plus(1, ChronoUnit.DAYS)))
                 .addClaims(claimsMap)
                 .signWith(key)
                 .compact();
@@ -59,12 +60,32 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
                     .parseClaimsJws(accessTokenEncoded);
             Claims claims = jwt.getBody();
 
-            String role = claims.get("roles", String.class);
+            // Roles should be retrieved as a List<String> since it's stored as an array
+            List<String> roles = claims.get("roles", List.class);
             Long userId = claims.get("userId", Long.class);
 
-            return new AccessTokenImpl(claims.getSubject(), userId, role);
+            // Assuming there could be multiple roles, we concatenate them into a single string separated by commas
+            String rolesAsString = String.join(",", roles);
+
+            return new AccessTokenImpl(claims.getSubject(), userId, rolesAsString);
         } catch (JwtException e) {
             throw new InvalidAccessTokenException(e.getMessage());
         }
     }
+
+
+//    public AccessToken decode(String accessTokenEncoded) {
+//        try {
+//            Jwt<?, Claims> jwt = Jwts.parserBuilder().setSigningKey(key).build()
+//                    .parseClaimsJws(accessTokenEncoded);
+//            Claims claims = jwt.getBody();
+//
+//            String role = claims.get("roles", String.class);
+//            Long userId = claims.get("userId", Long.class);
+//
+//            return new AccessTokenImpl(claims.getSubject(), userId, role);
+//        } catch (JwtException e) {
+//            throw new InvalidAccessTokenException(e.getMessage());
+//        }
+//    }
 }

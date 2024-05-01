@@ -37,6 +37,8 @@ public class AuthenticationRequestFilter extends OncePerRequestFilter {
         }
 
         String accessTokenString = requestTokenHeader.substring(7);
+//        System.out.println(accessTokenString);
+//        System.out.println(request);
 
         try {
             AccessToken accessToken = accessTokenDecoder.decode(accessTokenString);
