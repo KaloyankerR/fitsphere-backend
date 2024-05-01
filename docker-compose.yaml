@@ -26,7 +26,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-      
+
   backend:
     container_name: fitsphere-backend
     build:
@@ -35,8 +35,15 @@ services:
     ports:
       - 8080:8080
     environment:
-      - 'SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/fitsphere'
-      - 'SPRING_DATASOURCE_USERNAME=root'
-      - 'SPRING_DATASOURCE_PASSWORD=rihanna2912'
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/fitsphere
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rihanna2912
     networks:
       - my_network
+    depends_on:
+      - mysql
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
