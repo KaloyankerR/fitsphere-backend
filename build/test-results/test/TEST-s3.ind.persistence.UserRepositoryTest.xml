@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="s3.ind.persistence.UserRepositoryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-04-28T10:35:28" hostname="DESKTOP-88OFGPG" time="0.003">
+<testsuite name="s3.ind.persistence.UserRepositoryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-01T22:59:17" hostname="DESKTOP-88OFGPG" time="0.003">
   <properties/>
   <testcase name="findById()" classname="s3.ind.persistence.UserRepositoryTest" time="0.002"/>
   <testcase name="existsById()" classname="s3.ind.persistence.UserRepositoryTest" time="0.0"/>

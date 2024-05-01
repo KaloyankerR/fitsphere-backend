@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="s3.ind.business.impl.LoginUseCaseImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-04-28T10:35:25" hostname="DESKTOP-88OFGPG" time="0.546">
+<testsuite name="s3.ind.business.impl.LoginUseCaseImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-05-01T22:59:13" hostname="DESKTOP-88OFGPG" time="0.583">
   <properties/>
-  <testcase name="login_UserNotFound_ThrowsException()" classname="s3.ind.business.impl.LoginUseCaseImplTest" time="0.518"/>
+  <testcase name="login_UserNotFound_ThrowsException()" classname="s3.ind.business.impl.LoginUseCaseImplTest" time="0.558"/>
   <testcase name="login_Successful()" classname="s3.ind.business.impl.LoginUseCaseImplTest" time="0.016"/>
-  <testcase name="login_InvalidCredentials_ThrowsException()" classname="s3.ind.business.impl.LoginUseCaseImplTest" time="0.008"/>
+  <testcase name="login_InvalidCredentials_ThrowsException()" classname="s3.ind.business.impl.LoginUseCaseImplTest" time="0.006"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
