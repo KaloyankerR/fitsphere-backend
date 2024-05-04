@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="s3.ind.configuration.security.token.impl.AccessTokenImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-01T22:59:14" hostname="DESKTOP-88OFGPG" time="0.004">
+<testsuite name="s3.ind.configuration.security.token.impl.AccessTokenImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-04T22:21:13" hostname="DESKTOP-88OFGPG" time="0.003">
   <properties/>
-  <testcase name="testRoleHandling()" classname="s3.ind.configuration.security.token.impl.AccessTokenImplTest" time="0.004"/>
+  <testcase name="testRoleHandling()" classname="s3.ind.configuration.security.token.impl.AccessTokenImplTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

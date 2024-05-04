@@ -8,11 +8,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import s3.ind.business.exception.EmailAlreadyExistsException;
+import s3.ind.business.mappers.UserMapper;
 import s3.ind.domain.request.user.CreateUserRequest;
 import s3.ind.domain.response.user.CreateUserResponse;
+import s3.ind.domain.response.user.GetUserResponse;
 import s3.ind.persistence.UserRepository;
-import s3.ind.persistence.converters.UserEntityConverter;
 import s3.ind.persistence.entity.UserEntity;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -27,7 +31,7 @@ class UserServiceImplTest {
     private PasswordEncoder passwordEncoder;
 
     @Mock
-    private UserEntityConverter userEntityConverter;
+    private UserMapper userMapper;
 
     @InjectMocks
     private UserServiceImpl userService;
@@ -100,4 +104,5 @@ class UserServiceImplTest {
     @Test
     void checkUserPermission() {
     }
+
 }
