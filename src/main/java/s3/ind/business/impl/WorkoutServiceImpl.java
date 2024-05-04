@@ -13,7 +13,6 @@ import s3.ind.domain.request.workout.UpdateWorkoutRequest;
 import s3.ind.domain.response.workout.CreateWorkoutResponse;
 import s3.ind.domain.response.workout.GetWorkoutResponse;
 import s3.ind.domain.response.workout.GetWorkoutsResponse;
-import s3.ind.domain.response.workout.WorkoutResponse;
 import s3.ind.persistence.TrainerRepository;
 import s3.ind.persistence.WorkoutRepository;
 import s3.ind.persistence.entity.TrainerEntity;
@@ -71,7 +70,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     // GET
     @Override
-    public WorkoutResponse getWorkout(Integer id) {
+    public GetWorkoutResponse getWorkout(Integer id) {
         return null;
     }
 
