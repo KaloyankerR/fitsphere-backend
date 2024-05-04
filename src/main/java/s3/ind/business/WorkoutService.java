@@ -3,7 +3,7 @@ package s3.ind.business;
 import s3.ind.domain.request.workout.CreateWorkoutRequest;
 import s3.ind.domain.request.workout.UpdateWorkoutRequest;
 import s3.ind.domain.response.workout.CreateWorkoutResponse;
-import s3.ind.domain.response.workout.GetAllWorkoutsResponse;
+import s3.ind.domain.response.workout.GetWorkoutsResponse;
 import s3.ind.domain.response.workout.WorkoutResponse;
 
 public interface WorkoutService {
@@ -13,7 +13,8 @@ public interface WorkoutService {
 
     WorkoutResponse getWorkout(Integer id);
 
-    GetAllWorkoutsResponse getAllWorkouts();
+    GetWorkoutsResponse getAllWorkouts();
+    GetWorkoutsResponse getTrainerWorkouts(Integer id);
 
     void updateWorkout(UpdateWorkoutRequest request);
 }

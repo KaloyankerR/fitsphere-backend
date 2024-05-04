@@ -10,9 +10,9 @@ import s3.ind.domain.request.user.CreateTrainerRequest;
 import s3.ind.domain.request.user.CreateUserRequest;
 import s3.ind.domain.request.user.UpdateUserRequest;
 import s3.ind.domain.response.user.CreateUserResponse;
-import s3.ind.domain.User;
 import s3.ind.domain.response.user.GetAllUsersResponse;
 import s3.ind.domain.response.user.GetAllTrainersResponse;
+import s3.ind.domain.response.user.GetUserResponse;
 
 import java.util.*;
 
@@ -35,9 +35,9 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<User> getUser(@PathVariable(value = "id") final Integer id) {
+    public ResponseEntity<GetUserResponse> getUser(@PathVariable(value = "id") final Integer id) {
         // TODO: add to be optional
-        final Optional<User> user = userService.getUserById(id);
+        final Optional<GetUserResponse> user = userService.getUserById(id);
         return user.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody UpdateUserRequest request) {
+    public ResponseEntity<GetUserResponse> updateUser(@PathVariable("id") long id, @RequestBody UpdateUserRequest request) {
         request.setUserId(id);
         userService.updateUser(request);
         return ResponseEntity.noContent().build();

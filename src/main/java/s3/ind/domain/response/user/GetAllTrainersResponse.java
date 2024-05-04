@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetAllTrainersResponse {
-    private List<Trainer> trainers;
+    private List<GetTrainerResponse> trainers;
 }

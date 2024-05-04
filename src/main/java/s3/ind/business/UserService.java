@@ -7,6 +7,7 @@ import s3.ind.domain.request.user.UpdateUserRequest;
 import s3.ind.domain.response.user.CreateUserResponse;
 import s3.ind.domain.response.user.GetAllUsersResponse;
 import s3.ind.domain.response.user.GetAllTrainersResponse;
+import s3.ind.domain.response.user.GetUserResponse;
 
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public interface UserService {
 
     void deleteUser(Long userId);
 
-    Optional<User> getUserById(Integer id);
+    Optional<GetUserResponse> getUserById(Integer id);
 
     GetAllUsersResponse getAllUsers();
     GetAllTrainersResponse getAllTrainers();

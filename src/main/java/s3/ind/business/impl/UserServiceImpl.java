@@ -5,21 +5,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import s3.ind.business.UserService;
-// import s3.ind.business.mapper.UserMapper;
 import s3.ind.business.exception.EmailAlreadyExistsException;
 import s3.ind.business.exception.InvalidUserException;
-import s3.ind.domain.Trainer;
-import s3.ind.domain.User;
+import s3.ind.business.mappers.TrainerMapper;
+import s3.ind.business.mappers.UserMapper;
 import s3.ind.domain.request.user.CreateTrainerRequest;
 import s3.ind.domain.request.user.CreateUserRequest;
 import s3.ind.domain.request.user.UpdateUserRequest;
-import s3.ind.domain.response.user.CreateUserResponse;
-import s3.ind.domain.response.user.GetAllUsersResponse;
-import s3.ind.domain.response.user.GetAllTrainersResponse;
+import s3.ind.domain.response.user.*;
 import s3.ind.persistence.TrainerRepository;
 import s3.ind.persistence.UserRepository;
-import s3.ind.persistence.converters.TrainerEntityConverter;
-import s3.ind.persistence.converters.UserEntityConverter;
 import s3.ind.domain.RoleEnum;
 import s3.ind.persistence.entity.TrainerEntity;
 import s3.ind.persistence.entity.UserEntity;
@@ -34,9 +29,9 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final TrainerRepository trainerRepository;
-    private final UserEntityConverter userEntityConverter;
-    private final TrainerEntityConverter trainerEntityConverter;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
+    private final TrainerMapper trainerMapper;
     // private AccessToken accessToken;
 
     // CREATE
@@ -75,7 +70,6 @@ public class UserServiceImpl implements UserService {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(encodedPassword)
-//                .phoneNumber(request.getPhoneNumber())
                 .role(RoleEnum.valueOf(request.getRole()))
                 .build();
 
@@ -109,16 +103,17 @@ public class UserServiceImpl implements UserService {
 
     // GET
     @Override
-    public Optional<User> getUserById(Integer id) {
-        return Optional.ofNullable(userEntityConverter.fromEntity(userRepository.getUserEntityByUserId(id)));
+    public Optional<GetUserResponse> getUserById(Integer id) {
+        return Optional.ofNullable(userMapper.fromEntityToResponse(userRepository.getUserEntityByUserId(id)));
     }
 
     // GET ALL
     @Override
     public GetAllUsersResponse getAllUsers() {
         List<UserEntity> usersEntity = userRepository.findAll();
-        List<User> users = usersEntity.stream()
-                .map(userEntityConverter::fromEntity)
+
+        List<GetUserResponse> users = usersEntity.stream()
+                .map(userMapper::fromEntityToResponse)
                 .collect(Collectors.toList());
 
         final GetAllUsersResponse response = new GetAllUsersResponse();
@@ -131,8 +126,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public GetAllTrainersResponse getAllTrainers() {
         List<TrainerEntity> trainersEntity = trainerRepository.findAll();
-        List<Trainer> trainers = trainersEntity.stream()
-                .map(trainerEntityConverter::fromEntity)
+        List<GetTrainerResponse> trainers = trainersEntity.stream()
+                .map(trainerMapper::fromEntityToResponse)
                 .collect(Collectors.toList());
 
         final GetAllTrainersResponse response = new GetAllTrainersResponse();
@@ -172,6 +167,5 @@ public class UserServiceImpl implements UserService {
 //                // throw new UnauthorizedDataAccessException("USER_ID_NOT_FROM_LOGGED_IN_USER");
 //            }
 //        }
-
     }
 }

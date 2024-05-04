@@ -5,20 +5,17 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import s3.ind.business.WorkoutService;
-import s3.ind.business.converters.TrainerConverter;
-import s3.ind.business.converters.WorkoutConverter;
 import s3.ind.business.exception.EmailAlreadyExistsException;
 import s3.ind.business.exception.InvalidWorkoutException;
-import s3.ind.domain.Workout;
+import s3.ind.business.mappers.WorkoutMapper;
 import s3.ind.domain.request.workout.CreateWorkoutRequest;
 import s3.ind.domain.request.workout.UpdateWorkoutRequest;
 import s3.ind.domain.response.workout.CreateWorkoutResponse;
-import s3.ind.domain.response.workout.GetAllWorkoutsResponse;
+import s3.ind.domain.response.workout.GetWorkoutResponse;
+import s3.ind.domain.response.workout.GetWorkoutsResponse;
 import s3.ind.domain.response.workout.WorkoutResponse;
 import s3.ind.persistence.TrainerRepository;
 import s3.ind.persistence.WorkoutRepository;
-import s3.ind.persistence.converters.TrainerEntityConverter;
-import s3.ind.persistence.converters.WorkoutEntityConverter;
 import s3.ind.persistence.entity.TrainerEntity;
 import s3.ind.persistence.entity.WorkoutEntity;
 
@@ -31,9 +28,8 @@ import java.util.Optional;
 public class WorkoutServiceImpl implements WorkoutService {
     private final WorkoutRepository workoutRepository;
     private final TrainerRepository trainerRepository;
+    private final WorkoutMapper workoutMapper;
 
-    private final WorkoutConverter workoutConverter = new WorkoutConverter(new TrainerConverter());
-    private final WorkoutEntityConverter workoutEntityConverter = new WorkoutEntityConverter(new TrainerEntityConverter());
 
     // CREATE
     @Override
@@ -73,22 +69,38 @@ public class WorkoutServiceImpl implements WorkoutService {
         workoutRepository.deleteById(id);
     }
 
+    // GET
     @Override
     public WorkoutResponse getWorkout(Integer id) {
         return null;
     }
 
     @Override
-    public GetAllWorkoutsResponse getAllWorkouts() {
+    public GetWorkoutsResponse getAllWorkouts() {
         List<WorkoutEntity> workoutsEntity = workoutRepository.findAll();
-        List<Workout> workouts = workoutsEntity.stream()
-                .map(workoutEntityConverter::fromEntity)
+
+        List<GetWorkoutResponse> workouts = workoutsEntity.stream()
+                .map(workoutMapper::fromEntityToResponse)
                 .toList();
 
-        final GetAllWorkoutsResponse response = new GetAllWorkoutsResponse();
+        final GetWorkoutsResponse response = new GetWorkoutsResponse();
         response.setWorkouts(workouts);
 
         return response;
+    }
+
+    @Override
+    public GetWorkoutsResponse getTrainerWorkouts(Integer id) {
+        TrainerEntity trainerEntity = TrainerEntity.builder().userId(id).build();
+//        Trainer Entity trainerEntity = trainerRepository.findById(Long.valueOf(id))
+//                .orElseThrow(() -> new NotFoundException("Trainer not found with ID: " + id));
+
+        List<WorkoutEntity> workoutsEntity = workoutRepository.findAllByTrainer(trainerEntity);
+        List<GetWorkoutResponse> workouts = workoutsEntity.stream()
+                .map(workoutMapper::fromEntityToResponse)
+                .toList();
+
+        return GetWorkoutsResponse.builder().workouts(workouts).build();
     }
 
     // UPDATE

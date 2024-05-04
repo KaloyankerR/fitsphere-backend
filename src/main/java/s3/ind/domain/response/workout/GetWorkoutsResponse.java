@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import s3.ind.domain.User;
 import s3.ind.domain.Workout;
 
 import java.util.List;
@@ -13,6 +12,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAllWorkoutsResponse {
-    private List<Workout> workouts;
+public class GetWorkoutsResponse {
+    private List<GetWorkoutResponse> workouts;
 }
