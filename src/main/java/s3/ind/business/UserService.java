@@ -1,6 +1,5 @@
 package s3.ind.business;
 
-import s3.ind.domain.User;
 import s3.ind.domain.request.user.CreateTrainerRequest;
 import s3.ind.domain.request.user.CreateUserRequest;
 import s3.ind.domain.request.user.UpdateUserRequest;

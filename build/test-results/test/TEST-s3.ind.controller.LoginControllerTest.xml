@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="s3.ind.controller.LoginControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-04T22:23:17" hostname="DESKTOP-88OFGPG" time="2.668">
+<testsuite name="s3.ind.controller.LoginControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-04T22:29:59" hostname="DESKTOP-88OFGPG" time="2.405">
   <properties/>
-  <testcase name="testInvalidRequest()" classname="s3.ind.controller.LoginControllerTest" time="2.471"/>
-  <testcase name="testSuccessfulLogin()" classname="s3.ind.controller.LoginControllerTest" time="0.196"/>
-  <system-out><![CDATA[00:23:18.230 [Test worker] INFO org.hibernate.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
-00:23:19.288 [Test worker] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
-00:23:19.288 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
-00:23:19.297 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 7 ms
-00:23:19.906 [Test worker] WARN org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver -- Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<s3.ind.domain.response.LoginResponse> s3.ind.controller.LoginController.login(s3.ind.domain.request.LoginRequest) with 2 errors: [Field error in object 'loginRequest' on field 'password': rejected value []; codes [NotBlank.loginRequest.password,NotBlank.password,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [loginRequest.password,password]; arguments []; default message [password]]; default message [must not be blank]] [Field error in object 'loginRequest' on field 'email': rejected value []; codes [NotBlank.loginRequest.email,NotBlank.email,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [loginRequest.email,email]; arguments []; default message [email]]; default message [must not be blank]] ]
-00:23:19.931 [Test worker] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
-00:23:19.931 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
-00:23:19.932 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 1 ms
+  <testcase name="testInvalidRequest()" classname="s3.ind.controller.LoginControllerTest" time="2.235"/>
+  <testcase name="testSuccessfulLogin()" classname="s3.ind.controller.LoginControllerTest" time="0.169"/>
+  <system-out><![CDATA[00:30:00.118 [Test worker] INFO org.hibernate.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.1.Final
+00:30:01.005 [Test worker] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+00:30:01.006 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+00:30:01.016 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 7 ms
+00:30:01.697 [Test worker] WARN org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver -- Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<s3.ind.domain.response.LoginResponse> s3.ind.controller.LoginController.login(s3.ind.domain.request.LoginRequest) with 2 errors: [Field error in object 'loginRequest' on field 'password': rejected value []; codes [NotBlank.loginRequest.password,NotBlank.password,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [loginRequest.password,password]; arguments []; default message [password]]; default message [must not be blank]] [Field error in object 'loginRequest' on field 'email': rejected value []; codes [NotBlank.loginRequest.email,NotBlank.email,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [loginRequest.email,email]; arguments []; default message [email]]; default message [must not be blank]] ]
+00:30:01.722 [Test worker] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+00:30:01.723 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+00:30:01.723 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

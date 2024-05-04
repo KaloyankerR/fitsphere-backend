@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import s3.ind.domain.Trainer;
 import s3.ind.domain.response.user.GetTrainerResponse;
 
 @Data

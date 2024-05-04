@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="s3.ind.configuration.security.token.impl.AccessTokenEncoderDecoderImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-04T22:23:16" hostname="DESKTOP-88OFGPG" time="0.665">
+<testsuite name="s3.ind.configuration.security.token.impl.AccessTokenEncoderDecoderImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-04T22:29:58" hostname="DESKTOP-88OFGPG" time="0.743">
   <properties/>
-  <testcase name="testInvalidToken()" classname="s3.ind.configuration.security.token.impl.AccessTokenEncoderDecoderImplTest" time="0.665"/>
+  <testcase name="testInvalidToken()" classname="s3.ind.configuration.security.token.impl.AccessTokenEncoderDecoderImplTest" time="0.743"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
