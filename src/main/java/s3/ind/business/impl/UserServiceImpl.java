@@ -31,13 +31,17 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Transactional
 public class UserServiceImpl implements UserService {
+    // Repositories
     private final UserRepository userRepository;
     private final TrainerRepository trainerRepository;
     private final ClientRepository clientRepository;
-    private final PasswordEncoder passwordEncoder;
+
+    // Mappers
     private final UserMapper userMapper;
     private final TrainerMapper trainerMapper;
     private final ClientMapper clientMapper;
+
+    private final PasswordEncoder passwordEncoder;
 
     // CREATE
     @Transactional
@@ -66,7 +70,8 @@ public class UserServiceImpl implements UserService {
     private ClientEntity saveNewClient(CreateUserRequest request) {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-        ClientEntity clientEntity = clientMapper.fromRequestToEntity(request);
+        ClientEntity clientEntity = new ClientEntity();
+        clientEntity = clientMapper.fromRequestToEntity(request);
         clientEntity.setPassword(encodedPassword);
 
         return clientRepository.save(clientEntity);

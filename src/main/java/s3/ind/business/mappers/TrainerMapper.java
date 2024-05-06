@@ -2,7 +2,6 @@ package s3.ind.business.mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 import s3.ind.domain.response.user.GetTrainerResponse;
 import s3.ind.persistence.entity.TrainerEntity;
 

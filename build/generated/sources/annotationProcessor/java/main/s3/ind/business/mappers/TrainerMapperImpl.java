@@ -7,7 +7,7 @@ import s3.ind.persistence.entity.TrainerEntity;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-06T10:57:45+0200",
+    date = "2024-05-06T13:23:42+0200",
     comments = "version: 1.5.0.Beta2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.4.jar, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
