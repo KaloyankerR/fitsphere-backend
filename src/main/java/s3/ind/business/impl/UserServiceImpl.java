@@ -7,19 +7,23 @@ import org.springframework.stereotype.Service;
 import s3.ind.business.UserService;
 import s3.ind.business.exception.EmailAlreadyExistsException;
 import s3.ind.business.exception.InvalidUserException;
+import s3.ind.business.mappers.ClientMapper;
 import s3.ind.business.mappers.TrainerMapper;
 import s3.ind.business.mappers.UserMapper;
 import s3.ind.domain.request.user.CreateTrainerRequest;
 import s3.ind.domain.request.user.CreateUserRequest;
 import s3.ind.domain.request.user.UpdateUserRequest;
 import s3.ind.domain.response.user.*;
+import s3.ind.persistence.ClientRepository;
 import s3.ind.persistence.TrainerRepository;
 import s3.ind.persistence.UserRepository;
 import s3.ind.domain.RoleEnum;
+import s3.ind.persistence.entity.ClientEntity;
 import s3.ind.persistence.entity.TrainerEntity;
 import s3.ind.persistence.entity.UserEntity;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -29,10 +33,11 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final TrainerRepository trainerRepository;
+    private final ClientRepository clientRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final TrainerMapper trainerMapper;
-    // private AccessToken accessToken;
+    private final ClientMapper clientMapper;
 
     // CREATE
     @Transactional
@@ -42,11 +47,29 @@ public class UserServiceImpl implements UserService {
             throw new EmailAlreadyExistsException();
         }
 
-        UserEntity newUser = saveNewUser(request);
+        UserEntity newUser;
+
+        if (Objects.equals(request.getRole(), "CLIENT")) {
+            newUser = saveNewClient(request);
+        } else {
+            newUser = saveNewUser(request);
+        }
+
+        // else if (request.getRole())
+        // UserEntity newUser = saveNewUser(request);
 
         return CreateUserResponse.builder()
                 .userId(Long.valueOf(newUser.getUserId()))
                 .build();
+    }
+
+    private ClientEntity saveNewClient(CreateUserRequest request) {
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+
+        ClientEntity clientEntity = clientMapper.fromRequestToEntity(request);
+        clientEntity.setPassword(encodedPassword);
+
+        return clientRepository.save(clientEntity);
     }
 
     @Transactional
@@ -76,7 +99,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(newUser);
     }
 
-    private TrainerEntity saveTrainer(CreateTrainerRequest request){
+    private TrainerEntity saveTrainer(CreateTrainerRequest request) {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
         TrainerEntity newTrainer = TrainerEntity.builder()
@@ -84,7 +107,6 @@ public class UserServiceImpl implements UserService {
                 .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password(encodedPassword)
-//                .phoneNumber(request.getPhoneNumber())
                 .role(RoleEnum.valueOf(request.getRole()))
                 .bio(request.getBio())
                 .igLink(request.getIgLink())

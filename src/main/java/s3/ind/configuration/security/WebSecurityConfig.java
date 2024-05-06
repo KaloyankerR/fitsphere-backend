@@ -40,6 +40,7 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/users").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/workouts").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users/trainers").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/appointments").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/workouts/trainer/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users", "/tokens", "/users/trainer", "workouts").permitAll()
                                 .requestMatchers(HttpMethod.DELETE).permitAll()

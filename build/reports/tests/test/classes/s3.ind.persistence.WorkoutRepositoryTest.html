@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.279s</div>
+<div class="counter">0.364s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,7 +79,7 @@
 </thead>
 <tr>
 <td class="success">existsByTitle()</td>
-<td class="success">0.279s</td>
+<td class="success">0.364s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -87,8 +87,8 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>00:36:28.636 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [s3.ind.persistence.WorkoutRepositoryTest]: WorkoutRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-00:36:28.806 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration s3.ind.Main for test class s3.ind.persistence.WorkoutRepositoryTest
+<pre>2024-05-06T10:58:08.333+02:00  INFO 21648 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [s3.ind.persistence.WorkoutRepositoryTest]: WorkoutRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-05-06T10:58:08.358+02:00  INFO 21648 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration s3.ind.Main for test class s3.ind.persistence.WorkoutRepositoryTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -98,29 +98,24 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.1.3)
 
-2024-05-05T00:36:29.436+02:00  INFO 17192 --- [    Test worker] s.ind.persistence.WorkoutRepositoryTest  : Starting WorkoutRepositoryTest using Java 17.0.10 with PID 17192 (started by Melina in D:\CS\Version Control\GitLab\test\fitsphere-backend)
-2024-05-05T00:36:29.439+02:00  INFO 17192 --- [    Test worker] s.ind.persistence.WorkoutRepositoryTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2024-05-05T00:36:30.029+02:00  INFO 17192 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-05-05T00:36:30.180+02:00  INFO 17192 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 135 ms. Found 4 JPA repository interfaces.
-2024-05-05T00:36:30.850+02:00  INFO 17192 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.16.3 by Redgate
-2024-05-05T00:36:30.850+02:00  INFO 17192 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
-2024-05-05T00:36:30.850+02:00  INFO 17192 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : 
-2024-05-05T00:36:31.443+02:00  INFO 17192 --- [    Test worker] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:mysql://localhost:3306/fitsphere (MySQL 8.0)
-2024-05-05T00:36:31.541+02:00  INFO 17192 --- [    Test worker] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.046s)
-2024-05-05T00:36:31.577+02:00  INFO 17192 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Current version of schema `fitsphere`: 1
-2024-05-05T00:36:31.579+02:00  INFO 17192 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Schema `fitsphere` is up to date. No migration necessary.
-2024-05-05T00:36:31.820+02:00  INFO 17192 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-05-05T00:36:31.956+02:00  INFO 17192 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.7.Final
-2024-05-05T00:36:31.961+02:00  INFO 17192 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
-2024-05-05T00:36:32.263+02:00  INFO 17192 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
-2024-05-05T00:36:32.280+02:00  INFO 17192 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-05-05T00:36:32.317+02:00  INFO 17192 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-05-05T00:36:32.377+02:00  INFO 17192 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@76da4b9b
-2024-05-05T00:36:32.382+02:00  INFO 17192 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-05-05T00:36:33.015+02:00  INFO 17192 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
-2024-05-05T00:36:34.038+02:00  INFO 17192 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2024-05-05T00:36:34.043+02:00  INFO 17192 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-05-05T00:36:34.715+02:00  INFO 17192 --- [    Test worker] s.ind.persistence.WorkoutRepositoryTest  : Started WorkoutRepositoryTest in 5.789 seconds (process running for 13.318)
+2024-05-06T10:58:08.391+02:00  INFO 21648 --- [    Test worker] s.ind.persistence.WorkoutRepositoryTest  : Starting WorkoutRepositoryTest using Java 17.0.10 with PID 21648 (started by Melina in D:\CS\Version Control\GitLab\test\fitsphere-backend)
+2024-05-06T10:58:08.392+02:00  INFO 21648 --- [    Test worker] s.ind.persistence.WorkoutRepositoryTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2024-05-06T10:58:08.608+02:00  INFO 21648 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-06T10:58:08.663+02:00  INFO 21648 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53 ms. Found 5 JPA repository interfaces.
+2024-05-06T10:58:08.794+02:00  INFO 21648 --- [    Test worker] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:mysql://localhost:3306/fitsphere (MySQL 8.0)
+2024-05-06T10:58:08.819+02:00  INFO 21648 --- [    Test worker] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.011s)
+2024-05-06T10:58:08.835+02:00  INFO 21648 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Current version of schema `fitsphere`: 1
+2024-05-06T10:58:08.836+02:00  INFO 21648 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Schema `fitsphere` is up to date. No migration necessary.
+2024-05-06T10:58:08.859+02:00  INFO 21648 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-06T10:58:08.867+02:00  INFO 21648 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2024-05-06T10:58:08.868+02:00  INFO 21648 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-06T10:58:08.869+02:00  INFO 21648 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2024-05-06T10:58:08.888+02:00  INFO 21648 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@24389d91
+2024-05-06T10:58:08.888+02:00  INFO 21648 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2024-05-06T10:58:08.915+02:00  INFO 21648 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2024-05-06T10:58:09.114+02:00  INFO 21648 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-06T10:58:09.115+02:00  INFO 21648 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-06T10:58:09.239+02:00  INFO 21648 --- [    Test worker] s.ind.persistence.WorkoutRepositoryTest  : Started WorkoutRepositoryTest in 0.878 seconds (process running for 18.456)
 Hibernate: insert into users (email,first_name,last_name,password,role) values (?,?,?,?,?)
 Hibernate: insert into trainers (bio,ig_link,profile_image_link,user_id) values (?,?,?,?)
 Hibernate: insert into workouts (description,title,trainer_id) values (?,?,?)
@@ -137,7 +132,7 @@ Hibernate: select w1_0.id from workouts w1_0 where w1_0.title=? limit ?
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.4</a> at May 5, 2024, 12:36:35 AM</p>
+<a href="http://www.gradle.org">Gradle 8.4</a> at May 6, 2024, 10:58:10 AM</p>
 </div>
 </div>
 </body>

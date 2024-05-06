@@ -2,8 +2,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'java-library'
-    // id "org.flywaydb.flyway" version "10.11.0"
-    id 'org.flywaydb.flyway' version '7.15.0'
+    id "org.flywaydb.flyway" version "10.11.0"
     id "org.sonarqube" version "4.4.1.3373"
     id 'org.springframework.boot' version '3.1.3'
     id 'io.spring.dependency-management' version '1.1.3'
@@ -48,6 +47,7 @@ sonar {
         property "sonar.organization", "Fontys"
         property "sonar.host.url", "http://localhost:9000"
         property "sonar.token", "sqp_d06d805b2c2388d4dfc5dd731b3b128ebe92a40b"
+        property "sonar.exclusions", "src/main/java/s3/ind/configuration/**"
     }
 }
 

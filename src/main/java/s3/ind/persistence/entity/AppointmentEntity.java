@@ -1,7 +1,7 @@
 package s3.ind.persistence.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,25 +22,25 @@ public class AppointmentEntity {
     @Column(name = "id")
     private Integer id;
 
-    @NotBlank
+    @NotNull
     @Column(name = "start_time", nullable = false)
     private LocalDateTime startTime;
 
-    @NotBlank
+    @NotNull
     @Column(name = "end_time", nullable = false)
     private LocalDateTime endTime;
 
-    @NotBlank
-    @ManyToOne
+    @NotNull
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "workout_id")
     private WorkoutEntity workout;
 
-    @NotBlank
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "trainer_id")
     private TrainerEntity trainer;
 
-    @NotBlank
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "client_id")
     private ClientEntity client;
