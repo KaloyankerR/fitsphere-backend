@@ -7,7 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import s3.ind.business.exception.EmailAlreadyExistsException;
+import fontys.ind.business.exception.EmailAlreadyExistsException;
 import fontys.ind.business.mappers.ClientMapper;
 import fontys.ind.domain.request.user.CreateUserRequest;
 import fontys.ind.domain.request.user.UpdateUserRequest;

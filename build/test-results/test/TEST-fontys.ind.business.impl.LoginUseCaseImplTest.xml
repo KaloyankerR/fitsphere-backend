@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="fontys.ind.business.impl.LoginUseCaseImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-05-07T08:47:17" hostname="DESKTOP-88OFGPG" time="0.211">
+  <properties/>
+  <testcase name="whenCredentialsAreInvalid_thenThrowsInvalidCredentialsException()" classname="fontys.ind.business.impl.LoginUseCaseImplTest" time="0.187"/>
+  <testcase name="whenUserNotFound_thenThrowsInvalidCredentialsException()" classname="fontys.ind.business.impl.LoginUseCaseImplTest" time="0.005"/>
+  <testcase name="whenLoginIsSuccessful_thenReturnsAccessToken()" classname="fontys.ind.business.impl.LoginUseCaseImplTest" time="0.015"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

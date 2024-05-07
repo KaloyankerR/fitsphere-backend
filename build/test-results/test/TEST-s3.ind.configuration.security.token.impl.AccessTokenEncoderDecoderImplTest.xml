@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="s3.ind.configuration.security.token.impl.AccessTokenEncoderDecoderImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-06T18:48:44" hostname="DESKTOP-88OFGPG" time="1.069">
-  <properties/>
-  <testcase name="testInvalidToken()" classname="s3.ind.configuration.security.token.impl.AccessTokenEncoderDecoderImplTest" time="1.069"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
