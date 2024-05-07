@@ -52,14 +52,4 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .id(savedAppointment.getId())
                 .build();
     }
-
-//    private void validateAppointmentRequest(CreateAppointmentRequest request) {
-//        // Add validation logic here
-//        // For example:
-//        if (request.getStartTime().isAfter(request.getEndTime())) {
-//            throw new InvalidAppointmentException("Start time cannot be after end time.");
-//        }
-//        // You can add more validation rules as needed
-//    }
-
 }

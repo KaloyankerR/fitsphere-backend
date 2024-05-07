@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import s3.ind.business.WorkoutService;
 import s3.ind.business.exception.EmailAlreadyExistsException;
 import s3.ind.business.exception.InvalidWorkoutException;
+import s3.ind.business.exception.TitleAlreadyExistsException;
 import s3.ind.business.mappers.WorkoutMapper;
 import s3.ind.domain.request.workout.CreateWorkoutRequest;
 import s3.ind.domain.request.workout.UpdateWorkoutRequest;
@@ -36,7 +37,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     public CreateWorkoutResponse createWorkout(CreateWorkoutRequest request) {
         if (workoutRepository.existsByTitle(request.getTitle())) {
             // TODO: make one general exception where you can add the text in the cases
-            throw new EmailAlreadyExistsException();
+            throw new TitleAlreadyExistsException();
         }
 
         WorkoutEntity newWorkout = saveNewWorkout(request);

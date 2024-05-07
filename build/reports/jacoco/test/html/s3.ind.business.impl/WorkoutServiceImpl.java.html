@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WorkoutServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fitsphere-backend</a> &gt; <a href="index.source.html" class="el_package">s3.ind.business.impl</a> &gt; <span class="el_source">WorkoutServiceImpl.java</span></div><h1>WorkoutServiceImpl.java</h1><pre class="source lang-java linenums">package s3.ind.business.impl;
+
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import s3.ind.business.WorkoutService;
+import s3.ind.business.exception.EmailAlreadyExistsException;
+import s3.ind.business.exception.InvalidWorkoutException;
+import s3.ind.business.exception.TitleAlreadyExistsException;
+import s3.ind.business.mappers.WorkoutMapper;
+import s3.ind.domain.request.workout.CreateWorkoutRequest;
+import s3.ind.domain.request.workout.UpdateWorkoutRequest;
+import s3.ind.domain.response.workout.CreateWorkoutResponse;
+import s3.ind.domain.response.workout.GetWorkoutResponse;
+import s3.ind.domain.response.workout.GetWorkoutsResponse;
+import s3.ind.persistence.TrainerRepository;
+import s3.ind.persistence.WorkoutRepository;
+import s3.ind.persistence.entity.TrainerEntity;
+import s3.ind.persistence.entity.WorkoutEntity;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+<span class="fc" id="L26">@AllArgsConstructor</span>
+// @Transactional check it out
+public class WorkoutServiceImpl implements WorkoutService {
+    private final WorkoutRepository workoutRepository;
+    private final TrainerRepository trainerRepository;
+    private final WorkoutMapper workoutMapper;
+
+
+    // CREATE
+    @Override
+    @Transactional
+    public CreateWorkoutResponse createWorkout(CreateWorkoutRequest request) {
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (workoutRepository.existsByTitle(request.getTitle())) {</span>
+            // TODO: make one general exception where you can add the text in the cases
+<span class="fc" id="L40">            throw new TitleAlreadyExistsException();</span>
+        }
+
+<span class="fc" id="L43">        WorkoutEntity newWorkout = saveNewWorkout(request);</span>
+
+<span class="fc" id="L45">        return CreateWorkoutResponse.builder()</span>
+<span class="fc" id="L46">                .id(newWorkout.getId())</span>
+<span class="fc" id="L47">                .build();</span>
+    }
+
+    private WorkoutEntity saveNewWorkout(CreateWorkoutRequest request) {
+<span class="fc" id="L51">        Optional&lt;TrainerEntity&gt; trainerEntityOptional = trainerRepository.findById(Long.valueOf(request.getTrainerId()));</span>
+
+<span class="fc" id="L53">        TrainerEntity trainerEntity = trainerEntityOptional.orElseThrow(() -&gt;</span>
+<span class="nc" id="L54">                new EntityNotFoundException(&quot;Trainer with ID &quot; + request.getTrainerId() + &quot; not found.&quot;));</span>
+
+<span class="fc" id="L56">        WorkoutEntity newWorkout = WorkoutEntity.builder()</span>
+<span class="fc" id="L57">                .trainer(trainerEntity)</span>
+<span class="fc" id="L58">                .title(request.getTitle())</span>
+<span class="fc" id="L59">                .description(request.getDescription())</span>
+<span class="fc" id="L60">                .build();</span>
+
+<span class="fc" id="L62">        return workoutRepository.save(newWorkout);</span>
+    }
+
+    // DELETE
+    @Override
+    @Transactional
+    public void deleteWorkout(Integer id) {
+<span class="fc" id="L69">        workoutRepository.deleteById(id);</span>
+<span class="fc" id="L70">    }</span>
+
+    // GET
+    @Override
+    public GetWorkoutResponse getWorkout(Integer id) {
+<span class="nc" id="L75">        return null;</span>
+    }
+
+    @Override
+    public GetWorkoutsResponse getAllWorkouts() {
+<span class="nc" id="L80">        List&lt;WorkoutEntity&gt; workoutsEntity = workoutRepository.findAll();</span>
+
+<span class="nc" id="L82">        List&lt;GetWorkoutResponse&gt; workouts = workoutsEntity.stream()</span>
+<span class="nc" id="L83">                .map(workoutMapper::fromEntityToResponse)</span>
+<span class="nc" id="L84">                .toList();</span>
+
+<span class="nc" id="L86">        final GetWorkoutsResponse response = new GetWorkoutsResponse();</span>
+<span class="nc" id="L87">        response.setWorkouts(workouts);</span>
+
+<span class="nc" id="L89">        return response;</span>
+    }
+
+    @Override
+    public GetWorkoutsResponse getTrainerWorkouts(Integer id) {
+<span class="nc" id="L94">        TrainerEntity trainerEntity = TrainerEntity.builder().userId(id).build();</span>
+//        Trainer Entity trainerEntity = trainerRepository.findById(Long.valueOf(id))
+//                .orElseThrow(() -&gt; new NotFoundException(&quot;Trainer not found with ID: &quot; + id));
+
+<span class="nc" id="L98">        List&lt;WorkoutEntity&gt; workoutsEntity = workoutRepository.findAllByTrainer(trainerEntity);</span>
+<span class="nc" id="L99">        List&lt;GetWorkoutResponse&gt; workouts = workoutsEntity.stream()</span>
+<span class="nc" id="L100">                .map(workoutMapper::fromEntityToResponse)</span>
+<span class="nc" id="L101">                .toList();</span>
+
+<span class="nc" id="L103">        return GetWorkoutsResponse.builder().workouts(workouts).build();</span>
+    }
+
+    // UPDATE
+    @Override
+    @Transactional
+    public void updateWorkout(UpdateWorkoutRequest request) {
+<span class="fc" id="L110">        Optional&lt;WorkoutEntity&gt; workoutEntityOptional = workoutRepository.findById(request.getId());</span>
+
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (workoutEntityOptional.isEmpty()) {</span>
+<span class="fc" id="L113">            throw new InvalidWorkoutException(&quot;WORKOUT_ID_INVALID&quot;);</span>
+        }
+
+<span class="fc" id="L116">        WorkoutEntity workout = workoutEntityOptional.get();</span>
+<span class="fc" id="L117">        updateFields(request, workout);</span>
+<span class="fc" id="L118">    }</span>
+
+    private void updateFields(UpdateWorkoutRequest request, WorkoutEntity workout) {
+<span class="fc" id="L121">        workout.setTitle(request.getTitle());</span>
+<span class="fc" id="L122">        workout.setDescription(request.getDescription());</span>
+
+<span class="fc" id="L124">        workoutRepository.save(workout);</span>
+<span class="fc" id="L125">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

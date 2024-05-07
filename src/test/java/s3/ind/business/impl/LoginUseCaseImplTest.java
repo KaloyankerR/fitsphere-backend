@@ -23,72 +23,69 @@ class LoginUseCaseImplTest {
 
     @Mock
     private UserRepository userRepository;
-
     @Mock
     private PasswordEncoder passwordEncoder;
-
     @Mock
     private AccessTokenEncoder accessTokenEncoder;
 
     @InjectMocks
     private LoginUseCaseImpl loginUseCase;
 
+    private static final String EMAIL = "user@example.com";
+    private static final String PASSWORD = "securePassword";
+    private static final String ENCODED_PASSWORD = "encodedSecurePassword";
+    private static final String ACCESS_TOKEN = "access_token";
+
     private UserEntity user;
-    private final String email = "user@example.com";
-    private final String password = "securePassword";
-    private final String encodedPassword = "encodedSecurePassword";
+    private LoginRequest loginRequest;
 
     @BeforeEach
     void setUp() {
         user = new UserEntity();
-        user.setEmail(email);
-        user.setPassword(encodedPassword);
+        user.setEmail(EMAIL);
+        user.setPassword(ENCODED_PASSWORD);
         user.setUserId(1);
         user.setRole(RoleEnum.CLIENT);  // Assuming RoleEnum exists
+
+        loginRequest = new LoginRequest(EMAIL, PASSWORD);
     }
 
     @Test
-    void login_Successful() {
+    void whenLoginIsSuccessful_thenReturnsAccessToken() {
         // Arrange
-        when(userRepository.findByEmail(email)).thenReturn(user);
-        when(passwordEncoder.matches(password, encodedPassword)).thenReturn(true);
-        String accessToken = "access_token";
-        when(accessTokenEncoder.encode(any())).thenReturn(accessToken);
-
-        LoginRequest loginRequest = new LoginRequest(email, password);
+        when(userRepository.findByEmail(EMAIL)).thenReturn(user);
+        when(passwordEncoder.matches(PASSWORD, ENCODED_PASSWORD)).thenReturn(true);
+        when(accessTokenEncoder.encode(any())).thenReturn(ACCESS_TOKEN);
 
         // Act
         LoginResponse response = loginUseCase.login(loginRequest);
 
         // Assert
         assertNotNull(response);
-        assertEquals(accessToken, response.getAccessToken());
-        verify(userRepository).findByEmail(email);
-        verify(passwordEncoder).matches(password, encodedPassword);
+        assertEquals(ACCESS_TOKEN, response.getAccessToken());
+        verify(userRepository).findByEmail(EMAIL);
+        verify(passwordEncoder).matches(PASSWORD, ENCODED_PASSWORD);
     }
 
     @Test
-    void login_InvalidCredentials_ThrowsException() {
+    void whenCredentialsAreInvalid_thenThrowsInvalidCredentialsException() {
         // Arrange
-        when(userRepository.findByEmail(email)).thenReturn(user);
-        when(passwordEncoder.matches(password, encodedPassword)).thenReturn(false);
-
-        LoginRequest loginRequest = new LoginRequest(email, password);
+        when(userRepository.findByEmail(EMAIL)).thenReturn(user);
+        when(passwordEncoder.matches(PASSWORD, ENCODED_PASSWORD)).thenReturn(false);
 
         // Act & Assert
         assertThrows(InvalidCredentialsException.class, () -> loginUseCase.login(loginRequest));
-        verify(userRepository).findByEmail(email);
-        verify(passwordEncoder).matches(password, encodedPassword);
+        verify(userRepository).findByEmail(EMAIL);
+        verify(passwordEncoder).matches(PASSWORD, ENCODED_PASSWORD);
     }
 
     @Test
-    void login_UserNotFound_ThrowsException() {
+    void whenUserNotFound_thenThrowsInvalidCredentialsException() {
         // Arrange
-        when(userRepository.findByEmail(email)).thenReturn(null);
-        LoginRequest loginRequest = new LoginRequest(email, password);
+        when(userRepository.findByEmail(EMAIL)).thenReturn(null);
 
         // Act & Assert
         assertThrows(InvalidCredentialsException.class, () -> loginUseCase.login(loginRequest));
-        verify(userRepository).findByEmail(email);
+        verify(userRepository).findByEmail(EMAIL);
     }
 }

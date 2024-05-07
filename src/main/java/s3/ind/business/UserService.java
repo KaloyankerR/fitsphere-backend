@@ -22,6 +22,4 @@ public interface UserService {
     GetAllTrainersResponse getAllTrainers();
 
     void updateUser(UpdateUserRequest request);
-
-    void checkUserPermission(int id);
 }

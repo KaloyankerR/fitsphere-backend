@@ -2,6 +2,7 @@ package s3.ind.business.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import s3.ind.business.UserService;
@@ -31,16 +32,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Transactional
 public class UserServiceImpl implements UserService {
-    // Repositories
     private final UserRepository userRepository;
     private final TrainerRepository trainerRepository;
     private final ClientRepository clientRepository;
-
-    // Mappers
     private final UserMapper userMapper;
     private final TrainerMapper trainerMapper;
     private final ClientMapper clientMapper;
-
     private final PasswordEncoder passwordEncoder;
 
     // CREATE
@@ -70,8 +67,8 @@ public class UserServiceImpl implements UserService {
     private ClientEntity saveNewClient(CreateUserRequest request) {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-        ClientEntity clientEntity = new ClientEntity();
-        clientEntity = clientMapper.fromRequestToEntity(request);
+
+        ClientEntity clientEntity = clientMapper.fromRequestToEntity(request);
         clientEntity.setPassword(encodedPassword);
 
         return clientRepository.save(clientEntity);
@@ -181,18 +178,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
-//        user.setPhoneNumber(request.getPhoneNumber());
 
         userRepository.save(user);
-    }
-
-    // CHECK PERMISSIONS
-    @Override
-    public void checkUserPermission(int id) {
-//        if (!accessToken.getRole().equals("admin")) {
-//            if (accessToken.getUserId() != id) {
-//                // throw new UnauthorizedDataAccessException("USER_ID_NOT_FROM_LOGGED_IN_USER");
-//            }
-//        }
     }
 }
