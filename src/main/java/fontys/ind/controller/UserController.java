@@ -1,20 +1,20 @@
 package fontys.ind.controller;
 
-import fontys.ind.business.UserService;
-import fontys.ind.domain.request.user.CreateTrainerRequest;
-import fontys.ind.domain.request.user.CreateUserRequest;
-import fontys.ind.domain.request.user.UpdateUserRequest;
-import fontys.ind.domain.response.user.CreateUserResponse;
-import fontys.ind.domain.response.user.GetAllTrainersResponse;
-import fontys.ind.domain.response.user.GetAllUsersResponse;
-import fontys.ind.domain.response.user.GetUserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import fontys.ind.business.UserService;
+import fontys.ind.domain.request.user.CreateTrainerRequest;
+import fontys.ind.domain.request.user.CreateUserRequest;
+import fontys.ind.domain.request.user.UpdateUserRequest;
+import fontys.ind.domain.response.user.CreateUserResponse;
+import fontys.ind.domain.response.user.GetAllUsersResponse;
+import fontys.ind.domain.response.user.GetAllTrainersResponse;
+import fontys.ind.domain.response.user.GetUserResponse;
 
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/users")

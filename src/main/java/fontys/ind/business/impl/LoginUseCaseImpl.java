@@ -1,5 +1,8 @@
 package fontys.ind.business.impl;
 
+import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import fontys.ind.business.LoginUseCase;
 import fontys.ind.business.exception.InvalidCredentialsException;
 import fontys.ind.configuration.security.token.AccessTokenEncoder;
@@ -8,9 +11,6 @@ import fontys.ind.domain.request.LoginRequest;
 import fontys.ind.domain.response.LoginResponse;
 import fontys.ind.persistence.UserRepository;
 import fontys.ind.persistence.entity.UserEntity;
-import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 
 @Service

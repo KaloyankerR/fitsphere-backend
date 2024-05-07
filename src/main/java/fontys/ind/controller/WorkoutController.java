@@ -1,15 +1,15 @@
 package fontys.ind.controller;
 
-import fontys.ind.business.WorkoutService;
-import fontys.ind.domain.request.workout.CreateWorkoutRequest;
-import fontys.ind.domain.response.workout.CreateWorkoutResponse;
-import fontys.ind.domain.response.workout.GetWorkoutResponse;
-import fontys.ind.domain.response.workout.GetWorkoutsResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import fontys.ind.business.WorkoutService;
+import fontys.ind.domain.request.workout.CreateWorkoutRequest;
+import fontys.ind.domain.response.workout.CreateWorkoutResponse;
+import fontys.ind.domain.response.workout.GetWorkoutResponse;
+import fontys.ind.domain.response.workout.GetWorkoutsResponse;
 
 @RestController
 @RequestMapping("/workouts")

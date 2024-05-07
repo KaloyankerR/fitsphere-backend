@@ -1,8 +1,5 @@
 package fontys.ind.configuration.security.auth;
 
-import fontys.ind.configuration.security.token.AccessToken;
-import fontys.ind.configuration.security.token.AccessTokenDecoder;
-import fontys.ind.configuration.security.token.exception.InvalidAccessTokenException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +12,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import fontys.ind.configuration.security.token.AccessToken;
+import fontys.ind.configuration.security.token.AccessTokenDecoder;
+import fontys.ind.configuration.security.token.exception.InvalidAccessTokenException;
 
 import java.io.IOException;
 

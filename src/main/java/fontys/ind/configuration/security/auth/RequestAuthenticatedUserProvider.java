@@ -1,7 +1,6 @@
 package fontys.ind.configuration.security.auth;
 
 
-import fontys.ind.configuration.security.token.AccessToken;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -10,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.WebApplicationContext;
+import fontys.ind.configuration.security.token.AccessToken;
 
 @Configuration
 public class RequestAuthenticatedUserProvider {

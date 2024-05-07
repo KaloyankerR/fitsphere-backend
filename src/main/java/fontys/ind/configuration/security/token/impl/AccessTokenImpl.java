@@ -1,9 +1,9 @@
 package fontys.ind.configuration.security.token.impl;
 
 
-import fontys.ind.configuration.security.token.AccessToken;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import fontys.ind.configuration.security.token.AccessToken;
 
 import java.util.Collections;
 import java.util.Set;

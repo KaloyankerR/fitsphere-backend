@@ -1,6 +1,11 @@
 package fontys.ind.business.impl;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 import fontys.ind.business.WorkoutService;
+import fontys.ind.business.exception.EmailAlreadyExistsException;
 import fontys.ind.business.exception.InvalidWorkoutException;
 import fontys.ind.business.exception.TitleAlreadyExistsException;
 import fontys.ind.business.mappers.WorkoutMapper;
@@ -13,10 +18,6 @@ import fontys.ind.persistence.TrainerRepository;
 import fontys.ind.persistence.WorkoutRepository;
 import fontys.ind.persistence.entity.TrainerEntity;
 import fontys.ind.persistence.entity.WorkoutEntity;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;

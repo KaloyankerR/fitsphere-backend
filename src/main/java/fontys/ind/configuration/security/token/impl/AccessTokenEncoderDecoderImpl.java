@@ -1,10 +1,6 @@
 package fontys.ind.configuration.security.token.impl;
 
 
-import fontys.ind.configuration.security.token.AccessToken;
-import fontys.ind.configuration.security.token.AccessTokenDecoder;
-import fontys.ind.configuration.security.token.AccessTokenEncoder;
-import fontys.ind.configuration.security.token.exception.InvalidAccessTokenException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtException;
@@ -14,6 +10,10 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import fontys.ind.configuration.security.token.AccessToken;
+import fontys.ind.configuration.security.token.AccessTokenDecoder;
+import fontys.ind.configuration.security.token.AccessTokenEncoder;
+import fontys.ind.configuration.security.token.exception.InvalidAccessTokenException;
 
 import java.security.Key;
 import java.time.Instant;

@@ -1,4 +1,4 @@
-package fontys.ind.persistence.entity;//package s3.ind.persistence.entity;
+//package s3.ind.persistence.entity;
 //
 //import jakarta.persistence.*;
 //import lombok.AllArgsConstructor;

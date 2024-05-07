@@ -1,8 +1,8 @@
 package fontys.ind.persistence;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import fontys.ind.persistence.entity.TrainerEntity;
 import fontys.ind.persistence.entity.WorkoutEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package fontys.ind.business.mappers;
 
-import fontys.ind.domain.response.workout.GetWorkoutResponse;
-import fontys.ind.persistence.entity.WorkoutEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import fontys.ind.domain.response.workout.GetWorkoutResponse;
+import fontys.ind.persistence.entity.WorkoutEntity;
 
 @Mapper(componentModel = "spring", uses = {TrainerMapper.class})
 public interface WorkoutMapper {

@@ -1,10 +1,10 @@
 package fontys.ind.domain.response.user;
 
-import fontys.ind.domain.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import fontys.ind.domain.RoleEnum;
 
 @Data
 @SuperBuilder

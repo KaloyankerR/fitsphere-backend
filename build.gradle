@@ -75,7 +75,6 @@ dependencies {
     // Flyway
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.flywaydb:flyway-mysql'
-    // compile "org.flywaydb:flyway-mysql"
 
     // H2 Database
     runtimeOnly 'com.h2database:h2'

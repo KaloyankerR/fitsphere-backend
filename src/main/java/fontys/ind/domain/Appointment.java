@@ -1,4 +1,4 @@
-package fontys.ind.domain;//package s3.ind.domain;
+//package s3.ind.domain;
 //
 //import lombok.AllArgsConstructor;
 //import lombok.Builder;

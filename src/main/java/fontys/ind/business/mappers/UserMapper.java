@@ -1,9 +1,10 @@
 package fontys.ind.business.mappers;
 
-import fontys.ind.domain.response.user.GetUserResponse;
-import fontys.ind.persistence.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
+import fontys.ind.domain.response.user.GetUserResponse;
+import fontys.ind.persistence.entity.UserEntity;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

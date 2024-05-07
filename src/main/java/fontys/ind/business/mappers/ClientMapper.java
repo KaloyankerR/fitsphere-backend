@@ -1,9 +1,9 @@
 package fontys.ind.business.mappers;
 
-import fontys.ind.domain.request.user.CreateUserRequest;
-import fontys.ind.persistence.entity.ClientEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import fontys.ind.domain.request.user.CreateUserRequest;
+import fontys.ind.persistence.entity.ClientEntity;
 
 @Mapper(componentModel = "spring")
 public interface ClientMapper {

@@ -1,6 +1,5 @@
 package fontys.ind.persistence.entity;
 
-import fontys.ind.domain.RoleEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Length;
+import fontys.ind.domain.RoleEnum;
 
 @Entity
 @Table(name = "users")

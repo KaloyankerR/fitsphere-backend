@@ -1,10 +1,10 @@
 package fontys.ind.domain.response.workout;
 
-import fontys.ind.domain.response.user.GetTrainerResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import fontys.ind.domain.response.user.GetTrainerResponse;
 
 @Data
 @Builder

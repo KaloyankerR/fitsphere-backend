@@ -1,13 +1,13 @@
 package fontys.ind.controller;
 
-import fontys.ind.business.AppointmentService;
-import fontys.ind.domain.request.appointment.CreateAppointmentRequest;
-import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import fontys.ind.business.AppointmentService;
+import fontys.ind.domain.request.appointment.CreateAppointmentRequest;
+import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
 
 @RestController
 @RequestMapping("/appointments")

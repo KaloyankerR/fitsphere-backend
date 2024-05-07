@@ -1,20 +1,14 @@
 package fontys.ind.business.impl;
 
-import fontys.ind.business.AppointmentService;
-import fontys.ind.domain.request.appointment.CreateAppointmentRequest;
-import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
-import fontys.ind.persistence.AppointmentRepository;
-import fontys.ind.persistence.ClientRepository;
-import fontys.ind.persistence.TrainerRepository;
-import fontys.ind.persistence.WorkoutRepository;
-import fontys.ind.persistence.entity.AppointmentEntity;
-import fontys.ind.persistence.entity.ClientEntity;
-import fontys.ind.persistence.entity.TrainerEntity;
-import fontys.ind.persistence.entity.WorkoutEntity;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import fontys.ind.business.AppointmentService;
+import fontys.ind.domain.request.appointment.CreateAppointmentRequest;
+import jakarta.transaction.Transactional;
+import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
+import fontys.ind.persistence.*;
+import fontys.ind.persistence.entity.*;
 
 import java.util.Optional;
 

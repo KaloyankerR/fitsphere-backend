@@ -17,13 +17,4 @@ public class CreateAppointmentRequest {
     private Integer workoutId;
     private Integer trainerId;
     private Integer clientId;
-
-//    public CreateAppointmentRequest() {
-//        // Set default values here
-//        this.startTime = LocalDateTime.now();
-//        this.endTime = LocalDateTime.now().plusMinutes(30); // Default end time is one hour from start time
-//        this.workoutId = 0; // Default workout ID
-//        this.trainerId = 0; // Default trainer ID
-//        this.clientId = 0; // Default client ID
-//    }
 }

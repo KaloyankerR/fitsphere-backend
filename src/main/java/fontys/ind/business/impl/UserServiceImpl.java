@@ -1,12 +1,16 @@
 package fontys.ind.business.impl;
 
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import fontys.ind.business.UserService;
 import fontys.ind.business.exception.EmailAlreadyExistsException;
 import fontys.ind.business.exception.InvalidUserException;
 import fontys.ind.business.mappers.ClientMapper;
 import fontys.ind.business.mappers.TrainerMapper;
 import fontys.ind.business.mappers.UserMapper;
-import fontys.ind.domain.RoleEnum;
 import fontys.ind.domain.request.user.CreateTrainerRequest;
 import fontys.ind.domain.request.user.CreateUserRequest;
 import fontys.ind.domain.request.user.UpdateUserRequest;
@@ -14,13 +18,10 @@ import fontys.ind.domain.response.user.*;
 import fontys.ind.persistence.ClientRepository;
 import fontys.ind.persistence.TrainerRepository;
 import fontys.ind.persistence.UserRepository;
+import fontys.ind.domain.RoleEnum;
 import fontys.ind.persistence.entity.ClientEntity;
 import fontys.ind.persistence.entity.TrainerEntity;
 import fontys.ind.persistence.entity.UserEntity;
-import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
