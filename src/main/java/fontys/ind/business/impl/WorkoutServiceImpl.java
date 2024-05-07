@@ -5,7 +5,6 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import fontys.ind.business.WorkoutService;
-import fontys.ind.business.exception.EmailAlreadyExistsException;
 import fontys.ind.business.exception.InvalidWorkoutException;
 import fontys.ind.business.exception.TitleAlreadyExistsException;
 import fontys.ind.business.mappers.WorkoutMapper;
@@ -36,7 +35,6 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Transactional
     public CreateWorkoutResponse createWorkout(CreateWorkoutRequest request) {
         if (workoutRepository.existsByTitle(request.getTitle())) {
-            // TODO: make one general exception where you can add the text in the cases
             throw new TitleAlreadyExistsException();
         }
 
@@ -92,8 +90,6 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public GetWorkoutsResponse getTrainerWorkouts(Integer id) {
         TrainerEntity trainerEntity = TrainerEntity.builder().userId(id).build();
-//        Trainer Entity trainerEntity = trainerRepository.findById(Long.valueOf(id))
-//                .orElseThrow(() -> new NotFoundException("Trainer not found with ID: " + id));
 
         List<WorkoutEntity> workoutsEntity = workoutRepository.findAllByTrainer(trainerEntity);
         List<GetWorkoutResponse> workouts = workoutsEntity.stream()

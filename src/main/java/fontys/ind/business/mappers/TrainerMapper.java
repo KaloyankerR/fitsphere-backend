@@ -7,8 +7,6 @@ import fontys.ind.persistence.entity.TrainerEntity;
 
 @Mapper(componentModel = "spring")
 public interface TrainerMapper {
-    // TrainerMapper INSTANCE = Mappers.getMapper(TrainerMapper.class);
-
     @Mapping(target = "id", source = "entity.userId")
     @Mapping(target = "firstName", source = "entity.firstName")
     @Mapping(target = "lastName", source = "entity.lastName")

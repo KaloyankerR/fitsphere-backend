@@ -2,7 +2,6 @@ package fontys.ind.business.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import fontys.ind.business.UserService;
@@ -26,7 +25,6 @@ import fontys.ind.persistence.entity.UserEntity;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -55,9 +53,6 @@ public class UserServiceImpl implements UserService {
         } else {
             newUser = saveNewUser(request);
         }
-
-        // else if (request.getRole())
-        // UserEntity newUser = saveNewUser(request);
 
         return CreateUserResponse.builder()
                 .userId(Long.valueOf(newUser.getUserId()))
@@ -138,7 +133,7 @@ public class UserServiceImpl implements UserService {
 
         List<GetUserResponse> users = usersEntity.stream()
                 .map(userMapper::fromEntityToResponse)
-                .collect(Collectors.toList());
+                .toList();
 
         final GetAllUsersResponse response = new GetAllUsersResponse();
         response.setUsers(users);
@@ -152,7 +147,7 @@ public class UserServiceImpl implements UserService {
         List<TrainerEntity> trainersEntity = trainerRepository.findAll();
         List<GetTrainerResponse> trainers = trainersEntity.stream()
                 .map(trainerMapper::fromEntityToResponse)
-                .collect(Collectors.toList());
+                .toList();
 
         final GetAllTrainersResponse response = new GetAllTrainersResponse();
         response.setTrainers(trainers);

@@ -39,7 +39,7 @@ class UserControllerTest {
 
 
     @Test
-    public void getAllTrainersTest() throws Exception {
+    void getAllTrainersTest() throws Exception {
         GetAllTrainersResponse mockResponse = new GetAllTrainersResponse(
                 Arrays.asList(
                         GetTrainerResponse.builder()

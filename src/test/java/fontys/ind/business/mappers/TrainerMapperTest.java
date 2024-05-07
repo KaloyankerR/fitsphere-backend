@@ -9,17 +9,17 @@ import fontys.ind.persistence.entity.TrainerEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TrainerMapperTest {
+class TrainerMapperTest {
 
     private TrainerMapper mapper;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mapper = Mappers.getMapper(TrainerMapper.class);
     }
 
     @Test
-    public void testFromEntityToResponse() {
+    void testFromEntityToResponse() {
         // Setup
         TrainerEntity entity = new TrainerEntity();
         entity.setUserId(1);
@@ -48,7 +48,7 @@ public class TrainerMapperTest {
     }
 
     @Test
-    public void testFromResponseToEntity() {
+    void testFromResponseToEntity() {
         // Setup
         GetTrainerResponse response = new GetTrainerResponse();
         response.setId(1);

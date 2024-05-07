@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class LoginControllerTest {
+class LoginControllerTest {
 
     private MockMvc mockMvc;
 
@@ -28,13 +28,13 @@ public class LoginControllerTest {
     private LoginController loginController;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(loginController).build();
     }
 
     @Test
-    public void testSuccessfulLogin() throws Exception {
+    void testSuccessfulLogin() throws Exception {
         LoginRequest loginRequest = new LoginRequest("user@example.com", "password123");
         LoginResponse loginResponse = LoginResponse.builder().accessToken("access_token").build();
 
@@ -61,7 +61,7 @@ public class LoginControllerTest {
     // TODO: Uncomment when you are not testing the APIs (allowing all methods)
 
     @Test
-    public void testInvalidRequest() throws Exception {
+    void testInvalidRequest() throws Exception {
         mockMvc.perform(post("/tokens")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"email\":\"\", \"password\":\"\"}"))

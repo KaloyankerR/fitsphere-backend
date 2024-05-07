@@ -1,5 +1,5 @@
 variables:
-  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true"
 
 stages:
   - build
@@ -18,8 +18,7 @@ build:
 test:
   stage: test
   script:
-    - ./gradlew test
-    - ./gradlew jacocoTestReport
+    - ./gradlew test jacocoTestReport
   artifacts:
     paths:
       - build/customJacocoReportDir/test/jacocoTestReport.xml
@@ -27,12 +26,15 @@ test:
 
 build_image:
   stage: build_image
-#  image: docker:24.0.5
+  variables:
+    DOCKER_BUILDKIT: 1
   script:
-    - docker-compose build
+    - docker-compose build --no-cache
     - docker-compose up -d
 
 sonar:
   stage: sonar
   script:
-    - ./gradlew sonar test jacocoTestReport
+    - ./gradlew sonar
+  dependencies:
+    - test

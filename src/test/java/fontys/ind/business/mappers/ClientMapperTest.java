@@ -12,14 +12,15 @@ import fontys.ind.persistence.entity.ClientEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class ClientMapperTest {
+class ClientMapperTest {
 
     private ClientMapper mapper;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mapper = Mappers.getMapper(ClientMapper.class);
     }
+
     @Test
     void testFromRequestToEntity() {
         // Setup

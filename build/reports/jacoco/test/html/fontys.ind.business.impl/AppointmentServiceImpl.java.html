@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppointmentServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fitsphere-backend</a> &gt; <a href="index.source.html" class="el_package">fontys.ind.business.impl</a> &gt; <span class="el_source">AppointmentServiceImpl.java</span></div><h1>AppointmentServiceImpl.java</h1><pre class="source lang-java linenums">package fontys.ind.business.impl;
+
+import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import fontys.ind.business.AppointmentService;
+import fontys.ind.domain.request.appointment.CreateAppointmentRequest;
+import jakarta.transaction.Transactional;
+import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
+import fontys.ind.persistence.*;
+import fontys.ind.persistence.entity.*;
+
+import java.util.Optional;
+
+@Service
+<span class="fc" id="L16">@AllArgsConstructor</span>
+public class AppointmentServiceImpl implements AppointmentService {
+    private final TrainerRepository trainerRepository;
+    private final ClientRepository clientRepository;
+    private final WorkoutRepository workoutRepository;
+    private final AppointmentRepository appointmentRepository;
+    private static final String NOT_FOUND_SUFFIX = &quot; not found.&quot;;
+
+    @Override
+    @Transactional
+    public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
+<span class="fc" id="L27">        Optional&lt;TrainerEntity&gt; trainerEntityOptional = trainerRepository.findById(Long.valueOf(request.getTrainerId()));</span>
+<span class="fc" id="L28">        TrainerEntity trainerEntity = trainerEntityOptional.orElseThrow(() -&gt;</span>
+<span class="nc" id="L29">                new EntityNotFoundException(&quot;Trainer with ID &quot; + request.getTrainerId() + NOT_FOUND_SUFFIX));</span>
+
+<span class="fc" id="L31">        Optional&lt;ClientEntity&gt; clientEntityOptional = clientRepository.findById(Long.valueOf(request.getClientId()));</span>
+<span class="fc" id="L32">        ClientEntity clientEntity = clientEntityOptional.orElseThrow(() -&gt;</span>
+<span class="nc" id="L33">                new EntityNotFoundException(&quot;Client with ID &quot; + request.getClientId() + NOT_FOUND_SUFFIX));</span>
+
+<span class="fc" id="L35">        Optional&lt;WorkoutEntity&gt; workoutEntityOptional = workoutRepository.findById(request.getWorkoutId());</span>
+<span class="fc" id="L36">        WorkoutEntity workoutEntity = workoutEntityOptional.orElseThrow(() -&gt;</span>
+<span class="fc" id="L37">                new EntityNotFoundException(&quot;Workout with ID &quot; + request.getWorkoutId() + NOT_FOUND_SUFFIX));</span>
+
+<span class="fc" id="L39">        AppointmentEntity newAppointment = AppointmentEntity.builder()</span>
+<span class="fc" id="L40">                .startTime(request.getStartTime())</span>
+<span class="fc" id="L41">                .endTime(request.getEndTime())</span>
+<span class="fc" id="L42">                .workout(workoutEntity)</span>
+<span class="fc" id="L43">                .trainer(trainerEntity)</span>
+<span class="fc" id="L44">                .client(clientEntity)</span>
+<span class="fc" id="L45">                .build();</span>
+
+<span class="fc" id="L47">        AppointmentEntity savedAppointment = appointmentRepository.save(newAppointment);</span>
+
+<span class="fc" id="L49">        return CreateAppointmentResponse.builder()</span>
+<span class="fc" id="L50">                .id(savedAppointment.getId())</span>
+<span class="fc" id="L51">                .build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

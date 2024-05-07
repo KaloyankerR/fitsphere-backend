@@ -8,7 +8,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.3'
 }
 
-group = 's3.ind'
+group = 'fontys.ind'
 version = '1.0-SNAPSHOT'
 
 java {
@@ -48,9 +48,9 @@ sonar {
         property "sonar.host.url", "http://localhost:9000"
         property "sonar.token", "sqp_d06d805b2c2388d4dfc5dd731b3b128ebe92a40b"
         property "sonar.exclusions", [
-                "src/main/java/s3/ind/configuration/**",
-                "src/main/java/s3/ind/persistence/**",
-                "src/main/java/s3/ind/domain/**"
+                "src/main/java/fontys/ind/configuration/**",
+                "src/main/java/fontys/ind/persistence/**",
+                "src/main/java/fontys/ind/domain/**"
         ]
     }
 }

@@ -9,17 +9,17 @@ import fontys.ind.persistence.entity.UserEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UserMapperTest {
+class UserMapperTest {
 
     private UserMapper mapper;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mapper = Mappers.getMapper(UserMapper.class);
     }
 
     @Test
-    public void testFromEntityToResponse() {
+    void testFromEntityToResponse() {
         // Setup
         UserEntity entity = new UserEntity();
         entity.setUserId(1);
@@ -42,7 +42,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void testFromResponseToEntity() {
+    void testFromResponseToEntity() {
         // Setup
         GetUserResponse response = new GetUserResponse();
         response.setId(1);

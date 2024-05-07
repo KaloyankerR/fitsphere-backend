@@ -16,18 +16,19 @@ import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class WorkoutMapperTest {
+class WorkoutMapperTest {
     @InjectMocks
     private WorkoutMapper workoutMapper = Mappers.getMapper(WorkoutMapper.class);
+    @Mock
+    private TrainerMapper trainerMapper;
 
     @BeforeEach
-    public void setup() {
-//        // Setup mock behavior
+    void setup() {
+        // Setup mock behavior
 //        TrainerEntity trainer = new TrainerEntity();
 //        trainer.setUserId(101);
 //        trainer.setFirstName("John");
-//        trainer.setLastName("Doe");
-//
+//        trainer.setLastName("Doe");//
 //        GetTrainerResponse trainerResponse = new GetTrainerResponse();
 //        trainerResponse.setId(trainer.getUserId());
 //        trainerResponse.setFirstName(trainer.getFirstName());
@@ -37,26 +38,26 @@ public class WorkoutMapperTest {
     }
 
     @Test
-    public void testFromEntityToResponse() {
-//        // Setup
-//        WorkoutEntity entity = new WorkoutEntity();
-//        entity.setId(1);
-//        entity.setTitle("Morning Routine");
-//        entity.setDescription("A comprehensive morning workout.");
-//
-//        TrainerEntity trainer = new TrainerEntity();
-//        trainer.setUserId(101);
-//        trainer.setFirstName("John");
-//        trainer.setLastName("Doe");
-//        entity.setTrainer(trainer);
-//
-//        // Act
-//        GetWorkoutResponse response = workoutMapper.fromEntityToResponse(entity);
-//
-//        // Assert
-//        assertEquals(entity.getId(), response.getId());
-//        assertEquals(entity.getTitle(), response.getTitle());
-//        assertEquals(entity.getDescription(), response.getDescription());
-//        assertEquals(entity.getTrainer().getUserId(), response.getTrainer().getId());
+    void testFromEntityToResponse() {
+        // Setup
+        WorkoutEntity entity = new WorkoutEntity();
+        entity.setId(1);
+        entity.setTitle("Morning Routine");
+        entity.setDescription("A comprehensive morning workout.");
+
+        TrainerEntity trainer = new TrainerEntity();
+        trainer.setUserId(101);
+        trainer.setFirstName("John");
+        trainer.setLastName("Doe");
+        // entity.setTrainer(trainer);
+
+        // Act
+        GetWorkoutResponse response = workoutMapper.fromEntityToResponse(entity);
+
+        // Assert
+        assertEquals(entity.getId(), response.getId());
+        assertEquals(entity.getTitle(), response.getTitle());
+        assertEquals(entity.getDescription(), response.getDescription());
+        // assertEquals(entity.getTrainer().getUserId(), response.getTrainer().getId());
     }
 }

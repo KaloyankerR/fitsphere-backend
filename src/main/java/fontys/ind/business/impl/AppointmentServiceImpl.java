@@ -19,24 +19,22 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final ClientRepository clientRepository;
     private final WorkoutRepository workoutRepository;
     private final AppointmentRepository appointmentRepository;
+    private static final String NOT_FOUND_SUFFIX = " not found.";
 
     @Override
     @Transactional
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
-        // Validate inputs
-        // validateAppointmentRequest(request);
-
         Optional<TrainerEntity> trainerEntityOptional = trainerRepository.findById(Long.valueOf(request.getTrainerId()));
         TrainerEntity trainerEntity = trainerEntityOptional.orElseThrow(() ->
-                new EntityNotFoundException("Trainer with ID " + request.getTrainerId() + " not found."));
+                new EntityNotFoundException("Trainer with ID " + request.getTrainerId() + NOT_FOUND_SUFFIX));
 
         Optional<ClientEntity> clientEntityOptional = clientRepository.findById(Long.valueOf(request.getClientId()));
         ClientEntity clientEntity = clientEntityOptional.orElseThrow(() ->
-                new EntityNotFoundException("Client with ID " + request.getClientId() + " not found."));
+                new EntityNotFoundException("Client with ID " + request.getClientId() + NOT_FOUND_SUFFIX));
 
         Optional<WorkoutEntity> workoutEntityOptional = workoutRepository.findById(request.getWorkoutId());
         WorkoutEntity workoutEntity = workoutEntityOptional.orElseThrow(() ->
-                new EntityNotFoundException("Workout with ID " + request.getWorkoutId() + " not found."));
+                new EntityNotFoundException("Workout with ID " + request.getWorkoutId() + NOT_FOUND_SUFFIX));
 
         AppointmentEntity newAppointment = AppointmentEntity.builder()
                 .startTime(request.getStartTime())
