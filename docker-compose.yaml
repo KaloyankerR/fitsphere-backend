@@ -12,10 +12,10 @@ services:
     image: mysql:8.0.37
     container_name: fitsphere-database
     environment:
-      - MYSQL_DATABASE=fitsphere
-      - MYSQL_PASSWORD=rihanna2912
-      - MYSQL_ROOT_PASSWORD=rihanna2912
-      - SPRING_DATASOURCE_URL=jdbc:mysql://fitsphere-database:3306/database?autoReconnect=true&useSSL=false
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - SPRING_DATASOURCE_URL=${DB_DATASOURCE_URL}
     ports:
       - 3307:3306
 
@@ -37,9 +37,9 @@ services:
     ports:
       - 8080:8080
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/fitsphere
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=rihanna2912
+      - SPRING_DATASOURCE_URL=${DB_URL}
+      - SPRING_DATASOURCE_USERNAME=${DB_USER}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
     networks:
       - my_network
     depends_on:
