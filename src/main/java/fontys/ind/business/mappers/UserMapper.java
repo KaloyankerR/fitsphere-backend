@@ -15,7 +15,7 @@ public interface UserMapper {
     @Mapping(target = "role", source = "entity.role")
     GetUserResponse fromEntityToResponse(UserEntity entity);
 
-    @Mapping(target = "userId", source = "response.id")
+    @Mapping(target = "userId", ignore = true)
     @Mapping(target = "firstName", source = "response.firstName")
     @Mapping(target = "lastName", source = "response.lastName")
     @Mapping(target = "email", source = "response.email")

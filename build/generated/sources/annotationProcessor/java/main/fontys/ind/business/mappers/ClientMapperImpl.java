@@ -2,13 +2,18 @@ package fontys.ind.business.mappers;
 
 import fontys.ind.domain.RoleEnum;
 import fontys.ind.domain.request.user.CreateUserRequest;
+import fontys.ind.domain.response.appointment.GetAppointmentResponse;
+import fontys.ind.domain.response.user.GetClientResponse;
+import fontys.ind.persistence.entity.AppointmentEntity;
 import fontys.ind.persistence.entity.ClientEntity;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-07T10:43:20+0200",
+    date = "2024-05-09T13:35:55+0200",
     comments = "version: 1.5.0.Beta2, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.4.jar, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
@@ -31,5 +36,51 @@ public class ClientMapperImpl implements ClientMapper {
         }
 
         return clientEntity.build();
+    }
+
+    @Override
+    public GetClientResponse fromEntityToResponse(ClientEntity entity) {
+        if ( entity == null ) {
+            return null;
+        }
+
+        GetClientResponse.GetClientResponseBuilder<?, ?> getClientResponse = GetClientResponse.builder();
+
+        getClientResponse.id( entity.getUserId() );
+        getClientResponse.firstName( entity.getFirstName() );
+        getClientResponse.lastName( entity.getLastName() );
+        getClientResponse.email( entity.getEmail() );
+        getClientResponse.password( entity.getPassword() );
+        getClientResponse.role( entity.getRole() );
+        getClientResponse.appointmentList( appointmentEntityListToGetAppointmentResponseList( entity.getAppointments() ) );
+
+        return getClientResponse.build();
+    }
+
+    protected GetAppointmentResponse appointmentEntityToGetAppointmentResponse(AppointmentEntity appointmentEntity) {
+        if ( appointmentEntity == null ) {
+            return null;
+        }
+
+        GetAppointmentResponse.GetAppointmentResponseBuilder getAppointmentResponse = GetAppointmentResponse.builder();
+
+        getAppointmentResponse.id( appointmentEntity.getId() );
+        getAppointmentResponse.startTime( appointmentEntity.getStartTime() );
+        getAppointmentResponse.endTime( appointmentEntity.getEndTime() );
+
+        return getAppointmentResponse.build();
+    }
+
+    protected List<GetAppointmentResponse> appointmentEntityListToGetAppointmentResponseList(List<AppointmentEntity> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<GetAppointmentResponse> list1 = new ArrayList<GetAppointmentResponse>( list.size() );
+        for ( AppointmentEntity appointmentEntity : list ) {
+            list1.add( appointmentEntityToGetAppointmentResponse( appointmentEntity ) );
+        }
+
+        return list1;
     }
 }

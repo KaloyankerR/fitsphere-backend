@@ -16,6 +16,7 @@ public interface TrainerMapper {
     @Mapping(target = "bio", source = "entity.bio")
     @Mapping(target = "igLink", source = "entity.igLink")
     @Mapping(target = "image", source = "entity.profileImageUrl")
+    @Mapping(target = "appointmentList", source = "entity.appointments")
     GetTrainerResponse fromEntityToResponse(TrainerEntity entity);
 
     @Mapping(target = "userId", source = "response.id")

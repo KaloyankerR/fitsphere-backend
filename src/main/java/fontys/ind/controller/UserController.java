@@ -1,5 +1,7 @@
 package fontys.ind.controller;
 
+import fontys.ind.business.exception.InvalidUserException;
+import fontys.ind.domain.response.ApiWrapperResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,9 +32,19 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<GetAllUsersResponse> getAllUsers() {
-
         return ResponseEntity.ok((userService.getAllUsers()));
     }
+
+    @GetMapping("/role/{role}")
+    public ResponseEntity<?> getUsersByRole(@PathVariable String role) {
+        try {
+            ApiWrapperResponse response = userService.getUsersByRole(role);
+            return ResponseEntity.ok(response);
+        } catch (InvalidUserException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 
     @GetMapping("{id}")
     public ResponseEntity<GetUserResponse> getUser(@PathVariable(value = "id") final Integer id) {

@@ -1,16 +1,16 @@
 package fontys.ind.domain.response.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import fontys.ind.domain.response.ApiWrapperResponse;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAllUsersResponse {
+@EqualsAndHashCode(callSuper = true)
+public class GetAllUsersResponse extends ApiWrapperResponse {
     private List<GetUserResponse> users;
 }

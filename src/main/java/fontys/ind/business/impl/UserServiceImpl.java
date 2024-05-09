@@ -1,5 +1,6 @@
 package fontys.ind.business.impl;
 
+import fontys.ind.domain.response.ApiWrapperResponse;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,12 +31,16 @@ import java.util.Optional;
 @AllArgsConstructor
 @Transactional
 public class UserServiceImpl implements UserService {
+    // Repositories
     private final UserRepository userRepository;
     private final TrainerRepository trainerRepository;
     private final ClientRepository clientRepository;
+    // Mapper
     private final UserMapper userMapper;
     private final TrainerMapper trainerMapper;
     private final ClientMapper clientMapper;
+    // private final AppointmentMapper appointmentMapper;
+
     private final PasswordEncoder passwordEncoder;
 
     // CREATE
@@ -122,11 +127,45 @@ public class UserServiceImpl implements UserService {
 
     // GET
     @Override
+    @Transactional
     public Optional<GetUserResponse> getUserById(Integer id) {
+        UserEntity userEntity = userRepository.getUserEntityByUserId(id);
+
+        if (userEntity != null) {
+            return switch (userEntity.getRole()) {
+                case TRAINER -> {
+                    Optional<TrainerEntity> trainerEntity = trainerRepository.findById(Long.valueOf(id));
+                    yield trainerEntity.map(trainerMapper::fromEntityToResponse);
+                }
+                case ADMIN ->
+                    // Optional<AdminEntity> adminEntity = admin TODO: finish
+                        Optional.ofNullable(userMapper.fromEntityToResponse(userRepository.getUserEntityByUserId(id)));
+                        // yield Optional.ofNullable(userMapper.fromEntityToResponse(userEntity));
+                case CLIENT -> {
+                    Optional<ClientEntity> clientEntity = clientRepository.findById(Long.valueOf(id));
+                    yield clientEntity.map(clientMapper::fromEntityToResponse);
+                }
+            };
+        }
+
         return Optional.ofNullable(userMapper.fromEntityToResponse(userRepository.getUserEntityByUserId(id)));
     }
 
     // GET ALL
+    @Override
+    public ApiWrapperResponse getUsersByRole(String role) {
+        return switch (role.toUpperCase()) {
+            case "ADMIN" ->
+                // TODO: create getAllAdmins()
+                    getAllUsers();
+            case "CLIENT" ->
+                // TODO: create getAllClients()
+                    getAllUsers();
+            case "TRAINER" -> getAllTrainers();
+            default -> throw new InvalidUserException("Invalid role!");
+        };
+    }
+
     @Override
     public GetAllUsersResponse getAllUsers() {
         List<UserEntity> usersEntity = userRepository.findAll();
@@ -137,7 +176,6 @@ public class UserServiceImpl implements UserService {
 
         final GetAllUsersResponse response = new GetAllUsersResponse();
         response.setUsers(users);
-
         return response;
     }
 
@@ -151,7 +189,6 @@ public class UserServiceImpl implements UserService {
 
         final GetAllTrainersResponse response = new GetAllTrainersResponse();
         response.setTrainers(trainers);
-
         return response;
     }
 

@@ -3,6 +3,7 @@ package fontys.ind.business;
 import fontys.ind.domain.request.user.CreateTrainerRequest;
 import fontys.ind.domain.request.user.CreateUserRequest;
 import fontys.ind.domain.request.user.UpdateUserRequest;
+import fontys.ind.domain.response.ApiWrapperResponse;
 import fontys.ind.domain.response.user.CreateUserResponse;
 import fontys.ind.domain.response.user.GetAllUsersResponse;
 import fontys.ind.domain.response.user.GetAllTrainersResponse;
@@ -20,6 +21,8 @@ public interface UserService {
 
     GetAllUsersResponse getAllUsers();
     GetAllTrainersResponse getAllTrainers();
+
+    ApiWrapperResponse getUsersByRole(String role);
 
     void updateUser(UpdateUserRequest request);
 }

@@ -1,10 +1,13 @@
 package fontys.ind.domain.response.user;
 
+import fontys.ind.domain.response.appointment.GetAppointmentResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @Data
 @SuperBuilder
@@ -15,4 +18,5 @@ public class GetTrainerResponse extends GetUserResponse {
     private String bio;
     private String igLink;
     private String image;
+    private List<GetAppointmentResponse> appointmentList;
 }

@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="appointments")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+// @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppointmentEntity {
+public class dAppointmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -31,17 +31,17 @@ public class AppointmentEntity {
     private LocalDateTime endTime;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "workout_id")
     private WorkoutEntity workout;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "trainer_id")
     private TrainerEntity trainer;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private ClientEntity client;
 }

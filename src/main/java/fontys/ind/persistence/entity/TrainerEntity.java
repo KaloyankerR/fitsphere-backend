@@ -2,14 +2,16 @@ package fontys.ind.persistence.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Getter
-@Setter
+@Data
 @SuperBuilder
 @NoArgsConstructor
 @Table(name = "trainers")
@@ -25,4 +27,10 @@ public class TrainerEntity extends UserEntity {
 
     @Column(name = "profile_image_link")
     private String profileImageUrl;
+
+    @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AppointmentEntity> appointments;
+//    @ElementCollection
+//    @CollectionTable(name = "trainer_appointments", joinColumns = @JoinColumn(name = "trainer_id"))
+//    private List<AppointmentEntity> appointments;
 }
