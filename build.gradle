@@ -15,12 +15,6 @@ java {
     sourceCompatibility = '17'
 }
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
 repositories {
     mavenCentral()
 }
@@ -33,12 +27,10 @@ jacocoTestReport {
 }
 
 flyway {
-    url = 'jdbc:mysql://localhost:3306/fitsphere'
-    user = 'root'
-    password = 'rihanna2912'
+    url = "jdbc:mysql://localhost:3306/fitsphere"
+    user = "root"
+    password = "rihanna2912"
     driver = 'com.mysql.cj.jdbc.Driver'
-    baselineOnMigrate = false
-    // driver = 'com.mysql.jdbc.Driver'
 }
 
 sonar {
@@ -46,7 +38,7 @@ sonar {
         property "sonar.projectKey", "FitSphere"
         property "sonar.organization", "Fontys"
         property "sonar.host.url", "http://localhost:9000"
-        property "sonar.token", "sqp_d06d805b2c2388d4dfc5dd731b3b128ebe92a40b"
+        property "sonar.token", System.getenv('SONAR_TOKEN')
         property "sonar.exclusions", [
                 "src/main/java/fontys/ind/configuration/**",
                 "src/main/java/fontys/ind/persistence/**",
@@ -55,10 +47,8 @@ sonar {
     }
 }
 
-// Dependencies
 dependencies {
     // Spring Boot
-    implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -76,8 +66,9 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.flywaydb:flyway-mysql'
 
-    // H2 Database
+    // Database
     runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.28'
 
     // MapStruct
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
@@ -89,17 +80,10 @@ dependencies {
     // Guava
     implementation 'com.google.guava:guava:23.0'
 
-    // MySQL Connector
-    implementation 'mysql:mysql-connector-java:8.0.28'
-    // implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
-    runtimeOnly 'mysql:mysql-connector-java'
-    // TODO: Remove the version
-
     // JJWT (JSON Web Token)
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-    // implementation 'io.jsonwebtoken:jjwt:0.2'
 
     // Springdoc OpenAPI
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
@@ -108,10 +92,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mockito:mockito-core'
     testImplementation 'org.mockito:mockito-junit-jupiter'
-
-    // Mappers
-    implementation 'org.mapstruct:mapstruct:1.5.0.Beta2'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.0.Beta2'
 }
 
 test {

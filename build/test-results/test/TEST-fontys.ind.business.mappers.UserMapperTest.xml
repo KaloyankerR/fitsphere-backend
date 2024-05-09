@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.business.mappers.UserMapperTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-08T11:58:32" hostname="DESKTOP-88OFGPG" time="0.006">
+<testsuite name="fontys.ind.business.mappers.UserMapperTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-09T14:07:24" hostname="DESKTOP-88OFGPG" time="0.005">
   <properties/>
   <testcase name="testFromResponseToEntity()" classname="fontys.ind.business.mappers.UserMapperTest" time="0.003"/>
   <testcase name="testFromEntityToResponse()" classname="fontys.ind.business.mappers.UserMapperTest" time="0.001"/>

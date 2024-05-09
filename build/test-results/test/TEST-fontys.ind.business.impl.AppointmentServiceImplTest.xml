@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.business.impl.AppointmentServiceImplTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-08T11:58:28" hostname="DESKTOP-88OFGPG" time="2.991">
+<testsuite name="fontys.ind.business.impl.AppointmentServiceImplTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-09T14:07:21" hostname="DESKTOP-88OFGPG" time="2.548">
   <properties/>
-  <testcase name="createAppointment_WorkoutNotFound_ThrowsEntityNotFoundException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="2.944"/>
-  <testcase name="createAppointment_Successful()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.044"/>
+  <testcase name="createAppointment_WorkoutNotFound_ThrowsEntityNotFoundException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="2.51"/>
+  <testcase name="createAppointment_Successful()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.036"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
