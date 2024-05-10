@@ -1,5 +1,8 @@
 package fontys.ind.business.impl;
 
+import fontys.ind.business.mappers.AppointmentMapper;
+import fontys.ind.domain.response.appointment.GetAllAppointmentsResponse;
+import fontys.ind.domain.response.appointment.GetAppointmentResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,6 +13,7 @@ import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
 import fontys.ind.persistence.*;
 import fontys.ind.persistence.entity.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +23,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final ClientRepository clientRepository;
     private final WorkoutRepository workoutRepository;
     private final AppointmentRepository appointmentRepository;
+    private final AppointmentMapper appointmentMapper;
     private static final String NOT_FOUND_SUFFIX = " not found.";
 
     @Override
@@ -50,4 +55,19 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .id(savedAppointment.getId())
                 .build();
     }
+
+    @Override
+    public GetAllAppointmentsResponse getAllAppointments() {
+        List<AppointmentEntity> appointmentEntityList = appointmentRepository.findAll();
+
+        List<GetAppointmentResponse> appointments = appointmentEntityList.stream()
+                .map(appointmentMapper::fromEntityToResponse)
+                .toList();
+
+        final GetAllAppointmentsResponse response = new GetAllAppointmentsResponse();
+        response.setAppointments(appointments);
+        return response;
+    }
+
+
 }

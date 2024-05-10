@@ -16,6 +16,7 @@ public class GetAppointmentResponse {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Integer workoutId;
+    private String workoutTitle;
     private Integer trainerId;
     private Integer clientId;
 }

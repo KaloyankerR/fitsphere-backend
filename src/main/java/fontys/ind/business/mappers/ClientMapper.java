@@ -6,7 +6,7 @@ import org.mapstruct.Mapping;
 import fontys.ind.domain.request.user.CreateUserRequest;
 import fontys.ind.persistence.entity.ClientEntity;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = AppointmentMapper.class)
 public interface ClientMapper {
     @Mapping(target = "firstName", source = "firstName")
     @Mapping(target = "lastName", source = "lastName")

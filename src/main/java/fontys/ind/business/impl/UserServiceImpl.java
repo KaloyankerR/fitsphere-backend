@@ -139,8 +139,7 @@ public class UserServiceImpl implements UserService {
                 }
                 case ADMIN ->
                     // Optional<AdminEntity> adminEntity = admin TODO: finish
-                        Optional.ofNullable(userMapper.fromEntityToResponse(userRepository.getUserEntityByUserId(id)));
-                        // yield Optional.ofNullable(userMapper.fromEntityToResponse(userEntity));
+                    Optional.ofNullable(userMapper.fromEntityToResponse(userRepository.getUserEntityByUserId(id)));
                 case CLIENT -> {
                     Optional<ClientEntity> clientEntity = clientRepository.findById(Long.valueOf(id));
                     yield clientEntity.map(clientMapper::fromEntityToResponse);
@@ -153,6 +152,7 @@ public class UserServiceImpl implements UserService {
 
     // GET ALL
     @Override
+    @Transactional
     public ApiWrapperResponse getUsersByRole(String role) {
         return switch (role.toUpperCase()) {
             case "ADMIN" ->

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -30,7 +31,4 @@ public class TrainerEntity extends UserEntity {
 
     @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AppointmentEntity> appointments;
-//    @ElementCollection
-//    @CollectionTable(name = "trainer_appointments", joinColumns = @JoinColumn(name = "trainer_id"))
-//    private List<AppointmentEntity> appointments;
 }

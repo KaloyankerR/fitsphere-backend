@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-09T16:07:16+0200",
+    date = "2024-05-10T20:26:57+0200",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.4.jar, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
@@ -24,12 +24,13 @@ public class AppointmentMapperImpl implements AppointmentMapper {
 
         GetAppointmentResponse.GetAppointmentResponseBuilder getAppointmentResponse = GetAppointmentResponse.builder();
 
-        getAppointmentResponse.workoutId( entityWorkoutId( entity ) );
-        getAppointmentResponse.trainerId( entityTrainerUserId( entity ) );
-        getAppointmentResponse.clientId( entityClientUserId( entity ) );
         getAppointmentResponse.id( entity.getId() );
         getAppointmentResponse.startTime( entity.getStartTime() );
         getAppointmentResponse.endTime( entity.getEndTime() );
+        getAppointmentResponse.workoutId( entityWorkoutId( entity ) );
+        getAppointmentResponse.workoutTitle( entityWorkoutTitle( entity ) );
+        getAppointmentResponse.trainerId( entityTrainerUserId( entity ) );
+        getAppointmentResponse.clientId( entityClientUserId( entity ) );
 
         return getAppointmentResponse.build();
     }
@@ -47,6 +48,21 @@ public class AppointmentMapperImpl implements AppointmentMapper {
             return null;
         }
         return id;
+    }
+
+    private String entityWorkoutTitle(AppointmentEntity appointmentEntity) {
+        if ( appointmentEntity == null ) {
+            return null;
+        }
+        WorkoutEntity workout = appointmentEntity.getWorkout();
+        if ( workout == null ) {
+            return null;
+        }
+        String title = workout.getTitle();
+        if ( title == null ) {
+            return null;
+        }
+        return title;
     }
 
     private Integer entityTrainerUserId(AppointmentEntity appointmentEntity) {

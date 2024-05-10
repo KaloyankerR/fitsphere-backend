@@ -74,6 +74,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
+    @Transactional
     public GetWorkoutsResponse getAllWorkouts() {
         List<WorkoutEntity> workoutsEntity = workoutRepository.findAll();
 

@@ -1,5 +1,7 @@
 package fontys.ind.controller;
 
+import fontys.ind.domain.response.appointment.GetAllAppointmentsResponse;
+import fontys.ind.domain.response.user.GetAllUsersResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,4 +23,10 @@ public class AppointmentController {
         CreateAppointmentResponse response = appointmentService.createAppointment(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @GetMapping
+    public ResponseEntity<GetAllAppointmentsResponse> getAllAppointments() {
+        return ResponseEntity.ok((appointmentService.getAllAppointments()));
+    }
+
 }

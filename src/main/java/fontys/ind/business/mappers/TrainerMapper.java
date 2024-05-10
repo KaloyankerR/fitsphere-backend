@@ -5,7 +5,7 @@ import org.mapstruct.Mapping;
 import fontys.ind.domain.response.user.GetTrainerResponse;
 import fontys.ind.persistence.entity.TrainerEntity;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = AppointmentMapper.class)
 public interface TrainerMapper {
     @Mapping(target = "id", source = "entity.userId")
     @Mapping(target = "firstName", source = "entity.firstName")
@@ -16,7 +16,7 @@ public interface TrainerMapper {
     @Mapping(target = "bio", source = "entity.bio")
     @Mapping(target = "igLink", source = "entity.igLink")
     @Mapping(target = "image", source = "entity.profileImageUrl")
-    @Mapping(target = "appointmentList", source = "entity.appointments")
+    @Mapping(target = "appointmentList", source = "appointments")
     GetTrainerResponse fromEntityToResponse(TrainerEntity entity);
 
     @Mapping(target = "userId", source = "response.id")
