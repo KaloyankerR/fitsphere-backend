@@ -41,7 +41,8 @@ public class WorkoutController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteWorkout(@PathVariable Integer id) {
-        return null;
+        workoutService.deleteWorkout(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

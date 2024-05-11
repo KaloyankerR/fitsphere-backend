@@ -1,6 +1,7 @@
 package fontys.ind.business.impl;
 
 import fontys.ind.business.mappers.AppointmentMapper;
+import fontys.ind.domain.request.appointment.UpdateAppointmentRequest;
 import fontys.ind.domain.response.appointment.GetAllAppointmentsResponse;
 import fontys.ind.domain.response.appointment.GetAppointmentResponse;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,6 +14,7 @@ import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
 import fontys.ind.persistence.*;
 import fontys.ind.persistence.entity.*;
 
+import java.io.InvalidClassException;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,6 +59,33 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    @Transactional
+    public void updateAppointment(UpdateAppointmentRequest request) throws InvalidClassException {
+        Optional<AppointmentEntity> appointmentEntityOptional = appointmentRepository.findById(request.getId());
+
+        if (appointmentEntityOptional.isEmpty()) {
+            // TODO: change to a more detail exception
+            throw new InvalidClassException("Invalid id for appointment.");
+        }
+
+        AppointmentEntity appointmentEntity = appointmentEntityOptional.get();
+        updateFields(request, appointmentEntity);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAppointment(Integer id) {
+        appointmentRepository.deleteById(id);
+    }
+
+    private void updateFields(UpdateAppointmentRequest request, AppointmentEntity entity){
+        entity.setStartTime(request.getStartTime());
+        entity.setEndTime(request.getEndTime());
+
+        appointmentRepository.save(entity);
+    }
+
+    @Override
     public GetAllAppointmentsResponse getAllAppointments() {
         List<AppointmentEntity> appointmentEntityList = appointmentRepository.findAll();
 
@@ -68,6 +97,5 @@ public class AppointmentServiceImpl implements AppointmentService {
         response.setAppointments(appointments);
         return response;
     }
-
 
 }

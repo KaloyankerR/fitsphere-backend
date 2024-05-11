@@ -6,6 +6,5 @@ import fontys.ind.persistence.entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity getUserEntityByUserId(Integer userId);
     UserEntity findByEmail(String email);
-    boolean existsByUserId(Integer userId);
     boolean existsByEmail(String email);
 }
