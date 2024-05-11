@@ -89,6 +89,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
+    @Transactional
     public GetWorkoutsResponse getTrainerWorkouts(Integer id) {
         TrainerEntity trainerEntity = TrainerEntity.builder().userId(id).build();
 

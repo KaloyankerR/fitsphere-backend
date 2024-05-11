@@ -46,7 +46,6 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/workouts/trainer/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users", "/tokens", "/users/trainer", "workouts").permitAll()
                                 .requestMatchers(HttpMethod.DELETE).permitAll()
-                                .requestMatchers(HttpMethod.PUT).permitAll()
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()                        // Swagger is also public (In "real life" it would only be public in non-production environments)
                                 .anyRequest().authenticated()                                             // Everything else --> authentication required, which is Spring security's default behaviour
                 )
@@ -60,7 +59,11 @@ public class WebSecurityConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:5173");
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:5173")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }
