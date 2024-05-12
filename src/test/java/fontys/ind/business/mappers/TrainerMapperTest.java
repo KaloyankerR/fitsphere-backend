@@ -30,7 +30,6 @@ class TrainerMapperTest {
         entity.setRole(RoleEnum.TRAINER);
         entity.setBio("Experienced fitness trainer");
         entity.setIgLink("https://instagram.com/johndoe");
-        entity.setProfileImageUrl("http://example.com/image.jpg");
 
         // Act
         GetTrainerResponse response = mapper.fromEntityToResponse(entity);
@@ -44,7 +43,6 @@ class TrainerMapperTest {
         assertEquals(entity.getRole(), response.getRole());
         assertEquals(entity.getBio(), response.getBio());
         assertEquals(entity.getIgLink(), response.getIgLink());
-        assertEquals(entity.getProfileImageUrl(), response.getImage());
     }
 
     @Test
@@ -59,7 +57,6 @@ class TrainerMapperTest {
         response.setRole(RoleEnum.TRAINER);
         response.setBio("Experienced fitness trainer");
         response.setIgLink("https://instagram.com/johndoe");
-        response.setImage("http://example.com/image.jpg");
 
         // Act
         TrainerEntity entity = mapper.fromResponseToEntity(response);
@@ -73,6 +70,5 @@ class TrainerMapperTest {
         assertEquals(response.getRole(), entity.getRole());
         assertEquals(response.getBio(), entity.getBio());
         assertEquals(response.getIgLink(), entity.getIgLink());
-        assertEquals(response.getImage(), entity.getProfileImageUrl());
     }
 }

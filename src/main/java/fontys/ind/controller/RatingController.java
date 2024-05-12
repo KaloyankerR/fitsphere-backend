@@ -2,11 +2,8 @@ package fontys.ind.controller;
 
 import fontys.ind.business.RatingService;
 import fontys.ind.domain.request.rating.CreateRatingRequest;
-import fontys.ind.domain.request.workout.CreateWorkoutRequest;
 import fontys.ind.domain.response.rating.CreateRatingResponse;
 import fontys.ind.domain.response.rating.GetRatingsResponse;
-import fontys.ind.domain.response.workout.CreateWorkoutResponse;
-import fontys.ind.domain.response.workout.GetWorkoutResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
