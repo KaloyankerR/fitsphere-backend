@@ -32,18 +32,6 @@ build_image:
     - docker-compose build --no-cache
     - docker-compose up -d
 
-    # Login to Docker Hub
-    - echo "}A7g-BCi-YLwr]]" | docker login -u "kaloyankerr" --password-stdin
-
-    # Tag and push the Docker image to Docker Hub
-    # Assuming `web` is the name of the service in your docker-compose.yml
-    - docker tag fitsphere-backend:latest kaloyankerr/fitsphere-backend:latest
-
-    - docker push kaloyankerr/fitsphere-backend:latest
-  only:
-    - master
-
-
 sonar:
   stage: sonar
   script:
