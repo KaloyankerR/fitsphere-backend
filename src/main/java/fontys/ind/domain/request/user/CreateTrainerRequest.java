@@ -13,6 +13,4 @@ public class CreateTrainerRequest extends CreateUserRequest {
     private String bio;
 
     private String igLink;
-
-    private String profileImageUrl;
 }

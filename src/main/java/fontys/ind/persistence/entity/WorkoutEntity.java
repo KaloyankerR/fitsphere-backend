@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class WorkoutEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

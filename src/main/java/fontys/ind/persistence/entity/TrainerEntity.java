@@ -5,17 +5,16 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @SuperBuilder
 @NoArgsConstructor
 @Table(name = "trainers")
+@EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(name = "user_id")
 public class TrainerEntity extends UserEntity {
     @Lob
@@ -25,9 +24,6 @@ public class TrainerEntity extends UserEntity {
 
     @Column(name = "ig_link")
     private String igLink;
-
-    @Column(name = "profile_image_link")
-    private String profileImageUrl;
 
     @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AppointmentEntity> appointments;

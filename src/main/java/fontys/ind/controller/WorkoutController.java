@@ -1,5 +1,6 @@
 package fontys.ind.controller;
 
+import fontys.ind.domain.request.workout.UpdateWorkoutRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,14 @@ public class WorkoutController {
         CreateWorkoutResponse response = workoutService.createWorkout(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Void> updateWorkout(@PathVariable("id") Integer id, @RequestBody @Valid UpdateWorkoutRequest request){
+        request.setId(id);
+        workoutService.updateWorkout(request);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteWorkout(@PathVariable Integer id) {

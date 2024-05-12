@@ -17,6 +17,5 @@ import java.util.List;
 public class GetTrainerResponse extends GetUserResponse {
     private String bio;
     private String igLink;
-    private String image;
     private List<GetAppointmentResponse> appointmentList;
 }

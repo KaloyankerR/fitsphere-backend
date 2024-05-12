@@ -112,7 +112,6 @@ public class UserServiceImpl implements UserService {
                 .role(RoleEnum.valueOf(request.getRole()))
                 .bio(request.getBio())
                 .igLink(request.getIgLink())
-                .profileImageUrl(request.getProfileImageUrl())
                 .build();
 
         return userRepository.save(newTrainer);

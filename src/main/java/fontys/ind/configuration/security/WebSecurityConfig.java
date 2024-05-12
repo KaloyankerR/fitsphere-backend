@@ -15,9 +15,9 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import fontys.ind.configuration.security.auth.AuthenticationRequestFilter;
 
+@Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(jsr250Enabled = true)
-@Configuration
 public class WebSecurityConfig {
 
     private static final String[] SWAGGER_UI_RESOURCES = {
@@ -41,10 +41,13 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/appointments").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/workouts").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users/trainers").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/ratings/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/ratings").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/users/role/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/appointments").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/workouts/trainer/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users", "/tokens", "/users/trainer", "workouts").permitAll()
+                                .requestMatchers(HttpMethod.PUT).permitAll()
                                 .requestMatchers(HttpMethod.DELETE).permitAll()
                                 .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()                        // Swagger is also public (In "real life" it would only be public in non-production environments)
                                 .anyRequest().authenticated()                                             // Everything else --> authentication required, which is Spring security's default behaviour
@@ -52,6 +55,8 @@ public class WebSecurityConfig {
                 .exceptionHandling(configure -> configure.authenticationEntryPoint(authenticationEntryPoint))
                 .addFilterBefore(authenticationRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
+
+        // TODO: add .hasRole or .hasAuthority
     }
 
     @Bean

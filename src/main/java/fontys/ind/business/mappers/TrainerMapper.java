@@ -15,7 +15,6 @@ public interface TrainerMapper {
     @Mapping(target = "role", source = "entity.role")
     @Mapping(target = "bio", source = "entity.bio")
     @Mapping(target = "igLink", source = "entity.igLink")
-    @Mapping(target = "image", source = "entity.profileImageUrl")
     @Mapping(target = "appointmentList", source = "appointments")
     GetTrainerResponse fromEntityToResponse(TrainerEntity entity);
 
@@ -26,8 +25,6 @@ public interface TrainerMapper {
     @Mapping(target = "password", source = "response.password")
     @Mapping(target = "role", source = "response.role")
     @Mapping(target = "bio", source = "response.bio")
-    @Mapping(target = "igLink", source = "response.igLink")
-    @Mapping(target = "profileImageUrl", source = "response.image")
     TrainerEntity fromResponseToEntity(GetTrainerResponse response);
 
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-10T20:27:49+0200",
+    date = "2024-05-12T19:34:33+0200",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.4.jar, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
@@ -37,7 +37,6 @@ public class TrainerMapperImpl implements TrainerMapper {
         getTrainerResponse.role( entity.getRole() );
         getTrainerResponse.bio( entity.getBio() );
         getTrainerResponse.igLink( entity.getIgLink() );
-        getTrainerResponse.image( entity.getProfileImageUrl() );
         getTrainerResponse.appointmentList( appointmentEntityListToGetAppointmentResponseList( entity.getAppointments() ) );
 
         return getTrainerResponse.build();
@@ -59,7 +58,6 @@ public class TrainerMapperImpl implements TrainerMapper {
         trainerEntity.role( response.getRole() );
         trainerEntity.bio( response.getBio() );
         trainerEntity.igLink( response.getIgLink() );
-        trainerEntity.profileImageUrl( response.getImage() );
 
         return trainerEntity.build();
     }

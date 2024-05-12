@@ -25,7 +25,6 @@ CREATE TABLE `trainers`
     user_id            INT  NOT NULL PRIMARY KEY,
     bio                TEXT NOT NULL,
     ig_link            VARCHAR(255),
-    profile_image_link VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
@@ -50,4 +49,16 @@ CREATE TABLE `appointments`
     FOREIGN KEY (trainer_id) REFERENCES trainers (user_id),
     FOREIGN KEY (client_id) REFERENCES clients (user_id)
 );
+
+CREATE TABLE `ratings`
+(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    comment TEXT,
+    trainer_id INT NOT NULL,
+    client_id INT NOT NULL,
+    FOREIGN KEY (trainer_id) REFERENCES trainers (user_id),
+    FOREIGN KEY (client_id) REFERENCES clients (user_id)
+);
+
 

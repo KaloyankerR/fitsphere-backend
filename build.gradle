@@ -31,6 +31,7 @@ flyway {
     user = 'root'
     password = 'rihanna2912'
     driver = 'com.mysql.cj.jdbc.Driver'
+    connectRetries = 10
 }
 
 sonar {
