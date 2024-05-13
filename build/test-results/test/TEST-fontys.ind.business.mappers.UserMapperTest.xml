@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.business.mappers.UserMapperTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-12T21:52:08" hostname="DESKTOP-88OFGPG" time="0.004">
+<testsuite name="fontys.ind.business.mappers.UserMapperTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-13T08:53:57" hostname="DESKTOP-88OFGPG" time="0.005">
   <properties/>
-  <testcase name="testFromResponseToEntity()" classname="fontys.ind.business.mappers.UserMapperTest" time="0.003"/>
+  <testcase name="testFromResponseToEntity()" classname="fontys.ind.business.mappers.UserMapperTest" time="0.004"/>
   <testcase name="testFromEntityToResponse()" classname="fontys.ind.business.mappers.UserMapperTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
