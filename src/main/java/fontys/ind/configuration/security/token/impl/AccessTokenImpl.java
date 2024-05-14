@@ -8,8 +8,8 @@ import fontys.ind.configuration.security.token.AccessToken;
 import java.util.Collections;
 import java.util.Set;
 
-@EqualsAndHashCode
 @Getter
+@EqualsAndHashCode
 public class AccessTokenImpl implements AccessToken {
     private final String subject;
     private final Long userId;

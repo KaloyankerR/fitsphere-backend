@@ -12,6 +12,8 @@ import fontys.ind.domain.response.workout.CreateWorkoutResponse;
 import fontys.ind.domain.response.workout.GetWorkoutResponse;
 import fontys.ind.domain.response.workout.GetWorkoutsResponse;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/workouts")
 @AllArgsConstructor
@@ -26,7 +28,8 @@ public class WorkoutController {
 
     @GetMapping("{id}")
     public ResponseEntity<GetWorkoutResponse> getWorkout(@PathVariable(value = "id") final Integer id) {
-        return null;
+        final GetWorkoutResponse workoutResponse = workoutService.getWorkout(id);
+        return ResponseEntity.ok(workoutResponse);
     }
 
     @GetMapping("/trainer/{id}")
@@ -46,7 +49,6 @@ public class WorkoutController {
         workoutService.updateWorkout(request);
         return ResponseEntity.noContent().build();
     }
-
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteWorkout(@PathVariable Integer id) {

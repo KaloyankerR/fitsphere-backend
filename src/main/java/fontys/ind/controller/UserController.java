@@ -2,6 +2,7 @@ package fontys.ind.controller;
 
 import fontys.ind.business.exception.InvalidUserException;
 import fontys.ind.domain.response.ApiWrapperResponse;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,8 @@ import java.util.*;
 @CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
     private final UserService userService;
-    
+
+    @RolesAllowed({"TRAINER"})
     @GetMapping("/trainers")
     public ResponseEntity<GetAllTrainersResponse> getAllTrainers() {
         return ResponseEntity.ok(userService.getAllTrainers());
