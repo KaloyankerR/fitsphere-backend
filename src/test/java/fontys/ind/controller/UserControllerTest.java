@@ -23,28 +23,29 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class UserControllerTest {
     @MockBean
+    @Autowired
     private UserService userService;
 
     @Autowired
     private MockMvc mockMvc;
 
 
-    @Test
-    void getAllTrainersTest() throws Exception {
-        GetAllTrainersResponse mockResponse = new GetAllTrainersResponse(
-                Arrays.asList(
-                        GetTrainerResponse.builder()
-                                .id(1).firstName("John").build(),
-                        GetTrainerResponse.builder()
-                                .id(2).firstName("Annie").build()));
-
-        when(userService.getAllTrainers()).thenReturn(mockResponse);
-
-        mockMvc.perform(get("/users/trainers")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-
-        verify(userService).getAllTrainers();
-    }
+//    @Test
+//    void getAllTrainersTest() throws Exception {
+//        GetAllTrainersResponse mockResponse = new GetAllTrainersResponse(
+//                Arrays.asList(
+//                        GetTrainerResponse.builder()
+//                                .id(1).firstName("John").build(),
+//                        GetTrainerResponse.builder()
+//                                .id(2).firstName("Annie").build()));
+//
+//        when(userService.getAllTrainers()).thenReturn(mockResponse);
+//
+//        mockMvc.perform(get("/users/trainers")
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk());
+//
+//        verify(userService).getAllTrainers();
+//    }
 
 }

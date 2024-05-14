@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.configuration.security.token.impl.AccessTokenEncoderDecoderImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-13T09:14:31" hostname="DESKTOP-88OFGPG" time="0.79">
+<testsuite name="fontys.ind.configuration.security.token.impl.AccessTokenEncoderDecoderImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-14T19:29:22" hostname="DESKTOP-88OFGPG" time="0.675">
   <properties/>
-  <testcase name="testInvalidToken()" classname="fontys.ind.configuration.security.token.impl.AccessTokenEncoderDecoderImplTest" time="0.79"/>
+  <testcase name="testInvalidToken()" classname="fontys.ind.configuration.security.token.impl.AccessTokenEncoderDecoderImplTest" time="0.675"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
