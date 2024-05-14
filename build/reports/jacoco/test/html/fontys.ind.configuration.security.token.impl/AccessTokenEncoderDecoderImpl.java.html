@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AccessTokenEncoderDecoderImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fitsphere-backend</a> &gt; <a href="index.source.html" class="el_package">fontys.ind.configuration.security.token.impl</a> &gt; <span class="el_source">AccessTokenEncoderDecoderImpl.java</span></div><h1>AccessTokenEncoderDecoderImpl.java</h1><pre class="source lang-java linenums">package fontys.ind.configuration.security.token.impl;
+
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import fontys.ind.configuration.security.token.AccessToken;
+import fontys.ind.configuration.security.token.AccessTokenDecoder;
+import fontys.ind.configuration.security.token.AccessTokenEncoder;
+import fontys.ind.configuration.security.token.exception.InvalidAccessTokenException;
+
+import java.security.Key;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, AccessTokenDecoder {
+    private final Key key;
+
+<span class="fc" id="L30">    public AccessTokenEncoderDecoderImpl(@Value(&quot;${jwt.secret}&quot;) String secretKey) {</span>
+<span class="fc" id="L31">        byte[] keyBytes = Decoders.BASE64.decode(secretKey);</span>
+<span class="fc" id="L32">        this.key = Keys.hmacShaKeyFor(keyBytes);</span>
+<span class="fc" id="L33">    }</span>
+
+    @Override
+    public String encode(AccessToken accessToken) {
+<span class="nc" id="L37">        Map&lt;String, Object&gt; claimsMap = new HashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (!CollectionUtils.isEmpty(accessToken.getRoles())) {</span>
+<span class="nc" id="L39">            claimsMap.put(&quot;roles&quot;, accessToken.getRoles());</span>
+        }
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (accessToken.getUserId() != null) {</span>
+<span class="nc" id="L42">            claimsMap.put(&quot;userId&quot;, accessToken.getUserId());</span>
+        }
+
+<span class="nc" id="L45">        Instant now = Instant.now();</span>
+<span class="nc" id="L46">        return Jwts.builder()</span>
+<span class="nc" id="L47">                .setSubject(accessToken.getSubject())</span>
+<span class="nc" id="L48">                .setIssuedAt(Date.from(now))</span>
+                // .setExpiration(Date.from(now.plus(30, ChronoUnit.MINUTES)))
+<span class="nc" id="L50">                .setExpiration(Date.from(now.plus(1, ChronoUnit.DAYS)))</span>
+<span class="nc" id="L51">                .addClaims(claimsMap)</span>
+<span class="nc" id="L52">                .signWith(key)</span>
+<span class="nc" id="L53">                .compact();</span>
+    }
+
+    @Override
+    public AccessToken decode(String accessTokenEncoded) {
+        try {
+<span class="fc" id="L59">            Jwt&lt;?, Claims&gt; jwt = Jwts.parserBuilder().setSigningKey(key).build()</span>
+<span class="nc" id="L60">                    .parseClaimsJws(accessTokenEncoded);</span>
+<span class="nc" id="L61">            Claims claims = jwt.getBody();</span>
+
+            // Roles should be retrieved as a List&lt;String&gt; since it's stored as an array
+<span class="nc" id="L64">            List&lt;String&gt; roles = claims.get(&quot;roles&quot;, List.class);</span>
+<span class="nc" id="L65">            Long userId = claims.get(&quot;userId&quot;, Long.class);</span>
+
+            // Assuming there could be multiple roles, we concatenate them into a single string separated by commas
+<span class="nc" id="L68">            String rolesAsString = String.join(&quot;,&quot;, roles);</span>
+
+<span class="nc" id="L70">            return new AccessTokenImpl(claims.getSubject(), userId, rolesAsString);</span>
+<span class="fc" id="L71">        } catch (JwtException e) {</span>
+<span class="fc" id="L72">            throw new InvalidAccessTokenException(e.getMessage());</span>
+        }
+    }
+
+
+//    public AccessToken decode(String accessTokenEncoded) {
+//        try {
+//            Jwt&lt;?, Claims&gt; jwt = Jwts.parserBuilder().setSigningKey(key).build()
+//                    .parseClaimsJws(accessTokenEncoded);
+//            Claims claims = jwt.getBody();
+//
+//            String role = claims.get(&quot;roles&quot;, String.class);
+//            Long userId = claims.get(&quot;userId&quot;, Long.class);
+//
+//            return new AccessTokenImpl(claims.getSubject(), userId, role);
+//        } catch (JwtException e) {
+//            throw new InvalidAccessTokenException(e.getMessage());
+//        }
+//    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
