@@ -23,14 +23,6 @@ public class AppointmentEntity {
     private Integer id;
 
     @NotNull
-    @Column(name = "start_time", nullable = false)
-    private LocalDateTime startTime;
-
-    @NotNull
-    @Column(name = "end_time", nullable = false)
-    private LocalDateTime endTime;
-
-    @NotNull
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "workout_id")
     private WorkoutEntity workout;

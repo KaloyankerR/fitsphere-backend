@@ -31,17 +31,17 @@ CREATE TABLE `trainers`
 CREATE TABLE `workouts`
 (
     id          INT PRIMARY KEY AUTO_INCREMENT,
-    trainer_id          INT          NOT NULL,
     title               VARCHAR(255) NOT NULL,
     description         TEXT,
+    start_time     DATETIME NOT NULL,
+    end_time       DATETIME NOT NULL,
+    trainer_id          INT          NOT NULL,
     FOREIGN KEY (trainer_id) REFERENCES trainers (user_id)
 );
 
 CREATE TABLE `appointments`
 (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    start_time     DATETIME NOT NULL,
-    end_time       DATETIME NOT NULL,
     workout_id     INT      NOT NULL,
     trainer_id     INT      NOT NULL,
     client_id      INT      NOT NULL,
