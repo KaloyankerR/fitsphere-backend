@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.business.impl.AppointmentServiceImplTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-14T19:29:18" hostname="DESKTOP-88OFGPG" time="2.59">
+<testsuite name="fontys.ind.business.impl.AppointmentServiceImplTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2024-05-17T10:59:55" hostname="DESKTOP-88OFGPG" time="3.558">
   <properties/>
-  <testcase name="createAppointment_WorkoutNotFound_ThrowsEntityNotFoundException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="2.555"/>
-  <testcase name="createAppointment_Successful()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.033"/>
+  <testcase name="updateAppointment_successful()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="3.45"/>
+  <testcase name="createAppointment_trainerNotFound_throwsException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.012"/>
+  <testcase name="updateAppointment_notFound_throwsException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.01"/>
+  <testcase name="createAppointment_workoutNotFound_throwsException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.023"/>
+  <testcase name="createAppointment_successful()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.014"/>
+  <testcase name="deleteAppointment_successful()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.005"/>
+  <testcase name="getAllAppointments_returnsAppointments()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.011"/>
+  <testcase name="getAllAppointments_noAppointments_returnsEmpty()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.007"/>
+  <testcase name="createAppointment_clientNotFound_throwsException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.004"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

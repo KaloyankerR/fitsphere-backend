@@ -17,6 +17,6 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = &quot;user_id&quot;)
 public class ClientEntity extends UserEntity {
     @OneToMany(mappedBy = &quot;client&quot;, cascade = CascadeType.ALL, orphanRemoval = true)
-<span class="nc" id="L20">    private List&lt;AppointmentEntity&gt; appointments;</span>
+<span class="fc" id="L20">    private List&lt;AppointmentEntity&gt; appointments;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

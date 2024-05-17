@@ -12,46 +12,48 @@ import fontys.ind.domain.response.workout.CreateWorkoutResponse;
 import fontys.ind.domain.response.workout.GetWorkoutResponse;
 import fontys.ind.domain.response.workout.GetWorkoutsResponse;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(&quot;/workouts&quot;)
-<span class="fc" id="L17">@AllArgsConstructor</span>
+<span class="fc" id="L19">@AllArgsConstructor</span>
 @CrossOrigin(origins = &quot;http://localhost:5173&quot;)
 public class WorkoutController {
     private WorkoutService workoutService;
 
     @GetMapping
     public ResponseEntity&lt;GetWorkoutsResponse&gt; getAllWorkouts() {
-<span class="nc" id="L24">        return ResponseEntity.ok(workoutService.getAllWorkouts());</span>
+<span class="nc" id="L26">        return ResponseEntity.ok(workoutService.getAllWorkouts());</span>
     }
 
     @GetMapping(&quot;{id}&quot;)
     public ResponseEntity&lt;GetWorkoutResponse&gt; getWorkout(@PathVariable(value = &quot;id&quot;) final Integer id) {
-<span class="nc" id="L29">        return null;</span>
+<span class="nc" id="L31">        final GetWorkoutResponse workoutResponse = workoutService.getWorkout(id);</span>
+<span class="nc" id="L32">        return ResponseEntity.ok(workoutResponse);</span>
     }
 
     @GetMapping(&quot;/trainer/{id}&quot;)
     public ResponseEntity&lt;GetWorkoutsResponse&gt; getTrainerWorkouts(@PathVariable(value = &quot;id&quot;) final Integer id) {
-<span class="nc" id="L34">        return ResponseEntity.ok(workoutService.getTrainerWorkouts(id));</span>
+<span class="nc" id="L37">        return ResponseEntity.ok(workoutService.getTrainerWorkouts(id));</span>
     }
 
     @PostMapping()
     public ResponseEntity&lt;CreateWorkoutResponse&gt; createWorkout(@RequestBody @Valid CreateWorkoutRequest request) {
-<span class="nc" id="L39">        CreateWorkoutResponse response = workoutService.createWorkout(request);</span>
-<span class="nc" id="L40">        return ResponseEntity.status(HttpStatus.CREATED).body(response);</span>
+<span class="nc" id="L42">        CreateWorkoutResponse response = workoutService.createWorkout(request);</span>
+<span class="nc" id="L43">        return ResponseEntity.status(HttpStatus.CREATED).body(response);</span>
     }
 
     @PutMapping(&quot;{id}&quot;)
     public ResponseEntity&lt;Void&gt; updateWorkout(@PathVariable(&quot;id&quot;) Integer id, @RequestBody @Valid UpdateWorkoutRequest request){
-<span class="nc" id="L45">        request.setId(id);</span>
-<span class="nc" id="L46">        workoutService.updateWorkout(request);</span>
-<span class="nc" id="L47">        return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L48">        request.setId(id);</span>
+<span class="nc" id="L49">        workoutService.updateWorkout(request);</span>
+<span class="nc" id="L50">        return ResponseEntity.noContent().build();</span>
     }
-
 
     @DeleteMapping(&quot;{id}&quot;)
     public ResponseEntity&lt;Void&gt; deleteWorkout(@PathVariable Integer id) {
-<span class="nc" id="L53">        workoutService.deleteWorkout(id);</span>
-<span class="nc" id="L54">        return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L55">        workoutService.deleteWorkout(id);</span>
+<span class="nc" id="L56">        return ResponseEntity.noContent().build();</span>
     }
 
 }

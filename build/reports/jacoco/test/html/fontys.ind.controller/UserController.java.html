@@ -2,6 +2,7 @@
 
 import fontys.ind.business.exception.InvalidUserException;
 import fontys.ind.domain.response.ApiWrapperResponse;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,31 +21,30 @@ import java.util.*;
 
 @RestController
 @RequestMapping(&quot;/users&quot;)
-<span class="fc" id="L23">@RequiredArgsConstructor</span>
+<span class="fc" id="L24">@RequiredArgsConstructor</span>
 @CrossOrigin(origins = &quot;http://localhost:5173&quot;)
 public class UserController {
     private final UserService userService;
-    
+
     @GetMapping(&quot;/trainers&quot;)
     public ResponseEntity&lt;GetAllTrainersResponse&gt; getAllTrainers() {
-<span class="fc" id="L30">        return ResponseEntity.ok(userService.getAllTrainers());</span>
+<span class="nc" id="L31">        return ResponseEntity.ok(userService.getAllTrainers());</span>
     }
 
     @GetMapping
     public ResponseEntity&lt;GetAllUsersResponse&gt; getAllUsers() {
-<span class="nc" id="L35">        return ResponseEntity.ok((userService.getAllUsers()));</span>
+<span class="fc" id="L36">        return ResponseEntity.ok((userService.getAllUsers()));</span>
     }
 
     @GetMapping(&quot;/role/{role}&quot;)
     public ResponseEntity&lt;?&gt; getUsersByRole(@PathVariable String role) {
         try {
-<span class="nc" id="L41">            ApiWrapperResponse response = userService.getUsersByRole(role);</span>
-<span class="nc" id="L42">            return ResponseEntity.ok(response);</span>
-<span class="nc" id="L43">        } catch (InvalidUserException e) {</span>
-<span class="nc" id="L44">            return ResponseEntity.badRequest().body(e.getMessage());</span>
+<span class="nc" id="L42">            ApiWrapperResponse response = userService.getUsersByRole(role);</span>
+<span class="nc" id="L43">            return ResponseEntity.ok(response);</span>
+<span class="fc" id="L44">        } catch (InvalidUserException e) {</span>
+<span class="fc" id="L45">            return ResponseEntity.badRequest().body(e.getMessage());</span>
         }
     }
-
 
     @GetMapping(&quot;{id}&quot;)
     public ResponseEntity&lt;GetUserResponse&gt; getUser(@PathVariable(value = &quot;id&quot;) final Integer id) {
@@ -71,10 +71,11 @@ public class UserController {
 <span class="nc" id="L71">        return ResponseEntity.noContent().build();</span>
     }
 
+    @RolesAllowed({&quot;ADMIN&quot;})
     @DeleteMapping(&quot;{id}&quot;)
     public ResponseEntity&lt;Void&gt; deleteUser(@PathVariable int id) {
-<span class="nc" id="L76">        userService.deleteUser((long) id);</span>
-<span class="nc" id="L77">        return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L77">        userService.deleteUser((long) id);</span>
+<span class="nc" id="L78">        return ResponseEntity.noContent().build();</span>
     }
 
 }

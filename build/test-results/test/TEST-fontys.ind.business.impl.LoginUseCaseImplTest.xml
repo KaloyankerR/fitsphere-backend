@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.business.impl.LoginUseCaseImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-05-14T19:29:21" hostname="DESKTOP-88OFGPG" time="0.387">
+<testsuite name="fontys.ind.business.impl.LoginUseCaseImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-05-17T10:59:58" hostname="DESKTOP-88OFGPG" time="0.463">
   <properties/>
-  <testcase name="whenCredentialsAreInvalid_thenThrowsInvalidCredentialsException()" classname="fontys.ind.business.impl.LoginUseCaseImplTest" time="0.359"/>
-  <testcase name="whenUserNotFound_thenThrowsInvalidCredentialsException()" classname="fontys.ind.business.impl.LoginUseCaseImplTest" time="0.007"/>
-  <testcase name="whenLoginIsSuccessful_thenReturnsAccessToken()" classname="fontys.ind.business.impl.LoginUseCaseImplTest" time="0.017"/>
+  <testcase name="whenCredentialsAreInvalid_thenThrowsInvalidCredentialsException()" classname="fontys.ind.business.impl.LoginUseCaseImplTest" time="0.444"/>
+  <testcase name="whenUserNotFound_thenThrowsInvalidCredentialsException()" classname="fontys.ind.business.impl.LoginUseCaseImplTest" time="0.004"/>
+  <testcase name="whenLoginIsSuccessful_thenReturnsAccessToken()" classname="fontys.ind.business.impl.LoginUseCaseImplTest" time="0.012"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

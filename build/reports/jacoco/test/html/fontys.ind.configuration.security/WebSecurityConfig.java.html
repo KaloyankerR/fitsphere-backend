@@ -42,34 +42,33 @@ import fontys.ind.configuration.security.auth.AuthenticationRequestFilter;
 <span class="fc" id="L42">                                .requestMatchers(HttpMethod.GET, &quot;/workouts&quot;).permitAll()</span>
 <span class="fc" id="L43">                                .requestMatchers(HttpMethod.GET, &quot;/users/trainers&quot;).permitAll()</span>
 <span class="fc" id="L44">                                .requestMatchers(HttpMethod.GET, &quot;/ratings/**&quot;).permitAll()</span>
-<span class="fc" id="L45">                                .requestMatchers(HttpMethod.POST, &quot;/ratings&quot;).permitAll()</span>
-<span class="fc" id="L46">                                .requestMatchers(HttpMethod.GET, &quot;/users/role/**&quot;).permitAll()</span>
-<span class="fc" id="L47">                                .requestMatchers(HttpMethod.POST, &quot;/appointments&quot;).permitAll()</span>
-<span class="fc" id="L48">                                .requestMatchers(HttpMethod.GET, &quot;/workouts/trainer/**&quot;).permitAll()</span>
-<span class="fc" id="L49">                                .requestMatchers(HttpMethod.POST, &quot;/users&quot;, &quot;/tokens&quot;, &quot;/users/trainer&quot;, &quot;workouts&quot;).permitAll()</span>
-<span class="fc" id="L50">                                .requestMatchers(HttpMethod.PUT).permitAll()</span>
-<span class="fc" id="L51">                                .requestMatchers(HttpMethod.DELETE).permitAll()</span>
-<span class="fc" id="L52">                                .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()                        // Swagger is also public (In &quot;real life&quot; it would only be public in non-production environments)</span>
-<span class="fc" id="L53">                                .anyRequest().authenticated()                                             // Everything else --&gt; authentication required, which is Spring security's default behaviour</span>
+<span class="fc" id="L45">                                .requestMatchers(HttpMethod.GET, &quot;/users/role/**&quot;).permitAll()</span>
+<span class="fc" id="L46">                                .requestMatchers(HttpMethod.POST, &quot;/appointments&quot;).permitAll()</span>
+<span class="fc" id="L47">                                .requestMatchers(HttpMethod.GET, &quot;/workouts/trainer/**&quot;).permitAll()</span>
+<span class="fc" id="L48">                                .requestMatchers(HttpMethod.POST, &quot;/users&quot;, &quot;/tokens&quot;, &quot;/users/trainer&quot;, &quot;workouts&quot;).permitAll()</span>
+<span class="fc" id="L49">                                .requestMatchers(HttpMethod.PUT).permitAll()</span>
+<span class="fc" id="L50">                                .requestMatchers(HttpMethod.DELETE).permitAll()</span>
+<span class="fc" id="L51">                                .requestMatchers(SWAGGER_UI_RESOURCES).permitAll()                        // Swagger is also public (In &quot;real life&quot; it would only be public in non-production environments)</span>
+<span class="fc" id="L52">                                .anyRequest().authenticated()                                             // Everything else --&gt; authentication required, which is Spring security's default behaviour</span>
                 )
-<span class="fc" id="L55">                .exceptionHandling(configure -&gt; configure.authenticationEntryPoint(authenticationEntryPoint))</span>
-<span class="fc" id="L56">                .addFilterBefore(authenticationRequestFilter, UsernamePasswordAuthenticationFilter.class);</span>
-<span class="fc" id="L57">        return httpSecurity.build();</span>
+<span class="fc" id="L54">                .exceptionHandling(configure -&gt; configure.authenticationEntryPoint(authenticationEntryPoint))</span>
+<span class="fc" id="L55">                .addFilterBefore(authenticationRequestFilter, UsernamePasswordAuthenticationFilter.class);</span>
+<span class="fc" id="L56">        return httpSecurity.build();</span>
 
         // TODO: add .hasRole or .hasAuthority
     }
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
-<span class="fc" id="L64">        return new WebMvcConfigurer() {</span>
+<span class="fc" id="L63">        return new WebMvcConfigurer() {</span>
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-<span class="fc" id="L67">                registry.addMapping(&quot;/**&quot;)</span>
-<span class="fc" id="L68">                        .allowedOrigins(&quot;http://localhost:5173&quot;)</span>
-<span class="fc" id="L69">                        .allowedMethods(&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;DELETE&quot;, &quot;OPTIONS&quot;)</span>
-<span class="fc" id="L70">                        .allowedHeaders(&quot;*&quot;)</span>
-<span class="fc" id="L71">                        .allowCredentials(true);</span>
-<span class="fc" id="L72">            }</span>
+<span class="fc" id="L66">                registry.addMapping(&quot;/**&quot;)</span>
+<span class="fc" id="L67">                        .allowedOrigins(&quot;http://localhost:5173&quot;)</span>
+<span class="fc" id="L68">                        .allowedMethods(&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;DELETE&quot;, &quot;OPTIONS&quot;)</span>
+<span class="fc" id="L69">                        .allowedHeaders(&quot;*&quot;)</span>
+<span class="fc" id="L70">                        .allowCredentials(true);</span>
+<span class="fc" id="L71">            }</span>
         };
     }
 }

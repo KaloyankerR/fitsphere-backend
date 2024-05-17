@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name=&quot;appointments&quot;)
 // @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-<span class="nc bnc" id="L15" title="All 54 branches missed.">@Data</span>
+<span class="pc bnc" id="L15" title="All 54 branches missed.">@Data</span>
 <span class="pc" id="L16">@Builder</span>
 <span class="fc" id="L17">@AllArgsConstructor</span>
 <span class="fc" id="L18">@NoArgsConstructor</span>
@@ -24,11 +24,11 @@ public class AppointmentEntity {
 
     @NotNull
     @Column(name = &quot;start_time&quot;, nullable = false)
-<span class="nc" id="L27">    private LocalDateTime startTime;</span>
+<span class="fc" id="L27">    private LocalDateTime startTime;</span>
 
     @NotNull
     @Column(name = &quot;end_time&quot;, nullable = false)
-<span class="nc" id="L31">    private LocalDateTime endTime;</span>
+<span class="fc" id="L31">    private LocalDateTime endTime;</span>
 
     @NotNull
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)

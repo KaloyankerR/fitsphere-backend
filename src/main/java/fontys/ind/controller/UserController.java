@@ -26,7 +26,6 @@ import java.util.*;
 public class UserController {
     private final UserService userService;
 
-    @RolesAllowed({"TRAINER"})
     @GetMapping("/trainers")
     public ResponseEntity<GetAllTrainersResponse> getAllTrainers() {
         return ResponseEntity.ok(userService.getAllTrainers());
@@ -46,7 +45,6 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 
     @GetMapping("{id}")
     public ResponseEntity<GetUserResponse> getUser(@PathVariable(value = "id") final Integer id) {
@@ -73,6 +71,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @RolesAllowed({"ADMIN"})
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
         userService.deleteUser((long) id);

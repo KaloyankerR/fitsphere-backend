@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-13T10:57:36+0200",
+    date = "2024-05-17T12:28:42+0200",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.4.jar, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
@@ -30,6 +30,7 @@ public class RatingMapperImpl implements RatingMapper {
         if ( entity.getId() != null ) {
             getRatingResponse.id( entity.getId().intValue() );
         }
+        getRatingResponse.rating( entity.getRating() );
         getRatingResponse.comment( entity.getComment() );
         getRatingResponse.trainer( trainerMapper.fromEntityToResponse( entity.getTrainer() ) );
         getRatingResponse.client( clientMapper.fromEntityToResponse( entity.getClient() ) );

@@ -9,13 +9,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {TrainerMapper.class, ClientMapper.class})
 public interface RatingMapper {
     @Mapping(target = "id", source = "id")
+    @Mapping(source = "rating", target = "rating")
     @Mapping(source = "comment", target = "comment")
     @Mapping(source = "trainer", target = "trainer")
     @Mapping(source = "client", target = "client")
     GetRatingResponse fromEntityToResponse(RatingEntity entity);
-
-//    @Mapping(source = "comment", target = "comment")
-//    @Mapping(source = "trainerId", target = "trainer")
-//    @Mapping(source = "clientId", target = "client")
-//    RatingEntity fromRequestToEntity(CreateRatingRequest request);
 }
