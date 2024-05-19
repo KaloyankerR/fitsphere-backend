@@ -48,8 +48,6 @@ class AppointmentServiceImplTest {
     @Test
     void createAppointment_successful() {
         CreateAppointmentRequest request = new CreateAppointmentRequest(
-                LocalDateTime.of(2024, 5, 17, 10, 0),
-                LocalDateTime.of(2024, 5, 17, 11, 0),
                 1, 2, 3
         );
         TrainerEntity trainerEntity = new TrainerEntity();
@@ -71,8 +69,6 @@ class AppointmentServiceImplTest {
     @Test
     void createAppointment_trainerNotFound_throwsException() {
         CreateAppointmentRequest request = new CreateAppointmentRequest(
-                LocalDateTime.of(2024, 5, 17, 10, 0),
-                LocalDateTime.of(2024, 5, 17, 11, 0),
                 1, 2, 3
         );
 
@@ -84,8 +80,8 @@ class AppointmentServiceImplTest {
     @Test
     void createAppointment_clientNotFound_throwsException() {
         CreateAppointmentRequest request = new CreateAppointmentRequest(
-                LocalDateTime.of(2024, 5, 17, 10, 0),
-                LocalDateTime.of(2024, 5, 17, 11, 0),
+//                LocalDateTime.of(2024, 5, 17, 10, 0),
+//                LocalDateTime.of(2024, 5, 17, 11, 0),
                 1, 2, 3
         );
         TrainerEntity trainerEntity = new TrainerEntity();
@@ -99,8 +95,8 @@ class AppointmentServiceImplTest {
     @Test
     void createAppointment_workoutNotFound_throwsException() {
         CreateAppointmentRequest request = new CreateAppointmentRequest(
-                LocalDateTime.of(2024, 5, 17, 10, 0),
-                LocalDateTime.of(2024, 5, 17, 11, 0),
+//                LocalDateTime.of(2024, 5, 17, 10, 0),
+//                LocalDateTime.of(2024, 5, 17, 11, 0),
                 1, 2, 3
         );
         TrainerEntity trainerEntity = new TrainerEntity();
@@ -116,9 +112,9 @@ class AppointmentServiceImplTest {
     @Test
     void updateAppointment_successful() throws InvalidClassException {
         UpdateAppointmentRequest request = new UpdateAppointmentRequest(
-                1,
-                LocalDateTime.of(2024, 5, 17, 10, 0),
-                LocalDateTime.of(2024, 5, 17, 11, 0)
+                1
+//                LocalDateTime.of(2024, 5, 17, 10, 0),
+//                LocalDateTime.of(2024, 5, 17, 11, 0)
         );
         AppointmentEntity appointmentEntity = new AppointmentEntity();
 
@@ -127,16 +123,12 @@ class AppointmentServiceImplTest {
         appointmentService.updateAppointment(request);
 
         verify(appointmentRepository).save(any(AppointmentEntity.class));
-        assertEquals(request.getStartTime(), appointmentEntity.getStartTime());
-        assertEquals(request.getEndTime(), appointmentEntity.getEndTime());
     }
 
     @Test
     void updateAppointment_notFound_throwsException() {
         UpdateAppointmentRequest request = new UpdateAppointmentRequest(
-                1,
-                LocalDateTime.of(2024, 5, 17, 10, 0),
-                LocalDateTime.of(2024, 5, 17, 11, 0)
+                1
         );
 
         when(appointmentRepository.findById(request.getId())).thenReturn(Optional.empty());

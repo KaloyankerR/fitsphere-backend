@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.business.impl.RatingServiceImplTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-05-17T10:59:59" hostname="DESKTOP-88OFGPG" time="0.15">
+<testsuite name="fontys.ind.business.impl.RatingServiceImplTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-05-19T14:08:56" hostname="DESKTOP-88OFGPG" time="0.126">
   <properties/>
-  <testcase name="createRating_clientNotFound_throwsException()" classname="fontys.ind.business.impl.RatingServiceImplTest" time="0.109"/>
-  <testcase name="getTrainerRatings_returnsRatings()" classname="fontys.ind.business.impl.RatingServiceImplTest" time="0.007"/>
-  <testcase name="createRating_newRating_savesRating()" classname="fontys.ind.business.impl.RatingServiceImplTest" time="0.01"/>
-  <testcase name="createRating_existingRating_updatesRating()" classname="fontys.ind.business.impl.RatingServiceImplTest" time="0.004"/>
-  <testcase name="getTrainerRatings_noRatings_returnsEmpty()" classname="fontys.ind.business.impl.RatingServiceImplTest" time="0.004"/>
+  <testcase name="createRating_clientNotFound_throwsException()" classname="fontys.ind.business.impl.RatingServiceImplTest" time="0.093"/>
+  <testcase name="getTrainerRatings_returnsRatings()" classname="fontys.ind.business.impl.RatingServiceImplTest" time="0.006"/>
+  <testcase name="createRating_newRating_savesRating()" classname="fontys.ind.business.impl.RatingServiceImplTest" time="0.009"/>
+  <testcase name="createRating_existingRating_updatesRating()" classname="fontys.ind.business.impl.RatingServiceImplTest" time="0.003"/>
+  <testcase name="getTrainerRatings_noRatings_returnsEmpty()" classname="fontys.ind.business.impl.RatingServiceImplTest" time="0.002"/>
   <testcase name="createRating_trainerNotFound_throwsException()" classname="fontys.ind.business.impl.RatingServiceImplTest" time="0.005"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

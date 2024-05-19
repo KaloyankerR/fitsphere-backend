@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.business.impl.WorkoutServiceImplTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-05-17T10:59:59" hostname="DESKTOP-88OFGPG" time="0.034">
+<testsuite name="fontys.ind.business.impl.WorkoutServiceImplTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-05-19T14:08:56" hostname="DESKTOP-88OFGPG" time="0.029">
   <properties/>
-  <testcase name="createWorkout_WhenTitleExists_ThrowsException()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.01"/>
-  <testcase name="createWorkout_Successful_ReturnsResponse()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.01"/>
+  <testcase name="createWorkout_WhenTitleExists_ThrowsException()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.007"/>
+  <testcase name="createWorkout_Successful_ReturnsResponse()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.008"/>
   <testcase name="deleteWorkout_Successful_DeletesWorkout()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.003"/>
-  <testcase name="updateWorkout_WorkoutNotFound_ThrowsException()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.004"/>
+  <testcase name="updateWorkout_WorkoutNotFound_ThrowsException()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.003"/>
   <testcase name="updateWorkout_Successful_UpdatesFields()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

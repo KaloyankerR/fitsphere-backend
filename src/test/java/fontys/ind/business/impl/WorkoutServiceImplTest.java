@@ -17,6 +17,7 @@ import fontys.ind.persistence.WorkoutRepository;
 import fontys.ind.persistence.entity.TrainerEntity;
 import fontys.ind.persistence.entity.WorkoutEntity;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class WorkoutServiceImplTest {
-
+    // TODO: test the time
     @Mock
     private WorkoutRepository workoutRepository;
 
@@ -37,7 +38,9 @@ class WorkoutServiceImplTest {
 
     @Test
     void createWorkout_WhenTitleExists_ThrowsException() {
-        CreateWorkoutRequest request = new CreateWorkoutRequest(1, "Yoga Session", "A relaxing yoga workout");
+        CreateWorkoutRequest request = new CreateWorkoutRequest("Yoga Session", "A relaxing yoga workout",
+                LocalDateTime.of(2024, 5, 17, 10, 0),
+                LocalDateTime.of(2024, 5, 17, 11, 0), 1);
         when(workoutRepository.existsByTitle(request.getTitle())).thenReturn(true);
 
         assertThrows(TitleAlreadyExistsException.class, () -> workoutService.createWorkout(request));
@@ -45,7 +48,9 @@ class WorkoutServiceImplTest {
 
     @Test
     void createWorkout_Successful_ReturnsResponse() {
-        CreateWorkoutRequest request = new CreateWorkoutRequest(1, "Yoga Session", "A relaxing yoga workout");
+        CreateWorkoutRequest request = new CreateWorkoutRequest("Yoga Session", "A relaxing yoga workout",
+                LocalDateTime.of(2024, 5, 17, 10, 0),
+                LocalDateTime.of(2024, 5, 17, 11, 0), 1);
         TrainerEntity trainer = new TrainerEntity();
         trainer.setUserId(1);
         WorkoutEntity savedWorkout = new WorkoutEntity();
@@ -76,7 +81,9 @@ class WorkoutServiceImplTest {
 
     @Test
     void updateWorkout_WorkoutNotFound_ThrowsException() {
-        UpdateWorkoutRequest request = new UpdateWorkoutRequest(1, "New Title", "New Description");
+        UpdateWorkoutRequest request = new UpdateWorkoutRequest(1, "New Title", "New Description",
+                LocalDateTime.of(2024, 5, 17, 10, 0),
+                LocalDateTime.of(2024, 5, 17, 11, 0));
         when(workoutRepository.findById(request.getId())).thenReturn(Optional.empty());
 
         assertThrows(InvalidWorkoutException.class, () -> workoutService.updateWorkout(request));
@@ -84,7 +91,9 @@ class WorkoutServiceImplTest {
 
     @Test
     void updateWorkout_Successful_UpdatesFields() {
-        UpdateWorkoutRequest request = new UpdateWorkoutRequest(1, "New Title", "New Description");
+        UpdateWorkoutRequest request = new UpdateWorkoutRequest(1, "New Title", "New Description",
+                LocalDateTime.of(2024, 5, 17, 10, 0),
+                LocalDateTime.of(2024, 5, 17, 11, 0));
         WorkoutEntity workout = new WorkoutEntity();
         workout.setId(request.getId());
         workout.setTitle("Old Title");
