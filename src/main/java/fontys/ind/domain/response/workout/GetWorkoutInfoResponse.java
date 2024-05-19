@@ -17,8 +17,8 @@ public class GetWorkoutInfoResponse {
     private String description;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Integer id;
-    private String firstName;
-    private String lastName;
-    private Double rating;
+    private Integer trainerId;
+    private String trainerFirstName;
+    private String trainerLastName;
+    private Double trainerRating;
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import fontys.ind.business.WorkoutService;
 import fontys.ind.domain.request.workout.CreateWorkoutRequest;
 import fontys.ind.domain.response.workout.CreateWorkoutResponse;
-import fontys.ind.domain.response.workout.GetWorkoutResponse;
 import fontys.ind.domain.response.workout.GetWorkoutsResponse;
 
 @RestController
@@ -24,12 +23,6 @@ public class WorkoutController {
     @GetMapping
     public ResponseEntity<GetWorkoutsResponse> getAllWorkouts() {
         return ResponseEntity.ok(workoutService.getAllWorkouts());
-    }
-
-    @GetMapping("{id}")
-    public ResponseEntity<GetWorkoutResponse> getWorkout(@PathVariable(value = "id") final Integer id) {
-        final GetWorkoutResponse workoutResponse = workoutService.getWorkout(id);
-        return ResponseEntity.ok(workoutResponse);
     }
 
     @GetMapping("/info/{id}")

@@ -23,7 +23,6 @@ import fontys.ind.persistence.entity.WorkoutEntity;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -76,11 +75,6 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     // GET
     @Override
-    public GetWorkoutResponse getWorkout(Integer id) {
-        return null;
-    }
-
-    @Override
     @Transactional
     public GetWorkoutInfoResponse getWorkoutInfo(Integer id) {
         Optional<WorkoutEntity> workoutEntityOptional = workoutRepository.findById(id);
@@ -99,10 +93,10 @@ public class WorkoutServiceImpl implements WorkoutService {
         workoutInfoResponse.setDescription(workoutEntity.getDescription());
         workoutInfoResponse.setStartTime(workoutEntity.getStartTime());
         workoutInfoResponse.setEndTime(workoutEntity.getEndTime());
-        workoutInfoResponse.setId(trainerEntity.getUserId());
-        workoutInfoResponse.setFirstName(trainerEntity.getFirstName());
-        workoutInfoResponse.setLastName(trainerEntity.getLastName());
-        workoutInfoResponse.setRating(calculateMedianRating(trainerEntity.getRatings()));
+        workoutInfoResponse.setTrainerId(trainerEntity.getUserId());
+        workoutInfoResponse.setTrainerFirstName(trainerEntity.getFirstName());
+        workoutInfoResponse.setTrainerLastName(trainerEntity.getLastName());
+        workoutInfoResponse.setTrainerRating(calculateMedianRating(trainerEntity.getRatings()));
 
         return workoutInfoResponse;
     }

@@ -14,10 +14,10 @@ public interface WorkoutService {
 
     void deleteWorkout(Integer id);
 
-    GetWorkoutResponse getWorkout(Integer id);
     GetWorkoutInfoResponse getWorkoutInfo(Integer id);
 
     GetWorkoutsResponse getAllWorkouts();
+
     GetWorkoutsResponse getTrainerWorkouts(Integer id);
 
     void updateWorkout(UpdateWorkoutRequest request);
