@@ -13,4 +13,5 @@ public interface AppointmentService {
     void updateAppointment(UpdateAppointmentRequest request) throws InvalidClassException;
     void deleteAppointment(Integer id);
     GetAllAppointmentsResponse getAllAppointments();
+    GetAllAppointmentsResponse getAllAppointmentsByUser(Integer id);
 }

@@ -1,6 +1,7 @@
 package fontys.ind.domain.response.user;
 
 import fontys.ind.domain.response.appointment.GetAppointmentResponse;
+import fontys.ind.domain.response.rating.GetRatingResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,4 +17,5 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class GetClientResponse extends GetUserResponse {
     private List<GetAppointmentResponse> appointmentList;
+    private List<GetRatingResponse> ratingsList;
 }

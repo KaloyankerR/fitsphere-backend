@@ -27,7 +27,7 @@ public class RatingEntity {
     @Column(name = "comment")
     private String comment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trainer_id", nullable = false)
     private TrainerEntity trainer;
 

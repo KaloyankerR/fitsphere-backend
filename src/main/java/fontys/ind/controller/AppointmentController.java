@@ -3,6 +3,7 @@ package fontys.ind.controller;
 import fontys.ind.domain.request.appointment.UpdateAppointmentRequest;
 import fontys.ind.domain.response.appointment.GetAllAppointmentsResponse;
 import fontys.ind.domain.response.appointment.GetAppointmentResponse;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ public class AppointmentController {
     private AppointmentService appointmentService;
 
     @PostMapping
+//    @RolesAllowed({"CLIENT", "TRAINER"})
     public ResponseEntity<CreateAppointmentResponse> createAppointment(@RequestBody @Valid CreateAppointmentRequest request){
         CreateAppointmentResponse response = appointmentService.createAppointment(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -41,8 +43,15 @@ public class AppointmentController {
     }
 
     @GetMapping
+//    @RolesAllowed({"CLIENT", "TRAINER"})
     public ResponseEntity<GetAllAppointmentsResponse> getAllAppointments() {
         return ResponseEntity.ok((appointmentService.getAllAppointments()));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<GetAllAppointmentsResponse> getAllAppointmentsByUser(@PathVariable(value = "id") final Integer id){
+        GetAllAppointmentsResponse response = appointmentService.getAllAppointmentsByUser(id);
+        return ResponseEntity.ok(response);
     }
 
 }

@@ -15,6 +15,7 @@ public class GetRatingResponse {
     private Integer id;
     private Integer rating;
     private String comment;
-    private GetTrainerResponse trainer;
+    // private GetTrainerResponse trainer;
+    private Integer trainerId;
     private GetClientResponse client;
 }

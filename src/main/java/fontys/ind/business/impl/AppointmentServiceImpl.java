@@ -4,6 +4,8 @@ import fontys.ind.business.mappers.AppointmentMapper;
 import fontys.ind.domain.request.appointment.UpdateAppointmentRequest;
 import fontys.ind.domain.response.appointment.GetAllAppointmentsResponse;
 import fontys.ind.domain.response.appointment.GetAppointmentResponse;
+import fontys.ind.domain.response.rating.GetRatingResponse;
+import fontys.ind.domain.response.rating.GetRatingsResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,8 +17,10 @@ import fontys.ind.persistence.*;
 import fontys.ind.persistence.entity.*;
 
 import java.io.InvalidClassException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -44,8 +48,6 @@ public class AppointmentServiceImpl implements AppointmentService {
                 new EntityNotFoundException("Workout with ID " + request.getWorkoutId() + NOT_FOUND_SUFFIX));
 
         AppointmentEntity newAppointment = AppointmentEntity.builder()
-                .startTime(request.getStartTime())
-                .endTime(request.getEndTime())
                 .workout(workoutEntity)
                 .trainer(trainerEntity)
                 .client(clientEntity)
@@ -79,13 +81,13 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     private void updateFields(UpdateAppointmentRequest request, AppointmentEntity entity){
-        entity.setStartTime(request.getStartTime());
-        entity.setEndTime(request.getEndTime());
-
+        System.out.println(request);
+        // TODO: check the updating
         appointmentRepository.save(entity);
     }
 
     @Override
+    @Transactional
     public GetAllAppointmentsResponse getAllAppointments() {
         List<AppointmentEntity> appointmentEntityList = appointmentRepository.findAll();
 
@@ -93,9 +95,34 @@ public class AppointmentServiceImpl implements AppointmentService {
                 .map(appointmentMapper::fromEntityToResponse)
                 .toList();
 
-        final GetAllAppointmentsResponse response = new GetAllAppointmentsResponse();
-        response.setAppointments(appointments);
-        return response;
+        return new GetAllAppointmentsResponse(appointments);
+    }
+
+    @Override
+    @Transactional
+    public GetAllAppointmentsResponse getAllAppointmentsByUser(Integer id) {
+        List<AppointmentEntity> trainerAppointments = appointmentRepository.findAllByTrainerUserId(id);
+        List<AppointmentEntity> clientAppointments = appointmentRepository.findAllByClientUserId(id);
+
+        List<GetAppointmentResponse> appointments = new ArrayList<>();
+
+        if (!trainerAppointments.isEmpty()) {
+            appointments.addAll(trainerAppointments.stream()
+                    .map(appointmentMapper::fromEntityToResponse)
+                    .toList());
+        }
+
+        if (!clientAppointments.isEmpty()) {
+            appointments.addAll(clientAppointments.stream()
+                    .map(appointmentMapper::fromEntityToResponse)
+                    .toList());
+        }
+
+        if (appointments.isEmpty()) {
+            return new GetAllAppointmentsResponse(new ArrayList<>());
+        }
+
+        return new GetAllAppointmentsResponse(appointments);
     }
 
 }

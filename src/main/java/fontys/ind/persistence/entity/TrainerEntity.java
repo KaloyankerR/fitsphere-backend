@@ -27,4 +27,7 @@ public class TrainerEntity extends UserEntity {
 
     @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AppointmentEntity> appointments;
+
+    @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RatingEntity> ratings;
 }

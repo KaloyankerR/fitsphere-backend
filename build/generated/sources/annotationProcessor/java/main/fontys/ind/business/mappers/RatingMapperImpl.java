@@ -2,20 +2,19 @@ package fontys.ind.business.mappers;
 
 import fontys.ind.domain.response.rating.GetRatingResponse;
 import fontys.ind.persistence.entity.RatingEntity;
+import fontys.ind.persistence.entity.TrainerEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-17T12:28:42+0200",
+    date = "2024-05-19T15:20:18+0200",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.4.jar, environment: Java 17.0.10 (Oracle Corporation)"
 )
 @Component
 public class RatingMapperImpl implements RatingMapper {
 
-    @Autowired
-    private TrainerMapper trainerMapper;
     @Autowired
     private ClientMapper clientMapper;
 
@@ -32,9 +31,24 @@ public class RatingMapperImpl implements RatingMapper {
         }
         getRatingResponse.rating( entity.getRating() );
         getRatingResponse.comment( entity.getComment() );
-        getRatingResponse.trainer( trainerMapper.fromEntityToResponse( entity.getTrainer() ) );
+        getRatingResponse.trainerId( entityTrainerUserId( entity ) );
         getRatingResponse.client( clientMapper.fromEntityToResponse( entity.getClient() ) );
 
         return getRatingResponse.build();
+    }
+
+    private Integer entityTrainerUserId(RatingEntity ratingEntity) {
+        if ( ratingEntity == null ) {
+            return null;
+        }
+        TrainerEntity trainer = ratingEntity.getTrainer();
+        if ( trainer == null ) {
+            return null;
+        }
+        Integer userId = trainer.getUserId();
+        if ( userId == null ) {
+            return null;
+        }
+        return userId;
     }
 }

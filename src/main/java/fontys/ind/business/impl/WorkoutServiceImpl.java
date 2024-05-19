@@ -1,5 +1,8 @@
 package fontys.ind.business.impl;
 
+import fontys.ind.domain.response.workout.GetWorkoutInfoResponse;
+import fontys.ind.persistence.RatingRepository;
+import fontys.ind.persistence.entity.RatingEntity;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -20,6 +23,7 @@ import fontys.ind.persistence.entity.WorkoutEntity;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -27,6 +31,7 @@ import java.util.Optional;
 public class WorkoutServiceImpl implements WorkoutService {
     private final WorkoutRepository workoutRepository;
     private final TrainerRepository trainerRepository;
+    private final RatingRepository ratingRepository;
     private final WorkoutMapper workoutMapper;
 
 
@@ -52,9 +57,11 @@ public class WorkoutServiceImpl implements WorkoutService {
                 new EntityNotFoundException("Trainer with ID " + request.getTrainerId() + " not found."));
 
         WorkoutEntity newWorkout = WorkoutEntity.builder()
-                .trainer(trainerEntity)
                 .title(request.getTitle())
                 .description(request.getDescription())
+                .startTime(request.getStartTime())
+                .endTime(request.getEndTime())
+                .trainer(trainerEntity)
                 .build();
 
         return workoutRepository.save(newWorkout);
@@ -71,6 +78,54 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public GetWorkoutResponse getWorkout(Integer id) {
         return null;
+    }
+
+    @Override
+    @Transactional
+    public GetWorkoutInfoResponse getWorkoutInfo(Integer id) {
+        Optional<WorkoutEntity> workoutEntityOptional = workoutRepository.findById(id);
+
+        if (workoutEntityOptional.isEmpty()){
+            throw new EntityNotFoundException("Workout workout with ID " + id + " wasn't found!");
+        }
+
+        WorkoutEntity workoutEntity = workoutEntityOptional.get();
+        TrainerEntity trainerEntity = workoutEntity.getTrainer();
+//        List<RatingEntity> ratingEntities = ratingRepository.findAllByTrainerUserId(trainerEntity.getUserId());
+
+        GetWorkoutInfoResponse workoutInfoResponse = new GetWorkoutInfoResponse();
+        workoutInfoResponse.setWorkoutId(workoutEntity.getId());
+        workoutInfoResponse.setTitle(workoutEntity.getTitle());
+        workoutInfoResponse.setDescription(workoutEntity.getDescription());
+        workoutInfoResponse.setStartTime(workoutEntity.getStartTime());
+        workoutInfoResponse.setEndTime(workoutEntity.getEndTime());
+        workoutInfoResponse.setId(trainerEntity.getUserId());
+        workoutInfoResponse.setFirstName(trainerEntity.getFirstName());
+        workoutInfoResponse.setLastName(trainerEntity.getLastName());
+        workoutInfoResponse.setRating(calculateMedianRating(trainerEntity.getRatings()));
+
+        return workoutInfoResponse;
+    }
+
+    public static double calculateMedianRating(List<RatingEntity> ratings) {
+        List<Integer> sortedRatings = ratings.stream()
+                .map(RatingEntity::getRating)
+                .sorted()
+                .toList();
+
+        int size = sortedRatings.size();
+        if (size == 0) {
+            // throw new IllegalArgumentException("The list of ratings is empty");
+            return 0;
+        }
+
+        if (size % 2 == 1) {
+            // Odd number of ratings
+            return sortedRatings.get(size / 2);
+        } else {
+            // Even number of ratings
+            return (sortedRatings.get(size / 2 - 1) + sortedRatings.get(size / 2)) / 2.0;
+        }
     }
 
     @Override
@@ -118,6 +173,8 @@ public class WorkoutServiceImpl implements WorkoutService {
     private void updateFields(UpdateWorkoutRequest request, WorkoutEntity workout) {
         workout.setTitle(request.getTitle());
         workout.setDescription(request.getDescription());
+        workout.setStartTime(request.getStartTime());
+        workout.setEndTime(request.getEndTime());
 
         workoutRepository.save(workout);
     }
