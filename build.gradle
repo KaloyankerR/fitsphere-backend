@@ -98,8 +98,12 @@ dependencies {
     testImplementation 'org.mockito:mockito-core'
     testImplementation 'org.mockito:mockito-junit-jupiter'
 
-    // Additionally added
+    // Websockets and chatting
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+//    implementation 'org.springframework.boot:spring-boot-starter-messaging'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    // Additionally added
     testImplementation 'org.springframework.security:spring-security-test'
 }
 

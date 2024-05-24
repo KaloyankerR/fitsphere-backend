@@ -21,7 +21,7 @@ public class RatingController {
     public ResponseEntity<GetRatingsResponse> getRatingsByTrainer(@PathVariable(value = "id") final Integer id) {
         return ResponseEntity.ok(ratingService.getTrainerRatings(id));
     }
-
+    
     @PostMapping()
     public ResponseEntity<CreateRatingResponse> createRating(@RequestBody @Valid CreateRatingRequest request) {
         CreateRatingResponse response = ratingService.createRating(request);
