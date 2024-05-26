@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "workouts")
@@ -41,4 +42,7 @@ public class WorkoutEntity {
     @ManyToOne
     @JoinColumn(name = "trainer_id", nullable = false)
     private TrainerEntity trainer;
+
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<AppointmentEntity> appointments;
 }
