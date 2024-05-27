@@ -1,11 +1,8 @@
 package fontys.ind.business.impl;
 
 import fontys.ind.business.mappers.AppointmentMapper;
-import fontys.ind.domain.request.appointment.UpdateAppointmentRequest;
 import fontys.ind.domain.response.appointment.GetAllAppointmentsResponse;
 import fontys.ind.domain.response.appointment.GetAppointmentResponse;
-import fontys.ind.domain.response.rating.GetRatingResponse;
-import fontys.ind.domain.response.rating.GetRatingsResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +13,8 @@ import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
 import fontys.ind.persistence.*;
 import fontys.ind.persistence.entity.*;
 
-import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,55 +30,33 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     @Transactional
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
-        Optional<TrainerEntity> trainerEntityOptional = trainerRepository.findById(Long.valueOf(request.getTrainerId()));
-        TrainerEntity trainerEntity = trainerEntityOptional.orElseThrow(() ->
-                new EntityNotFoundException("Trainer with ID " + request.getTrainerId() + NOT_FOUND_SUFFIX));
+        TrainerEntity trainerEntity = trainerRepository.findById(Long.valueOf(request.getTrainerId()))
+                .orElseThrow(() -> new EntityNotFoundException("Trainer with ID " + request.getTrainerId() + NOT_FOUND_SUFFIX));
 
-        Optional<ClientEntity> clientEntityOptional = clientRepository.findById(Long.valueOf(request.getClientId()));
-        ClientEntity clientEntity = clientEntityOptional.orElseThrow(() ->
-                new EntityNotFoundException("Client with ID " + request.getClientId() + NOT_FOUND_SUFFIX));
+        ClientEntity clientEntity = clientRepository.findById(Long.valueOf(request.getClientId()))
+                .orElseThrow(() -> new EntityNotFoundException("Client with ID " + request.getClientId() + NOT_FOUND_SUFFIX));
 
-        Optional<WorkoutEntity> workoutEntityOptional = workoutRepository.findById(request.getWorkoutId());
-        WorkoutEntity workoutEntity = workoutEntityOptional.orElseThrow(() ->
-                new EntityNotFoundException("Workout with ID " + request.getWorkoutId() + NOT_FOUND_SUFFIX));
+        WorkoutEntity workoutEntity = workoutRepository.findById(request.getWorkoutId())
+                .orElseThrow(() -> new EntityNotFoundException("Workout with ID " + request.getWorkoutId() + NOT_FOUND_SUFFIX));
 
         AppointmentEntity newAppointment = AppointmentEntity.builder()
                 .workout(workoutEntity)
                 .trainer(trainerEntity)
                 .client(clientEntity)
                 .build();
+        // TODO: include in the mapper
 
         AppointmentEntity savedAppointment = appointmentRepository.save(newAppointment);
-
-        return CreateAppointmentResponse.builder()
-                .id(savedAppointment.getId())
-                .build();
-    }
-
-    @Override
-    @Transactional
-    public void updateAppointment(UpdateAppointmentRequest request) throws InvalidClassException {
-        Optional<AppointmentEntity> appointmentEntityOptional = appointmentRepository.findById(request.getId());
-
-        if (appointmentEntityOptional.isEmpty()) {
-            // TODO: change to a more detail exception
-            throw new InvalidClassException("Invalid id for appointment.");
-        }
-
-        AppointmentEntity appointmentEntity = appointmentEntityOptional.get();
-        updateFields(request, appointmentEntity);
+        return CreateAppointmentResponse.builder().id(savedAppointment.getId()).build();
     }
 
     @Override
     @Transactional
     public void deleteAppointment(Integer id) {
+        if (!appointmentRepository.existsById(id)) {
+            throw new EntityNotFoundException("Appointment with ID " + id + NOT_FOUND_SUFFIX);
+        }
         appointmentRepository.deleteById(id);
-    }
-
-    private void updateFields(UpdateAppointmentRequest request, AppointmentEntity entity){
-        System.out.println(request);
-        // TODO: check the updating
-        appointmentRepository.save(entity);
     }
 
     @Override
@@ -93,7 +66,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         List<GetAppointmentResponse> appointments = appointmentEntityList.stream()
                 .map(appointmentMapper::fromEntityToResponse)
-                .toList();
+                .collect(Collectors.toList());
 
         return new GetAllAppointmentsResponse(appointments);
     }
@@ -105,24 +78,13 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<AppointmentEntity> clientAppointments = appointmentRepository.findAllByClientUserId(id);
 
         List<GetAppointmentResponse> appointments = new ArrayList<>();
-
-        if (!trainerAppointments.isEmpty()) {
-            appointments.addAll(trainerAppointments.stream()
-                    .map(appointmentMapper::fromEntityToResponse)
-                    .toList());
-        }
-
-        if (!clientAppointments.isEmpty()) {
-            appointments.addAll(clientAppointments.stream()
-                    .map(appointmentMapper::fromEntityToResponse)
-                    .toList());
-        }
-
-        if (appointments.isEmpty()) {
-            return new GetAllAppointmentsResponse(new ArrayList<>());
-        }
+        appointments.addAll(trainerAppointments.stream()
+                .map(appointmentMapper::fromEntityToResponse)
+                .toList());
+        appointments.addAll(clientAppointments.stream()
+                .map(appointmentMapper::fromEntityToResponse)
+                .toList());
 
         return new GetAllAppointmentsResponse(appointments);
     }
-
 }

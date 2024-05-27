@@ -19,4 +19,6 @@ public interface AppointmentMapper {
     @Mapping(target = "clientFirstName", source = "entity.client.firstName")
     @Mapping(target = "clientLastName", source = "entity.client.lastName")
     GetAppointmentResponse fromEntityToResponse(AppointmentEntity entity);
+
+
 }

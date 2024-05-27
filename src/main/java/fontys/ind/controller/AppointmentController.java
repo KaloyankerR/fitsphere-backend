@@ -1,6 +1,6 @@
 package fontys.ind.controller;
 
-import fontys.ind.domain.request.appointment.UpdateAppointmentRequest;
+
 import fontys.ind.domain.response.appointment.GetAllAppointmentsResponse;
 import fontys.ind.domain.response.appointment.GetAppointmentResponse;
 import jakarta.annotation.security.RolesAllowed;
@@ -13,8 +13,6 @@ import fontys.ind.business.AppointmentService;
 import fontys.ind.domain.request.appointment.CreateAppointmentRequest;
 import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
 
-import java.io.InvalidClassException;
-
 @RestController
 @RequestMapping("/appointments")
 @AllArgsConstructor
@@ -24,16 +22,9 @@ public class AppointmentController {
 
     @PostMapping
 //    @RolesAllowed({"CLIENT", "TRAINER"})
-    public ResponseEntity<CreateAppointmentResponse> createAppointment(@RequestBody @Valid CreateAppointmentRequest request){
+    public ResponseEntity<CreateAppointmentResponse> createAppointment(@RequestBody @Valid CreateAppointmentRequest request) {
         CreateAppointmentResponse response = appointmentService.createAppointment(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
-
-    @PutMapping("{id}")
-    public ResponseEntity<GetAppointmentResponse> updateAppointment(@PathVariable("id") Integer id, @RequestBody UpdateAppointmentRequest request) throws InvalidClassException {
-        request.setId(id);
-        appointmentService.updateAppointment(request);
-        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("{id}")
@@ -49,7 +40,7 @@ public class AppointmentController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<GetAllAppointmentsResponse> getAllAppointmentsByUser(@PathVariable(value = "id") final Integer id){
+    public ResponseEntity<GetAllAppointmentsResponse> getAllAppointmentsByUser(@PathVariable(value = "id") final Integer id) {
         GetAllAppointmentsResponse response = appointmentService.getAllAppointmentsByUser(id);
         return ResponseEntity.ok(response);
     }
