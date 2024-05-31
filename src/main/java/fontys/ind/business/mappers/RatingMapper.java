@@ -13,5 +13,4 @@ public interface RatingMapper {
     @Mapping(source = "trainer.userId", target = "trainerId")
     @Mapping(source = "client", target = "client")
     GetRatingResponse fromEntityToResponse(RatingEntity entity);
-
 }

@@ -1,6 +1,8 @@
 package fontys.ind.business.impl;
 
 import fontys.ind.domain.response.ApiWrapperResponse;
+import fontys.ind.persistence.AdminRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,15 +37,14 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final TrainerRepository trainerRepository;
     private final ClientRepository clientRepository;
+    private final AdminRepository adminRepository;
     // Mapper
     private final UserMapper userMapper;
     private final TrainerMapper trainerMapper;
     private final ClientMapper clientMapper;
-    // private final AppointmentMapper appointmentMapper;
 
     private final PasswordEncoder passwordEncoder;
 
-    // CREATE
     @Transactional
     @Override
     public CreateUserResponse createUser(CreateUserRequest request) {
@@ -66,7 +67,6 @@ public class UserServiceImpl implements UserService {
 
     private ClientEntity saveNewClient(CreateUserRequest request) {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
-
 
         ClientEntity clientEntity = clientMapper.fromRequestToEntity(request);
         clientEntity.setPassword(encodedPassword);
@@ -127,27 +127,28 @@ public class UserServiceImpl implements UserService {
     // GET
     @Override
     @Transactional
-    public Optional<GetUserResponse> getUserById(Integer id) {
-        UserEntity userEntity = userRepository.getUserEntityByUserId(id);
+    public Optional<? extends GetUserResponse> getUserById(Integer id) {
+        UserEntity userEntity = userRepository.findById(Long.valueOf(id))
+                .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found."));
 
-        if (userEntity != null) {
-            return switch (userEntity.getRole()) {
-                case TRAINER -> {
-                    Optional<TrainerEntity> trainerEntity = trainerRepository.findById(Long.valueOf(id));
-                    yield trainerEntity.map(trainerMapper::fromEntityToResponse);
-                }
-                case ADMIN ->
-                    // Optional<AdminEntity> adminEntity = admin TODO: finish
-                    Optional.ofNullable(userMapper.fromEntityToResponse(userRepository.getUserEntityByUserId(id)));
-                case CLIENT -> {
-                    Optional<ClientEntity> clientEntity = clientRepository.findById(Long.valueOf(id));
-                    yield clientEntity.map(clientMapper::fromEntityToResponse);
-                }
-            };
+        switch (userEntity.getRole()) { 
+            case TRAINER:
+                return trainerRepository.findById(Long.valueOf(id))
+                        .map(trainerMapper::fromEntityToResponse)
+                        .or(() -> { throw new EntityNotFoundException("Trainer with ID " + id + " not found."); });
+            case ADMIN:
+                return adminRepository.findById(Long.valueOf(id))
+                        .map(userMapper::fromEntityToResponse)
+                        .or(() -> { throw new EntityNotFoundException("Admin with ID " + id + " not found."); });
+            case CLIENT:
+                return clientRepository.findById(Long.valueOf(id))
+                        .map(clientMapper::fromEntityToResponse)
+                        .or(() -> { throw new EntityNotFoundException("Client with ID " + id + " not found."); });
+            default:
+                throw new EntityNotFoundException("User role not recognized.");
         }
-
-        return Optional.ofNullable(userMapper.fromEntityToResponse(userRepository.getUserEntityByUserId(id)));
     }
+
 
     // GET ALL
     @Override
@@ -191,25 +192,17 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
-    // UPDATE
     @Override
     @Transactional
     public void updateUser(UpdateUserRequest request) {
-        Optional<UserEntity> userEntityOptional = userRepository.findById(request.getUserId());
+        UserEntity user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new InvalidUserException("USER_ID_INVALID"));
 
-        if (userEntityOptional.isEmpty()) {
-            throw new InvalidUserException("USER_ID_INVALID");
-        }
-
-        UserEntity user = userEntityOptional.get();
-        updateFields(request, user);
-    }
-
-    private void updateFields(UpdateUserRequest request, UserEntity user) {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
 
         userRepository.save(user);
     }
+
 }

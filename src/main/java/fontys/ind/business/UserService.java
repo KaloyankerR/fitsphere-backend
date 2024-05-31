@@ -17,7 +17,7 @@ public interface UserService {
 
     void deleteUser(Long userId);
 
-    Optional<GetUserResponse> getUserById(Integer id);
+    Optional<? extends GetUserResponse> getUserById(Integer id);
 
     GetAllUsersResponse getAllUsers();
     GetAllTrainersResponse getAllTrainers();

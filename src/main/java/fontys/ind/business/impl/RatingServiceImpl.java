@@ -64,10 +64,13 @@ public class RatingServiceImpl implements RatingService {
     @Transactional
     public GetRatingsResponse getTrainerRatings(Integer id) {
         List<RatingEntity> ratingEntities = ratingRepository.findAllByTrainerUserId(id);
+
         List<GetRatingResponse> ratings = ratingEntities.stream()
                 .map(ratingMapper::fromEntityToResponse)
                 .toList();
 
-        return GetRatingsResponse.builder().ratings(ratings).build();
+        return GetRatingsResponse.builder()
+                .ratings(ratings)
+                .build();
     }
 }
