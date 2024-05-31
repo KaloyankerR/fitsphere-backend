@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.business.impl.AppointmentServiceImplTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2024-05-19T14:08:53" hostname="DESKTOP-88OFGPG" time="2.564">
+<testsuite name="fontys.ind.business.impl.AppointmentServiceImplTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2024-05-31T12:48:57" hostname="DESKTOP-88OFGPG" time="2.685">
   <properties/>
-  <testcase name="updateAppointment_successful()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="2.453"/>
-  <testcase name="createAppointment_trainerNotFound_throwsException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.027"/>
-  <testcase name="updateAppointment_notFound_throwsException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.008"/>
-  <testcase name="createAppointment_workoutNotFound_throwsException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.012"/>
-  <testcase name="createAppointment_successful()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.016"/>
+  <testcase name="createAppointment_trainerNotFound_throwsException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="2.573"/>
+  <testcase name="deleteAppointment_appointmentNotFound()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.029"/>
+  <testcase name="createAppointment_workoutNotFound_throwsException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.017"/>
+  <testcase name="createAppointment_successful()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.02"/>
   <testcase name="deleteAppointment_successful()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.006"/>
-  <testcase name="getAllAppointments_returnsAppointments()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.013"/>
-  <testcase name="getAllAppointments_noAppointments_returnsEmpty()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.006"/>
-  <testcase name="createAppointment_clientNotFound_throwsException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.005"/>
-  <system-out><![CDATA[UpdateAppointmentRequest(id=1)
-]]></system-out>
+  <testcase name="getAllAppointments_returnsAppointments()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.008"/>
+  <testcase name="getAllAppointments_noAppointments_returnsEmpty()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.008"/>
+  <testcase name="createAppointment_clientNotFound_throwsException()" classname="fontys.ind.business.impl.AppointmentServiceImplTest" time="0.007"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

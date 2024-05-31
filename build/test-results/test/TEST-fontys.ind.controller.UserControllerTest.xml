@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.controller.UserControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-19T14:09:08" hostname="DESKTOP-88OFGPG" time="0.071">
+<testsuite name="fontys.ind.controller.UserControllerTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-05-31T12:49:17" hostname="DESKTOP-88OFGPG" time="0.166">
   <properties/>
-  <testcase name="testGetUsersByRole_InvalidRole()" classname="fontys.ind.controller.UserControllerTest" time="0.049"/>
-  <testcase name="getAllUsers()" classname="fontys.ind.controller.UserControllerTest" time="0.021"/>
-  <system-out><![CDATA[16:08:59.791 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [fontys.ind.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-16:08:59.978 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration fontys.ind.Main for test class fontys.ind.controller.UserControllerTest
+  <testcase name="testGetUsersByRole_InvalidRole()" classname="fontys.ind.controller.UserControllerTest" time="0.127"/>
+  <testcase name="getAllUsers()" classname="fontys.ind.controller.UserControllerTest" time="0.036"/>
+  <system-out><![CDATA[14:49:03.747 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [fontys.ind.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:49:03.975 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration fontys.ind.Main for test class fontys.ind.controller.UserControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -14,38 +14,38 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.1.3)
 
-2024-05-19T16:09:00.611+02:00  INFO 18140 --- [    Test worker] f.ind.controller.UserControllerTest      : Starting UserControllerTest using Java 17.0.10 with PID 18140 (started by Melina in D:\CS\Version Control\GitLab\test\fitsphere-backend)
-2024-05-19T16:09:00.613+02:00  INFO 18140 --- [    Test worker] f.ind.controller.UserControllerTest      : No active profile set, falling back to 1 default profile: "default"
-2024-05-19T16:09:01.972+02:00  INFO 18140 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-05-19T16:09:02.119+02:00  INFO 18140 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 127 ms. Found 6 JPA repository interfaces.
-2024-05-19T16:09:03.245+02:00  INFO 18140 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.16.3 by Redgate
-2024-05-19T16:09:03.245+02:00  INFO 18140 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
-2024-05-19T16:09:03.245+02:00  INFO 18140 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : 
-2024-05-19T16:09:03.823+02:00  INFO 18140 --- [    Test worker] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:mysql://localhost:3306/fitsphere (MySQL 8.0)
-2024-05-19T16:09:03.916+02:00  INFO 18140 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Current version of schema `fitsphere`: 1
-2024-05-19T16:09:03.918+02:00  INFO 18140 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Schema `fitsphere` is up to date. No migration necessary.
-2024-05-19T16:09:04.068+02:00  INFO 18140 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-05-19T16:09:04.188+02:00  INFO 18140 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.7.Final
-2024-05-19T16:09:04.193+02:00  INFO 18140 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
-2024-05-19T16:09:04.475+02:00  INFO 18140 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
-2024-05-19T16:09:04.492+02:00  INFO 18140 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-05-19T16:09:04.532+02:00  INFO 18140 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-05-19T16:09:04.585+02:00  INFO 18140 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@74bd894b
-2024-05-19T16:09:04.589+02:00  INFO 18140 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-05-19T16:09:05.244+02:00  INFO 18140 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
-2024-05-19T16:09:06.229+02:00  INFO 18140 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2024-05-19T16:09:06.232+02:00  INFO 18140 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-05-19T16:09:07.257+02:00  WARN 18140 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+2024-05-31T14:49:04.824+02:00  INFO 18028 --- [    Test worker] f.ind.controller.UserControllerTest      : Starting UserControllerTest using Java 17.0.10 with PID 18028 (started by Melina in D:\CS\Version Control\GitLab\test\fitsphere-backend)
+2024-05-31T14:49:04.827+02:00  INFO 18028 --- [    Test worker] f.ind.controller.UserControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2024-05-31T14:49:06.708+02:00  INFO 18028 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-31T14:49:06.894+02:00  INFO 18028 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 166 ms. Found 7 JPA repository interfaces.
+2024-05-31T14:49:08.409+02:00  INFO 18028 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.16.3 by Redgate
+2024-05-31T14:49:08.409+02:00  INFO 18028 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
+2024-05-31T14:49:08.409+02:00  INFO 18028 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : 
+2024-05-31T14:49:09.423+02:00  INFO 18028 --- [    Test worker] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:mysql://localhost:3306/fitsphere (MySQL 8.0)
+2024-05-31T14:49:09.577+02:00  INFO 18028 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Current version of schema `fitsphere`: 1
+2024-05-31T14:49:09.579+02:00  INFO 18028 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Schema `fitsphere` is up to date. No migration necessary.
+2024-05-31T14:49:09.873+02:00  INFO 18028 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-31T14:49:10.100+02:00  INFO 18028 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.7.Final
+2024-05-31T14:49:10.108+02:00  INFO 18028 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2024-05-31T14:49:10.680+02:00  INFO 18028 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2024-05-31T14:49:10.709+02:00  INFO 18028 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-31T14:49:10.774+02:00  INFO 18028 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-05-31T14:49:10.860+02:00  INFO 18028 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5ab85072
+2024-05-31T14:49:10.866+02:00  INFO 18028 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-05-31T14:49:11.968+02:00  INFO 18028 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2024-05-31T14:49:13.984+02:00  INFO 18028 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-05-31T14:49:13.988+02:00  INFO 18028 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-31T14:49:15.826+02:00  WARN 18028 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: 0c903feb-25f1-414a-8ede-c22aba561499
+Using generated security password: d35ed395-811f-4436-8f58-4f54128707b6
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-2024-05-19T16:09:07.436+02:00  INFO 18140 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@243a4456, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@55b06402, org.springframework.security.web.context.SecurityContextHolderFilter@dd10d4c, org.springframework.security.web.header.HeaderWriterFilter@4d945670, org.springframework.security.web.authentication.logout.LogoutFilter@1ad6edb7, fontys.ind.configuration.security.auth.AuthenticationRequestFilter@2d137b6c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@304af200, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1bbdb65f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@28a1ce05, org.springframework.security.web.session.SessionManagementFilter@9b6f3e2, org.springframework.security.web.access.ExceptionTranslationFilter@7d204f35, org.springframework.security.web.access.intercept.AuthorizationFilter@68832f1c]
-2024-05-19T16:09:08.196+02:00  INFO 18140 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2024-05-19T16:09:08.197+02:00  INFO 18140 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2024-05-19T16:09:08.198+02:00  INFO 18140 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2024-05-19T16:09:08.230+02:00  INFO 18140 --- [    Test worker] f.ind.controller.UserControllerTest      : Started UserControllerTest in 8.067 seconds (process running for 16.073)
+2024-05-31T14:49:16.211+02:00  INFO 18028 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@b41cff5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5db130d4, org.springframework.security.web.context.SecurityContextHolderFilter@48dab901, org.springframework.security.web.header.HeaderWriterFilter@7829048f, org.springframework.security.web.authentication.logout.LogoutFilter@28a5ee04, fontys.ind.configuration.security.auth.AuthenticationRequestFilter@5806353f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@48ec89c2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1b535c0d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6f557a9f, org.springframework.security.web.session.SessionManagementFilter@5d1ab984, org.springframework.security.web.access.ExceptionTranslationFilter@67466824, org.springframework.security.web.access.intercept.AuthorizationFilter@44a25091]
+2024-05-31T14:49:17.471+02:00  INFO 18028 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-05-31T14:49:17.472+02:00  INFO 18028 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2024-05-31T14:49:17.474+02:00  INFO 18028 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2024-05-31T14:49:17.528+02:00  INFO 18028 --- [    Test worker] f.ind.controller.UserControllerTest      : Started UserControllerTest in 13.327 seconds (process running for 21.866)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

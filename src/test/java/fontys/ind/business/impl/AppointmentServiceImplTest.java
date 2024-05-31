@@ -2,7 +2,6 @@ package fontys.ind.business.impl;
 
 import fontys.ind.business.mappers.AppointmentMapper;
 import fontys.ind.domain.request.appointment.CreateAppointmentRequest;
-import fontys.ind.domain.request.appointment.UpdateAppointmentRequest;
 import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
 import fontys.ind.domain.response.appointment.GetAllAppointmentsResponse;
 import fontys.ind.domain.response.appointment.GetAppointmentResponse;
@@ -110,39 +109,28 @@ class AppointmentServiceImplTest {
     }
 
     @Test
-    void updateAppointment_successful() throws InvalidClassException {
-        UpdateAppointmentRequest request = new UpdateAppointmentRequest(
-                1
-//                LocalDateTime.of(2024, 5, 17, 10, 0),
-//                LocalDateTime.of(2024, 5, 17, 11, 0)
-        );
-        AppointmentEntity appointmentEntity = new AppointmentEntity();
-
-        when(appointmentRepository.findById(request.getId())).thenReturn(Optional.of(appointmentEntity));
-
-        appointmentService.updateAppointment(request);
-
-        verify(appointmentRepository).save(any(AppointmentEntity.class));
-    }
-
-    @Test
-    void updateAppointment_notFound_throwsException() {
-        UpdateAppointmentRequest request = new UpdateAppointmentRequest(
-                1
-        );
-
-        when(appointmentRepository.findById(request.getId())).thenReturn(Optional.empty());
-
-        assertThrows(InvalidClassException.class, () -> appointmentService.updateAppointment(request));
-    }
-
-    @Test
     void deleteAppointment_successful() {
         int id = 1;
+
+        when(appointmentRepository.existsById(id)).thenReturn(true);
 
         appointmentService.deleteAppointment(id);
 
         verify(appointmentRepository).deleteById(id);
+    }
+
+    @Test
+    void deleteAppointment_appointmentNotFound() {
+        int id = 1;
+
+        when(appointmentRepository.existsById(id)).thenReturn(false);
+
+        EntityNotFoundException thrown = assertThrows(EntityNotFoundException.class, () -> {
+            appointmentService.deleteAppointment(id);
+        });
+
+        assertEquals("Appointment with ID " + id + " not found.", thrown.getMessage());
+        verify(appointmentRepository, never()).deleteById(id);
     }
 
     @Test
