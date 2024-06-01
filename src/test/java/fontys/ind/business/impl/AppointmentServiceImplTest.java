@@ -14,8 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.io.InvalidClassException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,8 +77,6 @@ class AppointmentServiceImplTest {
     @Test
     void createAppointment_clientNotFound_throwsException() {
         CreateAppointmentRequest request = new CreateAppointmentRequest(
-//                LocalDateTime.of(2024, 5, 17, 10, 0),
-//                LocalDateTime.of(2024, 5, 17, 11, 0),
                 1, 2, 3
         );
         TrainerEntity trainerEntity = new TrainerEntity();
@@ -94,8 +90,6 @@ class AppointmentServiceImplTest {
     @Test
     void createAppointment_workoutNotFound_throwsException() {
         CreateAppointmentRequest request = new CreateAppointmentRequest(
-//                LocalDateTime.of(2024, 5, 17, 10, 0),
-//                LocalDateTime.of(2024, 5, 17, 11, 0),
                 1, 2, 3
         );
         TrainerEntity trainerEntity = new TrainerEntity();

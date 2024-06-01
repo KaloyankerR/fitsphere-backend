@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class AppointmentServiceImpl implements AppointmentService {
     private final TrainerRepository trainerRepository;
@@ -28,7 +29,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     private static final String NOT_FOUND_SUFFIX = " not found.";
 
     @Override
-    @Transactional
     public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
         TrainerEntity trainerEntity = trainerRepository.findById(Long.valueOf(request.getTrainerId()))
                 .orElseThrow(() -> new EntityNotFoundException("Trainer with ID " + request.getTrainerId() + NOT_FOUND_SUFFIX));
@@ -51,7 +51,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    @Transactional
     public void deleteAppointment(Integer id) {
         if (!appointmentRepository.existsById(id)) {
             throw new EntityNotFoundException("Appointment with ID " + id + NOT_FOUND_SUFFIX);
@@ -60,7 +59,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    @Transactional
     public GetAllAppointmentsResponse getAllAppointments() {
         List<AppointmentEntity> appointmentEntityList = appointmentRepository.findAll();
 
@@ -72,7 +70,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    @Transactional
     public GetAllAppointmentsResponse getAllAppointmentsByUser(Integer id) {
         List<AppointmentEntity> trainerAppointments = appointmentRepository.findAllByTrainerUserId(id);
         List<AppointmentEntity> clientAppointments = appointmentRepository.findAllByClientUserId(id);
