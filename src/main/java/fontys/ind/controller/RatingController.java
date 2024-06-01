@@ -4,6 +4,7 @@ import fontys.ind.business.RatingService;
 import fontys.ind.domain.request.rating.CreateRatingRequest;
 import fontys.ind.domain.response.rating.CreateRatingResponse;
 import fontys.ind.domain.response.rating.GetRatingsResponse;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ public class RatingController {
     }
     
     @PostMapping()
+    @RolesAllowed("CLIENT")
     public ResponseEntity<CreateRatingResponse> createRating(@RequestBody @Valid CreateRatingRequest request) {
         CreateRatingResponse response = ratingService.createRating(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

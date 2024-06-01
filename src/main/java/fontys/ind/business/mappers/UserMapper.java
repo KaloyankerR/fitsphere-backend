@@ -15,11 +15,11 @@ public interface UserMapper {
     @Mapping(target = "role", source = "entity.role")
     GetUserResponse fromEntityToResponse(UserEntity entity);
 
-    @Mapping(target = "userId", ignore = true)
-    @Mapping(target = "firstName", source = "response.firstName")
-    @Mapping(target = "lastName", source = "response.lastName")
-    @Mapping(target = "email", source = "response.email")
-    @Mapping(target = "password", source = "response.password")
-    @Mapping(target = "role", source = "response.role")
-    UserEntity fromResponseToEntity(GetUserResponse response);
+//    @Mapping(target = "userId", ignore = true)
+//    @Mapping(target = "firstName", source = "response.firstName")
+//    @Mapping(target = "lastName", source = "response.lastName")
+//    @Mapping(target = "email", source = "response.email")
+//    @Mapping(target = "password", source = "response.password")
+//    @Mapping(target = "role", source = "response.role")
+//    UserEntity fromResponseToEntity(GetUserResponse response);
 }

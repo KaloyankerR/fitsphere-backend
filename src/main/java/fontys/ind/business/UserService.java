@@ -20,7 +20,7 @@ public interface UserService {
     Optional<? extends GetUserResponse> getUserById(Integer id);
 
     GetAllUsersResponse getAllUsers();
-    GetAllTrainersResponse getAllTrainers();
+//    GetAllTrainersResponse getAllTrainers();
 
     ApiWrapperResponse getUsersByRole(String role);
 

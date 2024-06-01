@@ -26,10 +26,10 @@ import java.util.*;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/trainers")
-    public ResponseEntity<GetAllTrainersResponse> getAllTrainers() {
-        return ResponseEntity.ok(userService.getAllTrainers());
-    }
+//    @GetMapping("/trainers")
+//    public ResponseEntity<GetAllTrainersResponse> getAllTrainers() {
+//        return ResponseEntity.ok(userService.getAllTrainers());
+//    }
 
     @GetMapping
     public ResponseEntity<GetAllUsersResponse> getAllUsers() {
@@ -59,23 +59,24 @@ public class UserController {
     }
 
     @PostMapping("/trainer")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<CreateUserResponse> createUser(@RequestBody @Valid CreateTrainerRequest request) {
         CreateUserResponse response = userService.createTrainer(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("{id}")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<GetUserResponse> updateUser(@PathVariable("id") long id, @RequestBody UpdateUserRequest request) {
         request.setUserId(id);
         userService.updateUser(request);
         return ResponseEntity.noContent().build();
     }
 
-    @RolesAllowed({"ADMIN"})
     @DeleteMapping("{id}")
+    @RolesAllowed({"ADMIN"})
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
         userService.deleteUser((long) id);
         return ResponseEntity.noContent().build();
     }
-
 }

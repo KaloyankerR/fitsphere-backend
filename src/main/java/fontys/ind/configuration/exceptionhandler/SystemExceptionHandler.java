@@ -1,5 +1,6 @@
 package fontys.ind.configuration.exceptionhandler;
 
+import fontys.ind.business.exception.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,34 +26,29 @@ public class SystemExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-//    @ExceptionHandler(InvalidIdException.class)
-//    public ResponseEntity<String> handleInvalidIdException(InvalidIdException ex) {
-//        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-//    }
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<String> handleInvalidCredentialsException(InvalidCredentialsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 
-//    @ExceptionHandler(NoMatchException.class)
-//    public ResponseEntity<String> handleNoMatchException(NoMatchException ex) {
-//        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-//    }
+    @ExceptionHandler(InvalidUserException.class)
+    public ResponseEntity<String> handleInvalidUserException(InvalidUserException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
-//    @ExceptionHandler(InvalidRoleException.class)
-//    public ResponseEntity<String> handleInvalidRoleException(InvalidRoleException ex) {
-//        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler(DuplicatedUsernameException.class)
-//    public ResponseEntity<String> handleDuplicatedUsernameException(DuplicatedUsernameException ex) {
-//        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
-//    }
-//
-//    @ExceptionHandler(InvalidCredentialsException.class)
-//    public ResponseEntity<String> handleInvalidCredentialsException(InvalidCredentialsException ex) {
-//        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler(UnauthorizedDataAccessException.class)
-//    public ResponseEntity<String> handleUnauthorizedDataAccessException(UnauthorizedDataAccessException ex) {
-//        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
-//    }
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<String> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(TitleAlreadyExistsException.class)
+    public ResponseEntity<String> handleTitleAlreadyExistsException(TitleAlreadyExistsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(InvalidWorkoutException.class)
+    public ResponseEntity<String> handleInvalidWorkoutException(InvalidWorkoutException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
 }

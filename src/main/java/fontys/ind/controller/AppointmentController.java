@@ -1,6 +1,5 @@
 package fontys.ind.controller;
 
-
 import fontys.ind.domain.response.appointment.GetAllAppointmentsResponse;
 import fontys.ind.domain.response.appointment.GetAppointmentResponse;
 import jakarta.annotation.security.RolesAllowed;

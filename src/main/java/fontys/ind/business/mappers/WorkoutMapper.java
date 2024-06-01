@@ -16,13 +16,13 @@ public interface WorkoutMapper {
     // @Mapping(source = "trainer", target = "trainer")
     GetWorkoutResponse fromEntityToResponse(WorkoutEntity entity);
 
-    @Mapping(target = "workoutId", source = "id")
-    @Mapping(source = "title", target = "title")
-    @Mapping(source = "description", target = "description")
-    @Mapping(source = "startTime", target = "startTime")
-    @Mapping(source = "endTime", target = "endTime")
-    @Mapping(source = "trainer.userId", target = "trainerId")
-    @Mapping(source = "trainer.firstName", target = "trainerFirstName")
-    @Mapping(source = "trainer.lastName", target = "trainerLastName")
-    GetWorkoutInfoResponse fromEntityToInfoResponse(WorkoutEntity entity);
+//    @Mapping(target = "workoutId", source = "id")
+//    @Mapping(source = "title", target = "title")
+//    @Mapping(source = "description", target = "description")
+//    @Mapping(source = "startTime", target = "startTime")
+//    @Mapping(source = "endTime", target = "endTime")
+//    @Mapping(source = "trainer.userId", target = "trainerId")
+//    @Mapping(source = "trainer.firstName", target = "trainerFirstName")
+//    @Mapping(source = "trainer.lastName", target = "trainerLastName")
+//    GetWorkoutInfoResponse fromEntityToInfoResponse(WorkoutEntity entity);
 }

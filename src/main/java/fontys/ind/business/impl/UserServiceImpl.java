@@ -1,7 +1,9 @@
 package fontys.ind.business.impl;
 
+import fontys.ind.business.mappers.AdminMapper;
 import fontys.ind.domain.response.ApiWrapperResponse;
 import fontys.ind.persistence.AdminRepository;
+import fontys.ind.persistence.entity.AdminEntity;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -26,112 +28,93 @@ import fontys.ind.persistence.entity.TrainerEntity;
 import fontys.ind.persistence.entity.UserEntity;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 @Transactional
 public class UserServiceImpl implements UserService {
-    // Repositories
     private final UserRepository userRepository;
     private final TrainerRepository trainerRepository;
     private final ClientRepository clientRepository;
     private final AdminRepository adminRepository;
-    // Mapper
     private final UserMapper userMapper;
     private final TrainerMapper trainerMapper;
     private final ClientMapper clientMapper;
-
+    private final AdminMapper adminMapper;
     private final PasswordEncoder passwordEncoder;
 
-    @Transactional
     @Override
     public CreateUserResponse createUser(CreateUserRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyExistsException();
         }
 
-        UserEntity newUser;
-
-        if (Objects.equals(request.getRole(), "CLIENT")) {
-            newUser = saveNewClient(request);
-        } else {
-            newUser = saveNewUser(request);
-        }
+        UserEntity newUser = createUserEntity(request);
 
         return CreateUserResponse.builder()
                 .userId(Long.valueOf(newUser.getUserId()))
                 .build();
     }
 
-    private ClientEntity saveNewClient(CreateUserRequest request) {
-        String encodedPassword = passwordEncoder.encode(request.getPassword());
-
-        ClientEntity clientEntity = clientMapper.fromRequestToEntity(request);
-        clientEntity.setPassword(encodedPassword);
-
-        return clientRepository.save(clientEntity);
-    }
-
-    @Transactional
     public CreateUserResponse createTrainer(CreateTrainerRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyExistsException();
         }
 
-        TrainerEntity newTrainer = saveTrainer(request);
+        TrainerEntity newTrainer = (TrainerEntity) createUserEntity(request);
 
         return CreateUserResponse.builder()
                 .userId(Long.valueOf(newTrainer.getUserId()))
                 .build();
     }
 
-    private UserEntity saveNewUser(CreateUserRequest request) {
+    private UserEntity createUserEntity(CreateUserRequest request) {
         String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-        UserEntity newUser = UserEntity.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
-                .email(request.getEmail())
-                .password(encodedPassword)
-                .role(RoleEnum.valueOf(request.getRole()))
-                .build();
+        switch (RoleEnum.valueOf(request.getRole())) {
+            case CLIENT:
+                ClientEntity clientEntity = clientMapper.fromRequestToEntity(request);
+                clientEntity.setPassword(encodedPassword);
+                return clientRepository.save(clientEntity);
 
-        return userRepository.save(newUser);
+            case TRAINER:
+                if (request instanceof CreateTrainerRequest trainerRequest) {
+                    TrainerEntity trainerEntity = trainerMapper.fromRequestToEntity(trainerRequest);
+                    trainerEntity.setPassword(encodedPassword);
+                    return trainerRepository.save(trainerEntity);
+                } else {
+                    throw new IllegalArgumentException("Invalid request type for trainer creation");
+                }
+
+            case ADMIN:
+                AdminEntity adminEntity = adminMapper.fromRequestToEntity(request);
+                adminEntity.setPassword(encodedPassword);
+                return adminRepository.save(adminEntity);
+
+            default:
+                UserEntity userEntity = UserEntity.builder()
+                        .firstName(request.getFirstName())
+                        .lastName(request.getLastName())
+                        .email(request.getEmail())
+                        .password(encodedPassword)
+                        .role(RoleEnum.valueOf(request.getRole()))
+                        .build();
+                return userRepository.save(userEntity);
+        }
     }
 
-    private TrainerEntity saveTrainer(CreateTrainerRequest request) {
-        String encodedPassword = passwordEncoder.encode(request.getPassword());
-
-        TrainerEntity newTrainer = TrainerEntity.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
-                .email(request.getEmail())
-                .password(encodedPassword)
-                .role(RoleEnum.valueOf(request.getRole()))
-                .bio(request.getBio())
-                .igLink(request.getIgLink())
-                .build();
-
-        return userRepository.save(newTrainer);
-    }
-
-    // DELETE
     @Override
-    @Transactional
     public void deleteUser(Long userId) {
         this.userRepository.deleteById(userId);
     }
 
-    // GET
     @Override
-    @Transactional
     public Optional<? extends GetUserResponse> getUserById(Integer id) {
         UserEntity userEntity = userRepository.findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found."));
 
-        switch (userEntity.getRole()) { 
+        switch (userEntity.getRole()) {
             case TRAINER:
                 return trainerRepository.findById(Long.valueOf(id))
                         .map(trainerMapper::fromEntityToResponse)
@@ -149,21 +132,54 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
-    // GET ALL
     @Override
-    @Transactional
     public ApiWrapperResponse getUsersByRole(String role) {
-        return switch (role.toUpperCase()) {
-            case "ADMIN" ->
-                // TODO: create getAllAdmins()
-                    getAllUsers();
-            case "CLIENT" ->
-                // TODO: create getAllClients()
-                    getAllUsers();
-            case "TRAINER" -> getAllTrainers();
-            default -> throw new InvalidUserException("Invalid role!");
-        };
+        switch (role.toUpperCase()) {
+//            case "ADMIN":
+//                return getAllAdmins();
+            case "CLIENT":
+                return getAllClients();
+            case "TRAINER":
+                return getAllTrainers();
+            default:
+                throw new InvalidUserException("INVALID ROLE!");
+        }
+    }
+
+//    private GetAllUsersResponse getAllAdmins() {
+//        List<UserEntity> adminsEntity = adminRepository.findAll();
+//
+//        List<GetUserResponse> admins = adminsEntity.stream()
+//                .map(userMapper::fromEntityToResponse)
+//                .toList();
+//
+//        GetAllUsersResponse response = new GetAllUsersResponse();
+//        response.setUsers(admins);
+//        return response;
+//    }
+
+    private GetAllClientsResponse getAllClients() {
+        List<ClientEntity> clientsEntity = clientRepository.findAll();
+
+        List<GetClientResponse> clients = clientsEntity.stream()
+                .map(clientMapper::fromEntityToResponse)
+                .toList();
+
+        GetAllClientsResponse response = new GetAllClientsResponse();
+        response.setClients(clients);
+        return response;
+    }
+
+//    @Override
+    public GetAllTrainersResponse getAllTrainers() {
+        List<TrainerEntity> trainersEntity = trainerRepository.findAll();
+        List<GetTrainerResponse> trainers = trainersEntity.stream()
+                .map(trainerMapper::fromEntityToResponse)
+                .toList();
+
+        GetAllTrainersResponse response = new GetAllTrainersResponse();
+        response.setTrainers(trainers);
+        return response;
     }
 
     @Override
@@ -180,20 +196,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public GetAllTrainersResponse getAllTrainers() {
-        List<TrainerEntity> trainersEntity = trainerRepository.findAll();
-        List<GetTrainerResponse> trainers = trainersEntity.stream()
-                .map(trainerMapper::fromEntityToResponse)
-                .toList();
-
-        final GetAllTrainersResponse response = new GetAllTrainersResponse();
-        response.setTrainers(trainers);
-        return response;
-    }
-
-    @Override
-    @Transactional
     public void updateUser(UpdateUserRequest request) {
         UserEntity user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new InvalidUserException("USER_ID_INVALID"));
@@ -204,5 +206,4 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
     }
-
 }

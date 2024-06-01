@@ -1,7 +1,6 @@
 package fontys.ind.business.impl;
 
 import fontys.ind.domain.response.workout.GetWorkoutInfoResponse;
-import fontys.ind.persistence.RatingRepository;
 import fontys.ind.persistence.entity.RatingEntity;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -25,31 +24,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 @AllArgsConstructor
-// @Transactional check it out
 public class WorkoutServiceImpl implements WorkoutService {
     private final WorkoutRepository workoutRepository;
     private final TrainerRepository trainerRepository;
-    private final RatingRepository ratingRepository;
     private final WorkoutMapper workoutMapper;
 
-
-    // CREATE
     @Override
-    @Transactional
     public CreateWorkoutResponse createWorkout(CreateWorkoutRequest request) {
         if (workoutRepository.existsByTitle(request.getTitle())) {
             throw new TitleAlreadyExistsException();
         }
 
-        WorkoutEntity newWorkout = saveNewWorkout(request);
-
-        return CreateWorkoutResponse.builder()
-                .id(newWorkout.getId())
-                .build();
-    }
-
-    private WorkoutEntity saveNewWorkout(CreateWorkoutRequest request) {
         Optional<TrainerEntity> trainerEntityOptional = trainerRepository.findById(Long.valueOf(request.getTrainerId()));
 
         TrainerEntity trainerEntity = trainerEntityOptional.orElseThrow(() ->
@@ -63,19 +50,19 @@ public class WorkoutServiceImpl implements WorkoutService {
                 .trainer(trainerEntity)
                 .build();
 
-        return workoutRepository.save(newWorkout);
+        newWorkout = workoutRepository.save(newWorkout);
+
+        return CreateWorkoutResponse.builder()
+                .id(newWorkout.getId())
+                .build();
     }
 
-    // DELETE
     @Override
-    @Transactional
     public void deleteWorkout(Integer id) {
         workoutRepository.deleteById(id);
     }
 
-    // GET
     @Override
-    @Transactional
     public GetWorkoutInfoResponse getWorkoutInfo(Integer id) {
         Optional<WorkoutEntity> workoutEntityOptional = workoutRepository.findById(id);
 
@@ -123,7 +110,6 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
-    @Transactional
     public GetWorkoutsResponse getAllWorkouts() {
         List<WorkoutEntity> workoutsEntity = workoutRepository.findAll();
 
@@ -138,7 +124,6 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
-    @Transactional
     public GetWorkoutsResponse getTrainerWorkouts(Integer id) {
         TrainerEntity trainerEntity = TrainerEntity.builder().userId(id).build();
 
@@ -150,9 +135,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         return GetWorkoutsResponse.builder().workouts(workouts).build();
     }
 
-    // UPDATE
     @Override
-    @Transactional
     public void updateWorkout(UpdateWorkoutRequest request) {
         Optional<WorkoutEntity> workoutEntityOptional = workoutRepository.findById(request.getId());
 
@@ -161,10 +144,6 @@ public class WorkoutServiceImpl implements WorkoutService {
         }
 
         WorkoutEntity workout = workoutEntityOptional.get();
-        updateFields(request, workout);
-    }
-
-    private void updateFields(UpdateWorkoutRequest request, WorkoutEntity workout) {
         workout.setTitle(request.getTitle());
         workout.setDescription(request.getDescription());
         workout.setStartTime(request.getStartTime());
@@ -172,4 +151,5 @@ public class WorkoutServiceImpl implements WorkoutService {
 
         workoutRepository.save(workout);
     }
+
 }
