@@ -7,17 +7,21 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-<span class="pc bpc" id="L10" title="61 of 62 branches missed.">@Data</span>
+<span class="pc bpc" id="L10" title="93 of 94 branches missed.">@Data</span>
 <span class="nc" id="L11">@Builder</span>
 <span class="fc" id="L12">@NoArgsConstructor</span>
 <span class="nc" id="L13">@AllArgsConstructor</span>
 public class GetAppointmentResponse {
 <span class="nc" id="L15">    private Integer id;</span>
-<span class="nc" id="L16">    private LocalDateTime startTime;</span>
-<span class="nc" id="L17">    private LocalDateTime endTime;</span>
-<span class="nc" id="L18">    private Integer workoutId;</span>
-<span class="nc" id="L19">    private String workoutTitle;</span>
+<span class="nc" id="L16">    private Integer workoutId;</span>
+<span class="nc" id="L17">    private String workoutTitle;</span>
+<span class="nc" id="L18">    private LocalDateTime startTime;</span>
+<span class="nc" id="L19">    private LocalDateTime endTime;</span>
 <span class="nc" id="L20">    private Integer trainerId;</span>
-<span class="nc" id="L21">    private Integer clientId;</span>
+<span class="nc" id="L21">    private String trainerFirstName;</span>
+<span class="nc" id="L22">    private String trainerLastName;</span>
+<span class="nc" id="L23">    private Integer clientId;</span>
+<span class="nc" id="L24">    private String clientFirstName;</span>
+<span class="nc" id="L25">    private String clientLastName;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

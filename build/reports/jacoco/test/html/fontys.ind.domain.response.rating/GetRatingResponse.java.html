@@ -8,14 +8,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 <span class="pc bpc" id="L10" title="45 of 46 branches missed.">@Data</span>
-<span class="pc" id="L11">@Builder</span>
+<span class="nc" id="L11">@Builder</span>
 <span class="fc" id="L12">@NoArgsConstructor</span>
-<span class="fc" id="L13">@AllArgsConstructor</span>
+<span class="nc" id="L13">@AllArgsConstructor</span>
 public class GetRatingResponse {
-<span class="fc" id="L15">    private Integer id;</span>
-<span class="fc" id="L16">    private Integer rating;</span>
-<span class="fc" id="L17">    private String comment;</span>
-<span class="fc" id="L18">    private GetTrainerResponse trainer;</span>
-<span class="fc" id="L19">    private GetClientResponse client;</span>
+<span class="nc" id="L15">    private Integer id;</span>
+<span class="nc" id="L16">    private Integer rating;</span>
+<span class="nc" id="L17">    private String comment;</span>
+    // private GetTrainerResponse trainer;
+<span class="nc" id="L19">    private Integer trainerId;</span>
+<span class="nc" id="L20">    private GetClientResponse client;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

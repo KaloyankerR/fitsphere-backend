@@ -72,7 +72,6 @@ public class WorkoutServiceImpl implements WorkoutService {
 
         WorkoutEntity workoutEntity = workoutEntityOptional.get();
         TrainerEntity trainerEntity = workoutEntity.getTrainer();
-//        List<RatingEntity> ratingEntities = ratingRepository.findAllByTrainerUserId(trainerEntity.getUserId());
 
         GetWorkoutInfoResponse workoutInfoResponse = new GetWorkoutInfoResponse();
         workoutInfoResponse.setWorkoutId(workoutEntity.getId());

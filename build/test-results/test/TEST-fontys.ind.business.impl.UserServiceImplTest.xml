@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.business.impl.UserServiceImplTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-05-31T12:49:00" hostname="DESKTOP-88OFGPG" time="0.081">
+<testsuite name="fontys.ind.business.impl.UserServiceImplTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2024-06-02T10:42:23" hostname="DESKTOP-88OFGPG" time="0.206">
   <properties/>
-  <testcase name="createUser_WhenEmailExists_ThrowsException()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.047"/>
+  <testcase name="getUsersByRole_ShouldReturnClients()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.096"/>
+  <testcase name="createUser_WhenEmailExists_ThrowsException()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.005"/>
+  <testcase name="createUser_ShouldReturnCreateUserResponse()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.008"/>
+  <testcase name="getUserById_ShouldReturnGetUserResponse()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.006"/>
+  <testcase name="deleteUser_ShouldDeleteUser()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.01"/>
   <testcase name="updateUser_WhenUserNotFound_ThrowsException()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.005"/>
-  <testcase name="deleteUser_DeletesUser()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.007"/>
-  <testcase name="getAllUsers_ReturnsUserList()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.012"/>
+  <testcase name="deleteUser_DeletesUser()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.005"/>
+  <testcase name="getUserById_ShouldThrowEntityNotFoundException()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.006"/>
+  <testcase name="getUsersByRole_ShouldThrowInvalidUserException()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.005"/>
+  <testcase name="getAllUsers_ReturnsUserList()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.009"/>
   <testcase name="updateUser_WhenFound_UpdatesSuccessfully()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.004"/>
+  <testcase name="updateUser_ShouldUpdateUser()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.004"/>
+  <testcase name="getAllUsers_ShouldReturnAllUsers()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.003"/>
+  <testcase name="createTrainer_ShouldThrowEmailAlreadyExistsException()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.004"/>
+  <testcase name="getAllTrainers_ShouldReturnGetAllTrainersResponse()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.009"/>
+  <testcase name="updateUser_ShouldThrowInvalidUserException()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.004"/>
+  <testcase name="createUser_ShouldThrowEmailAlreadyExistsException()" classname="fontys.ind.business.impl.UserServiceImplTest" time="0.004"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

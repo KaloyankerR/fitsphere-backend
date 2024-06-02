@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,9 +38,17 @@ class AppointmentServiceImplTest {
     @InjectMocks
     private AppointmentServiceImpl appointmentService;
 
+    private AppointmentEntity sampleTrainerAppointment;
+    private AppointmentEntity sampleClientAppointment;
+
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
+        sampleTrainerAppointment = new AppointmentEntity();
+        sampleTrainerAppointment.setId(1);
+
+        sampleClientAppointment = new AppointmentEntity();
+        sampleClientAppointment.setId(2);
     }
 
     @Test
@@ -149,5 +158,19 @@ class AppointmentServiceImplTest {
 
         assertNotNull(response);
         assertTrue(response.getAppointments().isEmpty());
+    }
+
+    @Test
+    public void testGetAllAppointmentsByUser_Success() {
+        List<AppointmentEntity> trainerAppointments = Arrays.asList(sampleTrainerAppointment);
+        List<AppointmentEntity> clientAppointments = Arrays.asList(sampleClientAppointment);
+
+        when(appointmentRepository.findAllByTrainerUserId(anyInt())).thenReturn(trainerAppointments);
+        when(appointmentRepository.findAllByClientUserId(anyInt())).thenReturn(clientAppointments);
+
+        GetAllAppointmentsResponse response = appointmentService.getAllAppointmentsByUser(1);
+
+        assertNotNull(response);
+        assertEquals(2, response.getAppointments().size());
     }
 }

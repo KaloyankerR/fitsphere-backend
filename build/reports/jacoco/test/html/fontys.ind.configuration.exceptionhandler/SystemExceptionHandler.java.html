@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SystemExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fitsphere-backend</a> &gt; <a href="index.source.html" class="el_package">fontys.ind.configuration.exceptionhandler</a> &gt; <span class="el_source">SystemExceptionHandler.java</span></div><h1>SystemExceptionHandler.java</h1><pre class="source lang-java linenums">package fontys.ind.configuration.exceptionhandler;
 
+import fontys.ind.business.exception.*;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,44 +12,44 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-<span class="fc" id="L13">public class SystemExceptionHandler {</span>
+<span class="fc" id="L15">public class SystemExceptionHandler {</span>
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity&lt;Map&lt;String, String&gt;&gt; handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-<span class="nc" id="L16">        Map&lt;String, String&gt; errors = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L17">        ex.getBindingResult().getFieldErrors().forEach(error -&gt;</span>
-<span class="nc" id="L18">                errors.put(error.getField(), error.getDefaultMessage()));</span>
-<span class="nc" id="L19">        return new ResponseEntity&lt;&gt;(errors, HttpStatus.BAD_REQUEST);</span>
+<span class="nc" id="L18">        Map&lt;String, String&gt; errors = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L19">        ex.getBindingResult().getFieldErrors().forEach(error -&gt;</span>
+<span class="nc" id="L20">                errors.put(error.getField(), error.getDefaultMessage()));</span>
+<span class="nc" id="L21">        return new ResponseEntity&lt;&gt;(errors, HttpStatus.BAD_REQUEST);</span>
     }
 
-//    @ExceptionHandler(InvalidIdException.class)
-//    public ResponseEntity&lt;String&gt; handleInvalidIdException(InvalidIdException ex) {
-//        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.NOT_FOUND);
-//    }
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity&lt;String&gt; handleEntityNotFoundException(EntityNotFoundException ex) {
+<span class="nc" id="L26">        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.NOT_FOUND);</span>
+    }
 
-//    @ExceptionHandler(NoMatchException.class)
-//    public ResponseEntity&lt;String&gt; handleNoMatchException(NoMatchException ex) {
-//        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.NOT_FOUND);
-//    }
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity&lt;String&gt; handleInvalidCredentialsException(InvalidCredentialsException ex) {
+<span class="nc" id="L31">        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.NOT_FOUND);</span>
+    }
 
-//    @ExceptionHandler(InvalidRoleException.class)
-//    public ResponseEntity&lt;String&gt; handleInvalidRoleException(InvalidRoleException ex) {
-//        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler(DuplicatedUsernameException.class)
-//    public ResponseEntity&lt;String&gt; handleDuplicatedUsernameException(DuplicatedUsernameException ex) {
-//        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.CONFLICT);
-//    }
-//
-//    @ExceptionHandler(InvalidCredentialsException.class)
-//    public ResponseEntity&lt;String&gt; handleInvalidCredentialsException(InvalidCredentialsException ex) {
-//        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.BAD_REQUEST);
-//    }
-//
-//    @ExceptionHandler(UnauthorizedDataAccessException.class)
-//    public ResponseEntity&lt;String&gt; handleUnauthorizedDataAccessException(UnauthorizedDataAccessException ex) {
-//        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.FORBIDDEN);
-//    }
+    @ExceptionHandler(InvalidUserException.class)
+    public ResponseEntity&lt;String&gt; handleInvalidUserException(InvalidUserException ex) {
+<span class="nc" id="L36">        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.BAD_REQUEST);</span>
+    }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity&lt;String&gt; handleEmailAlreadyExistsException(EmailAlreadyExistsException ex) {
+<span class="nc" id="L41">        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE);</span>
+    }
+
+    @ExceptionHandler(TitleAlreadyExistsException.class)
+    public ResponseEntity&lt;String&gt; handleTitleAlreadyExistsException(TitleAlreadyExistsException ex) {
+<span class="nc" id="L46">        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE);</span>
+    }
+
+    @ExceptionHandler(InvalidWorkoutException.class)
+    public ResponseEntity&lt;String&gt; handleInvalidWorkoutException(InvalidWorkoutException ex) {
+<span class="nc" id="L51">        return new ResponseEntity&lt;&gt;(ex.getMessage(), HttpStatus.BAD_REQUEST);</span>
+    }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

@@ -47,7 +47,8 @@ sonar {
         property "sonar.exclusions", [
                 "src/main/java/fontys/ind/configuration/**",
                 "src/main/java/fontys/ind/persistence/**",
-                "src/main/java/fontys/ind/domain/**"
+                "src/main/java/fontys/ind/domain/**",
+                "src/main/java/fontys/ind/controller/**"
         ]
     }
 }

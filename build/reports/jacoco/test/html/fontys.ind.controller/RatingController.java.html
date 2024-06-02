@@ -4,6 +4,7 @@ import fontys.ind.business.RatingService;
 import fontys.ind.domain.request.rating.CreateRatingRequest;
 import fontys.ind.domain.response.rating.CreateRatingResponse;
 import fontys.ind.domain.response.rating.GetRatingsResponse;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,20 +13,21 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(&quot;/ratings&quot;)
-<span class="fc" id="L15">@AllArgsConstructor</span>
+<span class="fc" id="L16">@AllArgsConstructor</span>
 @CrossOrigin(origins = &quot;http://localhost:5173&quot;)
 public class RatingController {
     private RatingService ratingService;
 
     @GetMapping(&quot;{id}&quot;)
     public ResponseEntity&lt;GetRatingsResponse&gt; getRatingsByTrainer(@PathVariable(value = &quot;id&quot;) final Integer id) {
-<span class="nc" id="L22">        return ResponseEntity.ok(ratingService.getTrainerRatings(id));</span>
+<span class="nc" id="L23">        return ResponseEntity.ok(ratingService.getTrainerRatings(id));</span>
     }
-
+    
     @PostMapping()
+    @RolesAllowed(&quot;CLIENT&quot;)
     public ResponseEntity&lt;CreateRatingResponse&gt; createRating(@RequestBody @Valid CreateRatingRequest request) {
-<span class="nc" id="L27">        CreateRatingResponse response = ratingService.createRating(request);</span>
-<span class="nc" id="L28">        return ResponseEntity.status(HttpStatus.CREATED).body(response);</span>
+<span class="nc" id="L29">        CreateRatingResponse response = ratingService.createRating(request);</span>
+<span class="nc" id="L30">        return ResponseEntity.status(HttpStatus.CREATED).body(response);</span>
     }
 
 }

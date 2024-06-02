@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fitsphere-backend</a> &gt; <a href="index.source.html" class="el_package">fontys.ind.business.impl</a> &gt; <span class="el_source">UserServiceImpl.java</span></div><h1>UserServiceImpl.java</h1><pre class="source lang-java linenums">package fontys.ind.business.impl;
 
+import fontys.ind.business.mappers.AdminMapper;
 import fontys.ind.domain.response.ApiWrapperResponse;
+import fontys.ind.persistence.AdminRepository;
+import fontys.ind.persistence.entity.AdminEntity;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,193 +28,183 @@ import fontys.ind.persistence.entity.TrainerEntity;
 import fontys.ind.persistence.entity.UserEntity;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
-<span class="fc" id="L31">@AllArgsConstructor</span>
+<span class="fc" id="L34">@AllArgsConstructor</span>
 @Transactional
 public class UserServiceImpl implements UserService {
-    // Repositories
     private final UserRepository userRepository;
     private final TrainerRepository trainerRepository;
     private final ClientRepository clientRepository;
-    // Mapper
+    private final AdminRepository adminRepository;
     private final UserMapper userMapper;
     private final TrainerMapper trainerMapper;
     private final ClientMapper clientMapper;
-    // private final AppointmentMapper appointmentMapper;
-
+    private final AdminMapper adminMapper;
     private final PasswordEncoder passwordEncoder;
 
-    // CREATE
-    @Transactional
     @Override
     public CreateUserResponse createUser(CreateUserRequest request) {
-<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if (userRepository.existsByEmail(request.getEmail())) {</span>
-<span class="fc" id="L51">            throw new EmailAlreadyExistsException();</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (userRepository.existsByEmail(request.getEmail())) {</span>
+<span class="fc" id="L50">            throw new EmailAlreadyExistsException();</span>
         }
 
-        UserEntity newUser;
+<span class="fc" id="L53">        UserEntity newUser = createUserEntity(request);</span>
 
-<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (Objects.equals(request.getRole(), &quot;CLIENT&quot;)) {</span>
-<span class="nc" id="L57">            newUser = saveNewClient(request);</span>
-        } else {
-<span class="nc" id="L59">            newUser = saveNewUser(request);</span>
-        }
-
-<span class="nc" id="L62">        return CreateUserResponse.builder()</span>
-<span class="nc" id="L63">                .userId(Long.valueOf(newUser.getUserId()))</span>
-<span class="nc" id="L64">                .build();</span>
+<span class="fc" id="L55">        return CreateUserResponse.builder()</span>
+<span class="fc" id="L56">                .userId(Long.valueOf(newUser.getUserId()))</span>
+<span class="fc" id="L57">                .build();</span>
     }
 
-    private ClientEntity saveNewClient(CreateUserRequest request) {
-<span class="nc" id="L68">        String encodedPassword = passwordEncoder.encode(request.getPassword());</span>
-
-
-<span class="nc" id="L71">        ClientEntity clientEntity = clientMapper.fromRequestToEntity(request);</span>
-<span class="nc" id="L72">        clientEntity.setPassword(encodedPassword);</span>
-
-<span class="nc" id="L74">        return clientRepository.save(clientEntity);</span>
-    }
-
-    @Transactional
     public CreateUserResponse createTrainer(CreateTrainerRequest request) {
-<span class="nc bnc" id="L79" title="All 2 branches missed.">        if (userRepository.existsByEmail(request.getEmail())) {</span>
-<span class="nc" id="L80">            throw new EmailAlreadyExistsException();</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if (userRepository.existsByEmail(request.getEmail())) {</span>
+<span class="fc" id="L62">            throw new EmailAlreadyExistsException();</span>
         }
 
-<span class="nc" id="L83">        TrainerEntity newTrainer = saveTrainer(request);</span>
+<span class="nc" id="L65">        TrainerEntity newTrainer = (TrainerEntity) createUserEntity(request);</span>
 
-<span class="nc" id="L85">        return CreateUserResponse.builder()</span>
-<span class="nc" id="L86">                .userId(Long.valueOf(newTrainer.getUserId()))</span>
-<span class="nc" id="L87">                .build();</span>
+<span class="nc" id="L67">        return CreateUserResponse.builder()</span>
+<span class="nc" id="L68">                .userId(Long.valueOf(newTrainer.getUserId()))</span>
+<span class="nc" id="L69">                .build();</span>
     }
 
-    private UserEntity saveNewUser(CreateUserRequest request) {
-<span class="nc" id="L91">        String encodedPassword = passwordEncoder.encode(request.getPassword());</span>
+    private UserEntity createUserEntity(CreateUserRequest request) {
+<span class="fc" id="L73">        String encodedPassword = passwordEncoder.encode(request.getPassword());</span>
 
-<span class="nc" id="L93">        UserEntity newUser = UserEntity.builder()</span>
-<span class="nc" id="L94">                .firstName(request.getFirstName())</span>
-<span class="nc" id="L95">                .lastName(request.getLastName())</span>
-<span class="nc" id="L96">                .email(request.getEmail())</span>
-<span class="nc" id="L97">                .password(encodedPassword)</span>
-<span class="nc" id="L98">                .role(RoleEnum.valueOf(request.getRole()))</span>
-<span class="nc" id="L99">                .build();</span>
+<span class="pc bpc" id="L75" title="3 of 4 branches missed.">        switch (RoleEnum.valueOf(request.getRole())) {</span>
+            case CLIENT:
+<span class="fc" id="L77">                ClientEntity clientEntity = clientMapper.fromRequestToEntity(request);</span>
+<span class="fc" id="L78">                clientEntity.setPassword(encodedPassword);</span>
+<span class="fc" id="L79">                return clientRepository.save(clientEntity);</span>
 
-<span class="nc" id="L101">        return userRepository.save(newUser);</span>
+            case TRAINER:
+<span class="nc bnc" id="L82" title="All 2 branches missed.">                if (request instanceof CreateTrainerRequest trainerRequest) {</span>
+<span class="nc" id="L83">                    TrainerEntity trainerEntity = trainerMapper.fromRequestToEntity(trainerRequest);</span>
+<span class="nc" id="L84">                    trainerEntity.setPassword(encodedPassword);</span>
+<span class="nc" id="L85">                    return trainerRepository.save(trainerEntity);</span>
+                } else {
+<span class="nc" id="L87">                    throw new IllegalArgumentException(&quot;Invalid request type for trainer creation&quot;);</span>
+                }
+
+            case ADMIN:
+<span class="nc" id="L91">                AdminEntity adminEntity = adminMapper.fromRequestToEntity(request);</span>
+<span class="nc" id="L92">                adminEntity.setPassword(encodedPassword);</span>
+<span class="nc" id="L93">                return adminRepository.save(adminEntity);</span>
+
+            default:
+<span class="nc" id="L96">                UserEntity userEntity = UserEntity.builder()</span>
+<span class="nc" id="L97">                        .firstName(request.getFirstName())</span>
+<span class="nc" id="L98">                        .lastName(request.getLastName())</span>
+<span class="nc" id="L99">                        .email(request.getEmail())</span>
+<span class="nc" id="L100">                        .password(encodedPassword)</span>
+<span class="nc" id="L101">                        .role(RoleEnum.valueOf(request.getRole()))</span>
+<span class="nc" id="L102">                        .build();</span>
+<span class="nc" id="L103">                return userRepository.save(userEntity);</span>
+        }
     }
 
-    private TrainerEntity saveTrainer(CreateTrainerRequest request) {
-<span class="nc" id="L105">        String encodedPassword = passwordEncoder.encode(request.getPassword());</span>
-
-<span class="nc" id="L107">        TrainerEntity newTrainer = TrainerEntity.builder()</span>
-<span class="nc" id="L108">                .firstName(request.getFirstName())</span>
-<span class="nc" id="L109">                .lastName(request.getLastName())</span>
-<span class="nc" id="L110">                .email(request.getEmail())</span>
-<span class="nc" id="L111">                .password(encodedPassword)</span>
-<span class="nc" id="L112">                .role(RoleEnum.valueOf(request.getRole()))</span>
-<span class="nc" id="L113">                .bio(request.getBio())</span>
-<span class="nc" id="L114">                .igLink(request.getIgLink())</span>
-<span class="nc" id="L115">                .build();</span>
-
-<span class="nc" id="L117">        return userRepository.save(newTrainer);</span>
-    }
-
-    // DELETE
     @Override
-    @Transactional
     public void deleteUser(Long userId) {
-<span class="fc" id="L124">        this.userRepository.deleteById(userId);</span>
-<span class="fc" id="L125">    }</span>
+<span class="fc" id="L109">        this.userRepository.deleteById(userId);</span>
+<span class="fc" id="L110">    }</span>
 
-    // GET
     @Override
-    @Transactional
-    public Optional&lt;GetUserResponse&gt; getUserById(Integer id) {
-<span class="nc" id="L131">        UserEntity userEntity = userRepository.getUserEntityByUserId(id);</span>
+    public Optional&lt;? extends GetUserResponse&gt; getUserById(Integer id) {
+<span class="fc" id="L114">        UserEntity userEntity = userRepository.findById(Long.valueOf(id))</span>
+<span class="fc" id="L115">                .orElseThrow(() -&gt; new EntityNotFoundException(&quot;User with ID &quot; + id + &quot; not found.&quot;));</span>
 
-<span class="nc bnc" id="L133" title="All 2 branches missed.">        if (userEntity != null) {</span>
-<span class="nc bnc" id="L134" title="All 4 branches missed.">            return switch (userEntity.getRole()) {</span>
-                case TRAINER -&gt; {
-<span class="nc" id="L136">                    Optional&lt;TrainerEntity&gt; trainerEntity = trainerRepository.findById(Long.valueOf(id));</span>
-<span class="nc" id="L137">                    yield trainerEntity.map(trainerMapper::fromEntityToResponse);</span>
-                }
-                case ADMIN -&gt;
-                    // Optional&lt;AdminEntity&gt; adminEntity = admin TODO: finish
-<span class="nc" id="L141">                    Optional.ofNullable(userMapper.fromEntityToResponse(userRepository.getUserEntityByUserId(id)));</span>
-                case CLIENT -&gt; {
-<span class="nc" id="L143">                    Optional&lt;ClientEntity&gt; clientEntity = clientRepository.findById(Long.valueOf(id));</span>
-<span class="nc" id="L144">                    yield clientEntity.map(clientMapper::fromEntityToResponse);</span>
-                }
-            };
+<span class="pc bpc" id="L117" title="3 of 4 branches missed.">        switch (userEntity.getRole()) {</span>
+            case TRAINER:
+<span class="nc" id="L119">                return trainerRepository.findById(Long.valueOf(id))</span>
+<span class="nc" id="L120">                        .map(trainerMapper::fromEntityToResponse)</span>
+<span class="nc" id="L121">                        .or(() -&gt; { throw new EntityNotFoundException(&quot;Trainer with ID &quot; + id + &quot; not found.&quot;); });</span>
+            case ADMIN:
+<span class="nc" id="L123">                return adminRepository.findById(Long.valueOf(id))</span>
+<span class="nc" id="L124">                        .map(userMapper::fromEntityToResponse)</span>
+<span class="nc" id="L125">                        .or(() -&gt; { throw new EntityNotFoundException(&quot;Admin with ID &quot; + id + &quot; not found.&quot;); });</span>
+            case CLIENT:
+<span class="fc" id="L127">                return clientRepository.findById(Long.valueOf(id))</span>
+<span class="fc" id="L128">                        .map(clientMapper::fromEntityToResponse)</span>
+<span class="pc" id="L129">                        .or(() -&gt; { throw new EntityNotFoundException(&quot;Client with ID &quot; + id + &quot; not found.&quot;); });</span>
+            default:
+<span class="nc" id="L131">                throw new EntityNotFoundException(&quot;User role not recognized.&quot;);</span>
         }
-
-<span class="nc" id="L149">        return Optional.ofNullable(userMapper.fromEntityToResponse(userRepository.getUserEntityByUserId(id)));</span>
     }
 
-    // GET ALL
     @Override
-    @Transactional
     public ApiWrapperResponse getUsersByRole(String role) {
-<span class="nc bnc" id="L156" title="All 4 branches missed.">        return switch (role.toUpperCase()) {</span>
-            case &quot;ADMIN&quot; -&gt;
-                // TODO: create getAllAdmins()
-<span class="nc" id="L159">                    getAllUsers();</span>
-            case &quot;CLIENT&quot; -&gt;
-                // TODO: create getAllClients()
-<span class="nc" id="L162">                    getAllUsers();</span>
-<span class="nc" id="L163">            case &quot;TRAINER&quot; -&gt; getAllTrainers();</span>
-<span class="nc" id="L164">            default -&gt; throw new InvalidUserException(&quot;Invalid role!&quot;);</span>
-        };
+<span class="pc bpc" id="L137" title="1 of 3 branches missed.">        switch (role.toUpperCase()) {</span>
+//            case &quot;ADMIN&quot;:
+//                return getAllAdmins();
+            case &quot;CLIENT&quot;:
+<span class="fc" id="L141">                return getAllClients();</span>
+            case &quot;TRAINER&quot;:
+<span class="nc" id="L143">                return getAllTrainers();</span>
+            default:
+<span class="fc" id="L145">                throw new InvalidUserException(&quot;INVALID ROLE!&quot;);</span>
+        }
+    }
+
+//    private GetAllUsersResponse getAllAdmins() {
+//        List&lt;UserEntity&gt; adminsEntity = adminRepository.findAll();
+//
+//        List&lt;GetUserResponse&gt; admins = adminsEntity.stream()
+//                .map(userMapper::fromEntityToResponse)
+//                .toList();
+//
+//        GetAllUsersResponse response = new GetAllUsersResponse();
+//        response.setUsers(admins);
+//        return response;
+//    }
+
+    private GetAllClientsResponse getAllClients() {
+<span class="fc" id="L162">        List&lt;ClientEntity&gt; clientsEntity = clientRepository.findAll();</span>
+
+<span class="fc" id="L164">        List&lt;GetClientResponse&gt; clients = clientsEntity.stream()</span>
+<span class="fc" id="L165">                .map(clientMapper::fromEntityToResponse)</span>
+<span class="fc" id="L166">                .toList();</span>
+
+<span class="fc" id="L168">        GetAllClientsResponse response = new GetAllClientsResponse();</span>
+<span class="fc" id="L169">        response.setClients(clients);</span>
+<span class="fc" id="L170">        return response;</span>
+    }
+
+//    @Override
+    public GetAllTrainersResponse getAllTrainers() {
+<span class="fc" id="L175">        List&lt;TrainerEntity&gt; trainersEntity = trainerRepository.findAll();</span>
+<span class="fc" id="L176">        List&lt;GetTrainerResponse&gt; trainers = trainersEntity.stream()</span>
+<span class="fc" id="L177">                .map(trainerMapper::fromEntityToResponse)</span>
+<span class="fc" id="L178">                .toList();</span>
+
+<span class="fc" id="L180">        GetAllTrainersResponse response = new GetAllTrainersResponse();</span>
+<span class="fc" id="L181">        response.setTrainers(trainers);</span>
+<span class="fc" id="L182">        return response;</span>
     }
 
     @Override
     public GetAllUsersResponse getAllUsers() {
-<span class="fc" id="L170">        List&lt;UserEntity&gt; usersEntity = userRepository.findAll();</span>
+<span class="fc" id="L187">        List&lt;UserEntity&gt; usersEntity = userRepository.findAll();</span>
 
-<span class="fc" id="L172">        List&lt;GetUserResponse&gt; users = usersEntity.stream()</span>
-<span class="fc" id="L173">                .map(userMapper::fromEntityToResponse)</span>
-<span class="fc" id="L174">                .toList();</span>
+<span class="fc" id="L189">        List&lt;GetUserResponse&gt; users = usersEntity.stream()</span>
+<span class="fc" id="L190">                .map(userMapper::fromEntityToResponse)</span>
+<span class="fc" id="L191">                .toList();</span>
 
-<span class="fc" id="L176">        final GetAllUsersResponse response = new GetAllUsersResponse();</span>
-<span class="fc" id="L177">        response.setUsers(users);</span>
-<span class="fc" id="L178">        return response;</span>
+<span class="fc" id="L193">        final GetAllUsersResponse response = new GetAllUsersResponse();</span>
+<span class="fc" id="L194">        response.setUsers(users);</span>
+<span class="fc" id="L195">        return response;</span>
     }
 
     @Override
-    @Transactional
-    public GetAllTrainersResponse getAllTrainers() {
-<span class="nc" id="L184">        List&lt;TrainerEntity&gt; trainersEntity = trainerRepository.findAll();</span>
-<span class="nc" id="L185">        List&lt;GetTrainerResponse&gt; trainers = trainersEntity.stream()</span>
-<span class="nc" id="L186">                .map(trainerMapper::fromEntityToResponse)</span>
-<span class="nc" id="L187">                .toList();</span>
-
-<span class="nc" id="L189">        final GetAllTrainersResponse response = new GetAllTrainersResponse();</span>
-<span class="nc" id="L190">        response.setTrainers(trainers);</span>
-<span class="nc" id="L191">        return response;</span>
-    }
-
-    // UPDATE
-    @Override
-    @Transactional
     public void updateUser(UpdateUserRequest request) {
-<span class="fc" id="L198">        Optional&lt;UserEntity&gt; userEntityOptional = userRepository.findById(request.getUserId());</span>
+<span class="fc" id="L200">        UserEntity user = userRepository.findById(request.getUserId())</span>
+<span class="fc" id="L201">                .orElseThrow(() -&gt; new InvalidUserException(&quot;USER_ID_INVALID&quot;));</span>
 
-<span class="fc bfc" id="L200" title="All 2 branches covered.">        if (userEntityOptional.isEmpty()) {</span>
-<span class="fc" id="L201">            throw new InvalidUserException(&quot;USER_ID_INVALID&quot;);</span>
-        }
+<span class="fc" id="L203">        user.setFirstName(request.getFirstName());</span>
+<span class="fc" id="L204">        user.setLastName(request.getLastName());</span>
+<span class="fc" id="L205">        user.setEmail(request.getEmail());</span>
 
-<span class="fc" id="L204">        UserEntity user = userEntityOptional.get();</span>
-<span class="fc" id="L205">        updateFields(request, user);</span>
-<span class="fc" id="L206">    }</span>
-
-    private void updateFields(UpdateUserRequest request, UserEntity user) {
-<span class="fc" id="L209">        user.setFirstName(request.getFirstName());</span>
-<span class="fc" id="L210">        user.setLastName(request.getLastName());</span>
-<span class="fc" id="L211">        user.setEmail(request.getEmail());</span>
-
-<span class="fc" id="L213">        userRepository.save(user);</span>
-<span class="fc" id="L214">    }</span>
+<span class="fc" id="L207">        userRepository.save(user);</span>
+<span class="fc" id="L208">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

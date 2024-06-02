@@ -73,20 +73,5 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
         }
     }
 
-
-//    public AccessToken decode(String accessTokenEncoded) {
-//        try {
-//            Jwt&lt;?, Claims&gt; jwt = Jwts.parserBuilder().setSigningKey(key).build()
-//                    .parseClaimsJws(accessTokenEncoded);
-//            Claims claims = jwt.getBody();
-//
-//            String role = claims.get(&quot;roles&quot;, String.class);
-//            Long userId = claims.get(&quot;userId&quot;, Long.class);
-//
-//            return new AccessTokenImpl(claims.getSubject(), userId, role);
-//        } catch (JwtException e) {
-//            throw new InvalidAccessTokenException(e.getMessage());
-//        }
-//    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

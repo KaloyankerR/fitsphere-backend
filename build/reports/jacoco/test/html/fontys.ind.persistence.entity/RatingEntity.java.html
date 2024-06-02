@@ -27,12 +27,12 @@ public class RatingEntity {
     @Column(name = &quot;comment&quot;)
 <span class="fc" id="L28">    private String comment;</span>
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = &quot;trainer_id&quot;, nullable = false)
-<span class="fc" id="L32">    private TrainerEntity trainer;</span>
+<span class="nc" id="L32">    private TrainerEntity trainer;</span>
 
     @ManyToOne
     @JoinColumn(name = &quot;client_id&quot;, nullable = false)
-<span class="fc" id="L36">    private ClientEntity client;</span>
+<span class="nc" id="L36">    private ClientEntity client;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

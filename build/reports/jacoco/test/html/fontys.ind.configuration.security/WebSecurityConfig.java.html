@@ -38,13 +38,13 @@ import fontys.ind.configuration.security.auth.AuthenticationRequestFilter;
 <span class="fc" id="L38">                .authorizeHttpRequests(registry -&gt;</span>
 <span class="fc" id="L39">                        registry.requestMatchers(HttpMethod.OPTIONS, &quot;/**&quot;).permitAll()                 // CORS pre-flight requests should be public</span>
 <span class="fc" id="L40">                                .requestMatchers(HttpMethod.GET, &quot;/users/**&quot;).permitAll()</span>
-<span class="fc" id="L41">                                .requestMatchers(HttpMethod.GET, &quot;/appointments&quot;).permitAll()</span>
-<span class="fc" id="L42">                                .requestMatchers(HttpMethod.GET, &quot;/workouts&quot;).permitAll()</span>
-<span class="fc" id="L43">                                .requestMatchers(HttpMethod.GET, &quot;/users/trainers&quot;).permitAll()</span>
+<span class="fc" id="L41">                                .requestMatchers(HttpMethod.GET, &quot;/workouts/**&quot;).permitAll()</span>
+<span class="fc" id="L42">                                .requestMatchers(HttpMethod.GET, &quot;/appointments&quot;).permitAll()</span>
+<span class="fc" id="L43">                                .requestMatchers(HttpMethod.GET, &quot;/appointments/**&quot;).permitAll()</span>
 <span class="fc" id="L44">                                .requestMatchers(HttpMethod.GET, &quot;/ratings/**&quot;).permitAll()</span>
 <span class="fc" id="L45">                                .requestMatchers(HttpMethod.GET, &quot;/users/role/**&quot;).permitAll()</span>
 <span class="fc" id="L46">                                .requestMatchers(HttpMethod.POST, &quot;/appointments&quot;).permitAll()</span>
-<span class="fc" id="L47">                                .requestMatchers(HttpMethod.GET, &quot;/workouts/trainer/**&quot;).permitAll()</span>
+<span class="fc" id="L47">                                .requestMatchers(&quot;/ws/**&quot;).permitAll()</span>
 <span class="fc" id="L48">                                .requestMatchers(HttpMethod.POST, &quot;/users&quot;, &quot;/tokens&quot;, &quot;/users/trainer&quot;, &quot;workouts&quot;).permitAll()</span>
 <span class="fc" id="L49">                                .requestMatchers(HttpMethod.PUT).permitAll()</span>
 <span class="fc" id="L50">                                .requestMatchers(HttpMethod.DELETE).permitAll()</span>

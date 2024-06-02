@@ -2,27 +2,27 @@
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 @Table(name = &quot;workouts&quot;)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-<span class="pc bnc" id="L13" title="All 38 branches missed.">@Data</span>
-<span class="pc" id="L14">@Builder</span>
-<span class="fc" id="L15">@NoArgsConstructor</span>
-<span class="fc" id="L16">@AllArgsConstructor</span>
+<span class="pc bnc" id="L17" title="All 62 branches missed.">@Data</span>
+<span class="pc" id="L18">@Builder</span>
+<span class="fc" id="L19">@NoArgsConstructor</span>
+<span class="fc" id="L20">@AllArgsConstructor</span>
 public class WorkoutEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = &quot;id&quot;)
-<span class="fc" id="L21">    private Integer id;</span>
-
-    @ManyToOne
-    @JoinColumn(name = &quot;trainer_id&quot;, nullable = false)
-<span class="fc" id="L25">    private TrainerEntity trainer;</span>
+<span class="fc" id="L25">    private Integer id;</span>
 
     @NotBlank
     @Column(name = &quot;title&quot;, nullable = false)
@@ -30,5 +30,20 @@ public class WorkoutEntity {
 
     @Column(name = &quot;description&quot;)
 <span class="fc" id="L32">    private String description;</span>
+
+    @NotNull
+    @Column(name = &quot;start_time&quot;, nullable = false)
+<span class="fc" id="L36">    private LocalDateTime startTime;</span>
+
+    @NotNull
+    @Column(name = &quot;end_time&quot;, nullable = false)
+<span class="fc" id="L40">    private LocalDateTime endTime;</span>
+
+    @ManyToOne
+    @JoinColumn(name = &quot;trainer_id&quot;, nullable = false)
+<span class="fc" id="L44">    private TrainerEntity trainer;</span>
+
+    @OneToMany(mappedBy = &quot;workout&quot;, cascade = CascadeType.REMOVE, orphanRemoval = true)
+<span class="nc" id="L47">    private List&lt;AppointmentEntity&gt; appointments;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

@@ -26,10 +26,10 @@ import java.util.*;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping(&quot;/trainers&quot;)
-    public ResponseEntity&lt;GetAllTrainersResponse&gt; getAllTrainers() {
-<span class="nc" id="L31">        return ResponseEntity.ok(userService.getAllTrainers());</span>
-    }
+//    @GetMapping(&quot;/trainers&quot;)
+//    public ResponseEntity&lt;GetAllTrainersResponse&gt; getAllTrainers() {
+//        return ResponseEntity.ok(userService.getAllTrainers());
+//    }
 
     @GetMapping
     public ResponseEntity&lt;GetAllUsersResponse&gt; getAllUsers() {
@@ -47,8 +47,8 @@ public class UserController {
     }
 
     @GetMapping(&quot;{id}&quot;)
-    public ResponseEntity&lt;GetUserResponse&gt; getUser(@PathVariable(value = &quot;id&quot;) final Integer id) {
-<span class="nc" id="L51">        final Optional&lt;GetUserResponse&gt; user = userService.getUserById(id);</span>
+    public ResponseEntity&lt;? extends GetUserResponse&gt; getUser(@PathVariable(value = &quot;id&quot;) final Integer id) {
+<span class="nc" id="L51">        final Optional&lt;? extends GetUserResponse&gt; user = userService.getUserById(id);</span>
 <span class="nc" id="L52">        return user.map(value -&gt; ResponseEntity.ok().body(value)).orElseGet(() -&gt; ResponseEntity.notFound().build());</span>
     }
 
@@ -59,24 +59,25 @@ public class UserController {
     }
 
     @PostMapping(&quot;/trainer&quot;)
+    @RolesAllowed(&quot;ADMIN&quot;)
     public ResponseEntity&lt;CreateUserResponse&gt; createUser(@RequestBody @Valid CreateTrainerRequest request) {
-<span class="nc" id="L63">        CreateUserResponse response = userService.createTrainer(request);</span>
-<span class="nc" id="L64">        return ResponseEntity.status(HttpStatus.CREATED).body(response);</span>
+<span class="nc" id="L64">        CreateUserResponse response = userService.createTrainer(request);</span>
+<span class="nc" id="L65">        return ResponseEntity.status(HttpStatus.CREATED).body(response);</span>
     }
 
     @PutMapping(&quot;{id}&quot;)
+    @RolesAllowed(&quot;ADMIN&quot;)
     public ResponseEntity&lt;GetUserResponse&gt; updateUser(@PathVariable(&quot;id&quot;) long id, @RequestBody UpdateUserRequest request) {
-<span class="nc" id="L69">        request.setUserId(id);</span>
-<span class="nc" id="L70">        userService.updateUser(request);</span>
-<span class="nc" id="L71">        return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L71">        request.setUserId(id);</span>
+<span class="nc" id="L72">        userService.updateUser(request);</span>
+<span class="nc" id="L73">        return ResponseEntity.noContent().build();</span>
     }
 
-    @RolesAllowed({&quot;ADMIN&quot;})
     @DeleteMapping(&quot;{id}&quot;)
+    @RolesAllowed({&quot;ADMIN&quot;})
     public ResponseEntity&lt;Void&gt; deleteUser(@PathVariable int id) {
-<span class="nc" id="L77">        userService.deleteUser((long) id);</span>
-<span class="nc" id="L78">        return ResponseEntity.noContent().build();</span>
+<span class="nc" id="L79">        userService.deleteUser((long) id);</span>
+<span class="nc" id="L80">        return ResponseEntity.noContent().build();</span>
     }
-
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
