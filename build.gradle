@@ -27,9 +27,9 @@ jacocoTestReport {
 }
 
 flyway {
-    url = 'jdbc:mysql://localhost:3306/fitsphere'
-    user = 'root'
-    password = 'rihanna2912'
+    url = System.getenv('FLYWAY_URL') ?: 'jdbc:mysql://localhost:3306/fitsphere'
+    user = System.getenv('FLYWAY_USER') ?: 'root'
+    password = System.getenv('FLYWAY_PASS') ?: 'rihanna2912'
     driver = 'com.mysql.cj.jdbc.Driver'
     connectRetries = 10
     baselineOnMigrate = true
@@ -37,10 +37,10 @@ flyway {
 
 sonar {
     properties {
-        property "sonar.projectKey", "FitSphere"
+        property "sonar.projectKey", System.getenv('SONAR_PRJ_KEY')
         property "sonar.organization", "Fontys"
         property "sonar.host.url", "http://localhost:9000"
-        property "sonar.token", "sqp_d06d805b2c2388d4dfc5dd731b3b128ebe92a40b"
+        property "sonar.token", System.getenv('SONAR_TOKEN')
         property "sonar.source", "src"
         property "sonar.inclusions", "src/**"
         property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
