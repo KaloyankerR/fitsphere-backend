@@ -1,2 +1,2 @@
 rootProject.name = 'fitsphere-backend'
-
+java.runtime.version=17
