@@ -9,12 +9,14 @@ stages:
   - test
   - build_image
   - sonar
+  - deploy
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - .gradle/wrapper
     - .gradle/caches
+    - .m2/repository
 
 build:
   stage: build
@@ -54,3 +56,8 @@ sonar:
   dependencies:
     - test
 
+deploy:
+  stage: deploy
+  script:
+    - curl https://cli-assets.heroku.com/install.sh | sh
+    - heroku deploy:jar target/fitsphere-backend-1.0-SNAPSHOT.jar --app frozen-beyond-49936

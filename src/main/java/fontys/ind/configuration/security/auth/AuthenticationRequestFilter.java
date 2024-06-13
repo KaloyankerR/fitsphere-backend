@@ -1,5 +1,6 @@
 package fontys.ind.configuration.security.auth;
 
+import fontys.ind.business.exception.InvalidWorkoutException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

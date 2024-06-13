@@ -1,6 +1,8 @@
 package fontys.ind.configuration.exceptionhandler;
 
 import fontys.ind.business.exception.*;
+import fontys.ind.configuration.security.token.exception.InvalidAccessTokenException;
+import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +51,11 @@ public class SystemExceptionHandler {
     @ExceptionHandler(InvalidWorkoutException.class)
     public ResponseEntity<String> handleInvalidWorkoutException(InvalidWorkoutException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidAccessTokenException.class)
+    public ResponseEntity<String> handleInvalidAccessTokenException(InvalidAccessTokenException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
 }

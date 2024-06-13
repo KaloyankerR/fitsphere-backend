@@ -26,10 +26,6 @@ import java.util.*;
 public class UserController {
     private final UserService userService;
 
-//    @GetMapping("/trainers")
-//    public ResponseEntity<GetAllTrainersResponse> getAllTrainers() {
-//        return ResponseEntity.ok(userService.getAllTrainers());
-//    }
 
     @GetMapping
     public ResponseEntity<GetAllUsersResponse> getAllUsers() {
@@ -46,7 +42,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<? extends GetUserResponse> getUser(@PathVariable(value = "id") final Integer id) {
         final Optional<? extends GetUserResponse> user = userService.getUserById(id);
         return user.map(value -> ResponseEntity.ok().body(value)).orElseGet(() -> ResponseEntity.notFound().build());
@@ -65,10 +61,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("{id}")
-    @RolesAllowed("ADMIN")
-    public ResponseEntity<GetUserResponse> updateUser(@PathVariable("id") long id, @RequestBody UpdateUserRequest request) {
-        request.setUserId(id);
+    @PutMapping()
+//    @RolesAllowed("ADMIN")
+    public ResponseEntity<GetUserResponse> updateUser(@RequestBody UpdateUserRequest request) {
         userService.updateUser(request);
         return ResponseEntity.noContent().build();
     }

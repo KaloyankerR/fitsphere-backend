@@ -22,6 +22,7 @@ public class Http401UnauthorizedEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
             throws IOException {
+        log.error("Unauthorized access error: {}", authException.getMessage());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     }
 }

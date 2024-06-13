@@ -46,7 +46,6 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
         return Jwts.builder()
                 .setSubject(accessToken.getSubject())
                 .setIssuedAt(Date.from(now))
-                // .setExpiration(Date.from(now.plus(30, ChronoUnit.MINUTES)))
                 .setExpiration(Date.from(now.plus(1, ChronoUnit.DAYS)))
                 .addClaims(claimsMap)
                 .signWith(key)
@@ -69,7 +68,7 @@ public class AccessTokenEncoderDecoderImpl implements AccessTokenEncoder, Access
 
             return new AccessTokenImpl(claims.getSubject(), userId, rolesAsString);
         } catch (JwtException e) {
-            throw new InvalidAccessTokenException(e.getMessage());
+            throw new InvalidAccessTokenException();
         }
     }
 

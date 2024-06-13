@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="fontys.ind.business.impl.WorkoutServiceImplTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2024-06-02T10:42:23" hostname="DESKTOP-88OFGPG" time="0.084">
+<testsuite name="fontys.ind.business.impl.WorkoutServiceImplTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2024-06-06T11:05:11" hostname="DESKTOP-88OFGPG" time="0.1">
   <properties/>
-  <testcase name="testGetAllWorkouts()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.037"/>
+  <testcase name="testGetAllWorkouts()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.034"/>
   <testcase name="testCalculateMedianRating_EmptyList()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.003"/>
-  <testcase name="testGetTrainerWorkouts()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.005"/>
-  <testcase name="testGetWorkoutInfo_Success()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.006"/>
-  <testcase name="testGetWorkoutInfo_NotFound()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.003"/>
-  <testcase name="testCalculateMedianRating_OddNumber()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.002"/>
-  <testcase name="createWorkout_WhenTitleExists_ThrowsException()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.003"/>
+  <testcase name="testGetTrainerWorkouts()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.006"/>
+  <testcase name="testGetWorkoutInfo_Success()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.014"/>
+  <testcase name="testGetWorkoutInfo_NotFound()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.004"/>
+  <testcase name="testCalculateMedianRating_OddNumber()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.003"/>
+  <testcase name="createWorkout_WhenTitleExists_ThrowsException()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.004"/>
   <testcase name="createWorkout_Successful_ReturnsResponse()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.007"/>
-  <testcase name="deleteWorkout_Successful_DeletesWorkout()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.002"/>
-  <testcase name="updateWorkout_WorkoutNotFound_ThrowsException()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.003"/>
-  <testcase name="updateWorkout_Successful_UpdatesFields()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.002"/>
-  <testcase name="testCalculateMedianRating_EvenNumber()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.002"/>
+  <testcase name="deleteWorkout_Successful_DeletesWorkout()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.003"/>
+  <testcase name="updateWorkout_WorkoutNotFound_ThrowsException()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.005"/>
+  <testcase name="updateWorkout_Successful_UpdatesFields()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.004"/>
+  <testcase name="testCalculateMedianRating_EvenNumber()" classname="fontys.ind.business.impl.WorkoutServiceImplTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

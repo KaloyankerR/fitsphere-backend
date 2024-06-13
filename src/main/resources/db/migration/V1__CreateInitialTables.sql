@@ -61,4 +61,13 @@ CREATE TABLE `ratings`
     FOREIGN KEY (client_id) REFERENCES clients (user_id)
 );
 
+# CREATE TABLE `refresh_tokens`
+# (
+#     id SERIAL PRIMARY KEY,
+#     user_id INT NOT NULL,
+#     token TEXT NOT NULL,
+#     expiry_date TIMESTAMP NOT NULL,
+#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+#     FOREIGN KEY (user_id) REFERENCES users (user_id)
+# );
 

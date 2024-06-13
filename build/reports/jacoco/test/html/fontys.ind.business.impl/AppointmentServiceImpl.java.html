@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppointmentServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fitsphere-backend</a> &gt; <a href="index.source.html" class="el_package">fontys.ind.business.impl</a> &gt; <span class="el_source">AppointmentServiceImpl.java</span></div><h1>AppointmentServiceImpl.java</h1><pre class="source lang-java linenums">package fontys.ind.business.impl;
+
+import fontys.ind.business.mappers.AppointmentMapper;
+import fontys.ind.domain.response.appointment.GetAllAppointmentsResponse;
+import fontys.ind.domain.response.appointment.GetAppointmentResponse;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import fontys.ind.business.AppointmentService;
+import fontys.ind.domain.request.appointment.CreateAppointmentRequest;
+import jakarta.transaction.Transactional;
+import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
+import fontys.ind.persistence.*;
+import fontys.ind.persistence.entity.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@Transactional
+<span class="fc" id="L22">@AllArgsConstructor</span>
+public class AppointmentServiceImpl implements AppointmentService {
+    private final TrainerRepository trainerRepository;
+    private final ClientRepository clientRepository;
+    private final WorkoutRepository workoutRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final AppointmentMapper appointmentMapper;
+    private static final String NOT_FOUND_SUFFIX = &quot; not found.&quot;;
+
+    @Override
+    public CreateAppointmentResponse createAppointment(CreateAppointmentRequest request) {
+<span class="fc" id="L33">        TrainerEntity trainerEntity = trainerRepository.findById(Long.valueOf(request.getTrainerId()))</span>
+<span class="fc" id="L34">                .orElseThrow(() -&gt; new EntityNotFoundException(&quot;Trainer with ID &quot; + request.getTrainerId() + NOT_FOUND_SUFFIX));</span>
+
+<span class="fc" id="L36">        ClientEntity clientEntity = clientRepository.findById(Long.valueOf(request.getClientId()))</span>
+<span class="fc" id="L37">                .orElseThrow(() -&gt; new EntityNotFoundException(&quot;Client with ID &quot; + request.getClientId() + NOT_FOUND_SUFFIX));</span>
+
+<span class="fc" id="L39">        WorkoutEntity workoutEntity = workoutRepository.findById(request.getWorkoutId())</span>
+<span class="fc" id="L40">                .orElseThrow(() -&gt; new EntityNotFoundException(&quot;Workout with ID &quot; + request.getWorkoutId() + NOT_FOUND_SUFFIX));</span>
+
+<span class="fc" id="L42">        AppointmentEntity newAppointment = AppointmentEntity.builder()</span>
+<span class="fc" id="L43">                .workout(workoutEntity)</span>
+<span class="fc" id="L44">                .trainer(trainerEntity)</span>
+<span class="fc" id="L45">                .client(clientEntity)</span>
+<span class="fc" id="L46">                .build();</span>
+        // TODO: include in the mapper
+
+<span class="fc" id="L49">        AppointmentEntity savedAppointment = appointmentRepository.save(newAppointment);</span>
+<span class="fc" id="L50">        return CreateAppointmentResponse.builder().id(savedAppointment.getId()).build();</span>
+    }
+
+    @Override
+    public void deleteAppointment(Integer id) {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (!appointmentRepository.existsById(id)) {</span>
+<span class="fc" id="L56">            throw new EntityNotFoundException(&quot;Appointment with ID &quot; + id + NOT_FOUND_SUFFIX);</span>
+        }
+<span class="fc" id="L58">        appointmentRepository.deleteById(id);</span>
+<span class="fc" id="L59">    }</span>
+
+    @Override
+    public GetAllAppointmentsResponse getAllAppointments() {
+<span class="fc" id="L63">        List&lt;AppointmentEntity&gt; appointmentEntityList = appointmentRepository.findAll();</span>
+
+<span class="fc" id="L65">        List&lt;GetAppointmentResponse&gt; appointments = appointmentEntityList.stream()</span>
+<span class="fc" id="L66">                .map(appointmentMapper::fromEntityToResponse)</span>
+<span class="fc" id="L67">                .collect(Collectors.toList());</span>
+
+<span class="fc" id="L69">        return new GetAllAppointmentsResponse(appointments);</span>
+    }
+
+    @Override
+    public GetAllAppointmentsResponse getAllAppointmentsByUser(Integer id) {
+<span class="fc" id="L74">        List&lt;AppointmentEntity&gt; trainerAppointments = appointmentRepository.findAllByTrainerUserId(id);</span>
+<span class="fc" id="L75">        List&lt;AppointmentEntity&gt; clientAppointments = appointmentRepository.findAllByClientUserId(id);</span>
+
+<span class="fc" id="L77">        List&lt;GetAppointmentResponse&gt; appointments = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L78">        appointments.addAll(trainerAppointments.stream()</span>
+<span class="fc" id="L79">                .map(appointmentMapper::fromEntityToResponse)</span>
+<span class="fc" id="L80">                .toList());</span>
+<span class="fc" id="L81">        appointments.addAll(clientAppointments.stream()</span>
+<span class="fc" id="L82">                .map(appointmentMapper::fromEntityToResponse)</span>
+<span class="fc" id="L83">                .toList());</span>
+
+<span class="fc" id="L85">        return new GetAllAppointmentsResponse(appointments);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WorkoutController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fitsphere-backend</a> &gt; <a href="index.source.html" class="el_package">fontys.ind.controller</a> &gt; <span class="el_source">WorkoutController.java</span></div><h1>WorkoutController.java</h1><pre class="source lang-java linenums">package fontys.ind.controller;
+
+import fontys.ind.domain.request.workout.UpdateWorkoutRequest;
+import fontys.ind.domain.response.workout.GetWorkoutInfoResponse;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import fontys.ind.business.WorkoutService;
+import fontys.ind.domain.request.workout.CreateWorkoutRequest;
+import fontys.ind.domain.response.workout.CreateWorkoutResponse;
+import fontys.ind.domain.response.workout.GetWorkoutsResponse;
+
+@RestController
+@RequestMapping(&quot;/workouts&quot;)
+<span class="fc" id="L18">@AllArgsConstructor</span>
+@CrossOrigin(origins = &quot;http://localhost:5173&quot;)
+public class WorkoutController {
+    private WorkoutService workoutService;
+
+    @GetMapping
+    public ResponseEntity&lt;GetWorkoutsResponse&gt; getAllWorkouts() {
+<span class="nc" id="L25">        return ResponseEntity.ok(workoutService.getAllWorkouts());</span>
+    }
+
+    @GetMapping(&quot;/info/{id}&quot;)
+    public ResponseEntity&lt;GetWorkoutInfoResponse&gt; getWorkoutInfo(@PathVariable(value = &quot;id&quot;) final Integer id) {
+<span class="nc" id="L30">        final GetWorkoutInfoResponse workoutResponse = workoutService.getWorkoutInfo(id);</span>
+<span class="nc" id="L31">        return ResponseEntity.ok(workoutResponse);</span>
+    }
+
+    @GetMapping(&quot;/trainer/{id}&quot;)
+    public ResponseEntity&lt;GetWorkoutsResponse&gt; getTrainerWorkouts(@PathVariable(value = &quot;id&quot;) final Integer id) {
+<span class="nc" id="L36">        return ResponseEntity.ok(workoutService.getTrainerWorkouts(id));</span>
+    }
+
+    @PostMapping()
+    @RolesAllowed({&quot;TRAINER&quot;})
+    public ResponseEntity&lt;CreateWorkoutResponse&gt; createWorkout(@RequestBody @Valid CreateWorkoutRequest request) {
+<span class="nc" id="L42">        CreateWorkoutResponse response = workoutService.createWorkout(request);</span>
+<span class="nc" id="L43">        return ResponseEntity.status(HttpStatus.CREATED).body(response);</span>
+    }
+
+    @PutMapping(&quot;{id}&quot;)
+    @RolesAllowed({&quot;TRAINER&quot;})
+    public ResponseEntity&lt;Void&gt; updateWorkout(@PathVariable(&quot;id&quot;) Integer id, @RequestBody @Valid UpdateWorkoutRequest request){
+<span class="nc" id="L49">        request.setId(id);</span>
+<span class="nc" id="L50">        workoutService.updateWorkout(request);</span>
+<span class="nc" id="L51">        return ResponseEntity.noContent().build();</span>
+    }
+
+    @DeleteMapping(&quot;{id}&quot;)
+    @RolesAllowed({&quot;TRAINER&quot;})
+    public ResponseEntity&lt;Void&gt; deleteWorkout(@PathVariable Integer id) {
+<span class="nc" id="L57">        workoutService.deleteWorkout(id);</span>
+<span class="nc" id="L58">        return ResponseEntity.noContent().build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

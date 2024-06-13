@@ -20,7 +20,7 @@ public class AppointmentController {
     private AppointmentService appointmentService;
 
     @PostMapping
-//    @RolesAllowed({"CLIENT", "TRAINER"})
+    @RolesAllowed({"CLIENT"})
     public ResponseEntity<CreateAppointmentResponse> createAppointment(@RequestBody @Valid CreateAppointmentRequest request) {
         CreateAppointmentResponse response = appointmentService.createAppointment(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

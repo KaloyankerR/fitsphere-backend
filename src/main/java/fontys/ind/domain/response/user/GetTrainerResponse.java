@@ -19,5 +19,5 @@ public class GetTrainerResponse extends GetUserResponse {
     private String bio;
     private String igLink;
     private List<GetAppointmentResponse> appointmentList;
-    private List<GetRatingResponse> ratings;
+    private Double rating;
 }

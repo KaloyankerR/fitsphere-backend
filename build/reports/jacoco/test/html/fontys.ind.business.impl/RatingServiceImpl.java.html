@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RatingServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">fitsphere-backend</a> &gt; <a href="index.source.html" class="el_package">fontys.ind.business.impl</a> &gt; <span class="el_source">RatingServiceImpl.java</span></div><h1>RatingServiceImpl.java</h1><pre class="source lang-java linenums">package fontys.ind.business.impl;
+
+import fontys.ind.business.RatingService;
+import fontys.ind.business.mappers.RatingMapper;
+import fontys.ind.domain.request.rating.CreateRatingRequest;
+import fontys.ind.domain.response.rating.CreateRatingResponse;
+import fontys.ind.domain.response.rating.GetRatingResponse;
+import fontys.ind.domain.response.rating.GetRatingsResponse;
+import fontys.ind.persistence.ClientRepository;
+import fontys.ind.persistence.RatingRepository;
+import fontys.ind.persistence.TrainerRepository;
+import fontys.ind.persistence.entity.ClientEntity;
+import fontys.ind.persistence.entity.RatingEntity;
+import fontys.ind.persistence.entity.TrainerEntity;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+<span class="fc" id="L24">@AllArgsConstructor</span>
+public class RatingServiceImpl implements RatingService {
+    private final RatingRepository ratingRepository;
+    private final TrainerRepository trainerRepository;
+    private final ClientRepository clientRepository;
+    private final RatingMapper ratingMapper;
+
+    @Override
+    @Transactional
+    public CreateRatingResponse createRating(CreateRatingRequest request) {
+<span class="fc" id="L34">        RatingEntity existingRating = ratingRepository.findByTrainerUserIdAndClientUserId(request.getTrainerId(), request.getClientId());</span>
+
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (existingRating != null) {</span>
+            // Update the existing rating
+<span class="fc" id="L38">            existingRating.setRating(request.getRating());</span>
+<span class="fc" id="L39">            existingRating.setComment(request.getComment());</span>
+        } else {
+<span class="fc" id="L41">            Optional&lt;TrainerEntity&gt; trainerEntityOptional = trainerRepository.findById(Long.valueOf(request.getTrainerId()));</span>
+<span class="fc" id="L42">            TrainerEntity trainerEntity = trainerEntityOptional.orElseThrow(() -&gt;</span>
+<span class="fc" id="L43">                    new EntityNotFoundException(&quot;Trainer with ID &quot; + request.getTrainerId() + &quot; not found.&quot;));</span>
+
+<span class="fc" id="L45">            Optional&lt;ClientEntity&gt; clientEntityOptional = clientRepository.findById(Long.valueOf(request.getClientId()));</span>
+<span class="fc" id="L46">            ClientEntity clientEntity = clientEntityOptional.orElseThrow(() -&gt;</span>
+<span class="fc" id="L47">                    new EntityNotFoundException(&quot;Client with ID &quot; + request.getClientId() + &quot; not found.&quot;));</span>
+
+<span class="fc" id="L49">            existingRating = RatingEntity.builder()</span>
+<span class="fc" id="L50">                    .trainer(trainerEntity)</span>
+<span class="fc" id="L51">                    .client(clientEntity)</span>
+<span class="fc" id="L52">                    .rating(request.getRating())</span>
+<span class="fc" id="L53">                    .comment(request.getComment())</span>
+<span class="fc" id="L54">                    .build();</span>
+        }
+
+<span class="fc" id="L57">        RatingEntity ratingEntity = ratingRepository.save(existingRating);</span>
+<span class="fc" id="L58">        return CreateRatingResponse.builder()</span>
+<span class="fc" id="L59">                .id(Math.toIntExact(ratingEntity.getId()))</span>
+<span class="fc" id="L60">                .build();</span>
+    }
+
+    @Override
+    @Transactional
+    public GetRatingsResponse getTrainerRatings(Integer id) {
+<span class="fc" id="L66">        List&lt;RatingEntity&gt; ratingEntities = ratingRepository.findAllByTrainerUserId(id);</span>
+
+<span class="fc" id="L68">        List&lt;GetRatingResponse&gt; ratings = ratingEntities.stream()</span>
+<span class="fc" id="L69">                .map(ratingMapper::fromEntityToResponse)</span>
+<span class="fc" id="L70">                .toList();</span>
+
+<span class="fc" id="L72">        return GetRatingsResponse.builder()</span>
+<span class="fc" id="L73">                .ratings(ratings)</span>
+<span class="fc" id="L74">                .build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

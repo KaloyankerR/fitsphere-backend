@@ -114,49 +114,47 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.findById(Long.valueOf(id))
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found."));
 
-        switch (userEntity.getRole()) {
-            case TRAINER:
-                return trainerRepository.findById(Long.valueOf(id))
-                        .map(trainerMapper::fromEntityToResponse)
-                        .or(() -> { throw new EntityNotFoundException("Trainer with ID " + id + " not found."); });
-            case ADMIN:
-                return adminRepository.findById(Long.valueOf(id))
-                        .map(userMapper::fromEntityToResponse)
-                        .or(() -> { throw new EntityNotFoundException("Admin with ID " + id + " not found."); });
-            case CLIENT:
-                return clientRepository.findById(Long.valueOf(id))
-                        .map(clientMapper::fromEntityToResponse)
-                        .or(() -> { throw new EntityNotFoundException("Client with ID " + id + " not found."); });
-            default:
-                throw new EntityNotFoundException("User role not recognized.");
-        }
+        return switch (userEntity.getRole()) {
+            case TRAINER -> trainerRepository.findById(Long.valueOf(id))
+                    .map(trainerMapper::fromEntityToResponse)
+                    .or(() -> {
+                        throw new EntityNotFoundException("Trainer with ID " + id + " not found.");
+                    });
+            case ADMIN -> adminRepository.findById(Long.valueOf(id))
+                    .map(userMapper::fromEntityToResponse)
+                    .or(() -> {
+                        throw new EntityNotFoundException("Admin with ID " + id + " not found.");
+                    });
+            case CLIENT -> clientRepository.findById(Long.valueOf(id))
+                    .map(clientMapper::fromEntityToResponse)
+                    .or(() -> {
+                        throw new EntityNotFoundException("Client with ID " + id + " not found.");
+                    });
+        };
     }
 
     @Override
     public ApiWrapperResponse getUsersByRole(String role) {
-        switch (role.toUpperCase()) {
-//            case "ADMIN":
-//                return getAllAdmins();
-            case "CLIENT":
-                return getAllClients();
-            case "TRAINER":
-                return getAllTrainers();
-            default:
-                throw new InvalidUserException("INVALID ROLE!");
-        }
+        return switch (role.toUpperCase()) {
+            case "ALL" -> getAllUsers();
+            case "ADMIN" -> getAllAdmins();
+            case "CLIENT" -> getAllClients();
+            case "TRAINER" -> getAllTrainers();
+            default -> throw new InvalidUserException("INVALID ROLE!");
+        };
     }
 
-//    private GetAllUsersResponse getAllAdmins() {
-//        List<UserEntity> adminsEntity = adminRepository.findAll();
-//
-//        List<GetUserResponse> admins = adminsEntity.stream()
-//                .map(userMapper::fromEntityToResponse)
-//                .toList();
-//
-//        GetAllUsersResponse response = new GetAllUsersResponse();
-//        response.setUsers(admins);
-//        return response;
-//    }
+    private GetAllUsersResponse getAllAdmins() {
+        List<AdminEntity> adminsEntity = adminRepository.findAll();
+
+        List<GetUserResponse> admins = adminsEntity.stream()
+                .map(userMapper::fromEntityToResponse)
+                .toList();
+
+        GetAllUsersResponse response = new GetAllUsersResponse();
+        response.setUsers(admins);
+        return response;
+    }
 
     private GetAllClientsResponse getAllClients() {
         List<ClientEntity> clientsEntity = clientRepository.findAll();
@@ -170,7 +168,6 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
-//    @Override
     public GetAllTrainersResponse getAllTrainers() {
         List<TrainerEntity> trainersEntity = trainerRepository.findAll();
         List<GetTrainerResponse> trainers = trainersEntity.stream()

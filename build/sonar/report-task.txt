@@ -2,5 +2,5 @@ projectKey=FitSphere
 serverUrl=http://localhost:9000
 serverVersion=10.4.1.88267
 dashboardUrl=http://localhost:9000/dashboard?id=FitSphere
-ceTaskId=b77fcdae-68f7-4efb-9b6d-9b506bcb25cd
-ceTaskUrl=http://localhost:9000/api/ce/task?id=b77fcdae-68f7-4efb-9b6d-9b506bcb25cd
+ceTaskId=0acd2a50-f1c1-4f3d-baf0-4f5f9a91c9bc
+ceTaskUrl=http://localhost:9000/api/ce/task?id=0acd2a50-f1c1-4f3d-baf0-4f5f9a91c9bc

@@ -1,155 +1,92 @@
-# Fitsphere Backend
-
-Welcome to the backend repository of the Fitsphere application, a comprehensive fitness management system built with Spring Boot. This repository contains all the server-side code and configurations necessary to run the Fitsphere backend services.
-
-## Table of Contents
-
-- [Project Description](#project-description)
-- [Features](#features)
-- [Technology Stack](#technology-stack)
-- [Getting Started](#getting-started)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Running the Application](#running-the-application)
-- [API Endpoints](#api-endpoints)
-- [Key Concepts](#key-concepts)
-- [Testing](#testing)
-- [CI/CD](#ci/cd)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Project Description
-
-Fitsphere is a fitness management platform designed to help users track their workouts, manage their fitness goals, and connect with trainers. The backend services handle all the business logic, data processing, and API interactions for the Fitsphere platform.
-
-## Features
-
-- User authentication and authorization
-- Workout management
-- Trainer and client interactions
-- Appointment scheduling
-- Rating and review system
-- Analytics and reporting
-
-## Technology Stack
-
-- **Java**: Programming language
-- **Spring Boot**: Framework for building the backend services
-- **Spring Security**: Security framework for authentication and authorization
-- **Hibernate/JPA**: ORM for database interactions
-- **MySQL**: Relational database
-- **Gradle**: Build and dependency management tool
-- **Lombok**: Reduces boilerplate code for model objects
-- **JaCoCo**: Code coverage tool
-- **SonarQube**: Continuous code quality inspection tool
-- **Docker**: Containerization platform
-
-## Getting Started
-
-### Prerequisites
-
-Before you begin, ensure you have the following installed on your system:
-
-- Java 11 or higher
-- Gradle 6.8 or higher
-- MySQL
-- Docker
-- SonarQube (for code quality inspection)
-
-### Installation
-
-1. **Clone the repository:**
-
-    ```bash
-    git clone https://github.com/yourusername/fitsphere-backend.git
-    cd fitsphere-backend
-    ```
-
-2. **Install dependencies:**
-
-    ```bash
-    gradle clean build
-    ```
-
-### Configuration
-
-1. **Database Configuration:**
-
-   Update the database configuration in `src/main/resources/application.properties`:
-
-    ```properties
-    spring.datasource.url=jdbc:mysql://localhost:3306/fitsphere
-    spring.datasource.username=your-username
-    spring.datasource.password=your-password
-
-    spring.jpa.hibernate.ddl-auto=update
-    spring.jpa.show-sql=true
-    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
-    ```
-
-2. **Application Configuration:**
-
-   You can configure other application properties as needed in the `application.properties` file.
-
-### Running the Application
-
-1. **Run the application using Gradle:**
-
-    ```bash
-    gradle bootRun
-    ```
-
-2. **Alternatively, build the JAR file and run it:**
-
-    ```bash
-    gradle clean build
-    java -jar build/libs/fitsphere-backend-0.0.1-SNAPSHOT.jar
-    ```
-
-### API Endpoints
-
-The API endpoints for the Fitsphere application are documented using Swagger. Once the application is running, you can access the API documentation at:
-
-http://localhost:8080/swagger-ui.html
+# fitsphere-backend
 
 
-## Key Concepts
 
-### REST APIs
+## Getting started
 
-Fitsphere follows REST (Representational State Transfer) principles to build its APIs. REST is an architectural style for designing networked applications and is based on a stateless, client-server communication protocol—usually HTTP. In this application, we have implemented REST APIs to manage users, workouts, appointments, and more. Each API endpoint corresponds to a specific functionality and interacts with the data model via HTTP methods such as GET, POST, PUT, and DELETE.
+To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-### SOLID Principles
+Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
 
-To ensure our codebase is maintainable, scalable, and robust, we adhere to SOLID principles:
+## Add your files
 
-- **Single Responsibility Principle (SRP)**: Each class has a single responsibility. For instance, our services handle business logic, while controllers manage HTTP requests.
-- **Open/Closed Principle (OCP)**: Our code is open for extension but closed for modification. We achieve this by using interfaces and abstract classes.
-- **Liskov Substitution Principle (LSP)**: Subtypes must be substitutable for their base types. Our inheritance hierarchy respects this principle.
-- **Interface Segregation Principle (ISP)**: We use client-specific interfaces to avoid implementing methods that are not required.
-- **Dependency Inversion Principle (DIP)**: High-level modules do not depend on low-level modules; both depend on abstractions. We use dependency injection to achieve this.
+- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
+- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
 
-### Security
+```
+cd existing_repo
+git remote add origin https://git.fhict.nl/I500862/fitsphere-backend.git
+git branch -M main
+git push -uf origin main
+```
 
-Security is paramount in Fitsphere. We use Spring Security to handle authentication and authorization, ensuring that users have access only to the resources they are permitted to. We implement role-based access control and secure our APIs against common vulnerabilities such as CSRF and XSS.
+## Integrate with your tools
 
-### Persistence
+- [ ] [Set up project integrations](https://git.fhict.nl/I500862/fitsphere-backend/-/settings/integrations)
 
-We use Hibernate ORM with JPA to manage database interactions. This allows us to map Java objects to database tables seamlessly and perform CRUD operations efficiently. Our database schema is managed through JPA annotations and configurations.
+## Collaborate with your team
 
-### Lombok
+- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
+- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
+- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
+- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
+- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
 
-Lombok is used to reduce boilerplate code in our model classes. By using annotations such as `@Data`, `@Builder`, and `@NoArgsConstructor`, we can automatically generate getters, setters, and other utility methods, keeping our code clean and readable.
+## Test and Deploy
 
-### Code Quality and Coverage
+Use the built-in continuous integration in GitLab.
 
-We use JaCoCo to measure code coverage of our tests. This ensures that our code is thoroughly tested and reliable. The coverage reports are integrated with SonarQube to provide continuous inspection of code quality, detecting bugs, code smells, and security vulnerabilities.
+- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
+- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
+- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
+- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
+- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
 
-## Testing
+***
 
-We have comprehensive unit and integration tests to ensure the reliability of our application. We use JUnit for testing and have written tests for our services, controllers, and repositories.
+# Editing this README
 
-To run the tests and generate the JaCoCo report, use the following Gradle command:
+When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
 
-```bash
-gradle test jacocoTestReport
+## Suggestions for a good README
+Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+
+## Name
+Choose a self-explaining name for your project.
+
+## Description
+Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+
+## Badges
+On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+
+## Visuals
+Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+
+## Installation
+Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+
+## Usage
+Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+
+## Support
+Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+
+## Roadmap
+If you have ideas for releases in the future, it is a good idea to list them in the README.
+
+## Contributing
+State if you are open to contributions and what your requirements are for accepting them.
+
+For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+
+You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+
+## Authors and acknowledgment
+Show your appreciation to those who have contributed to the project.
+
+## License
+For open source projects, say how it is licensed.
+
+## Project status
+If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
