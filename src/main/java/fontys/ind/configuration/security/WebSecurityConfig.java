@@ -52,7 +52,8 @@ public class WebSecurityConfig {
                                 .anyRequest().authenticated()                                             // Everything else --> authentication required, which is Spring security's default behaviour
                 )
                 .exceptionHandling(configure -> configure.authenticationEntryPoint(authenticationEntryPoint))
-                .addFilterBefore(authenticationRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(authenticationRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .cors();
         return httpSecurity.build();
 
         // TODO: add .hasRole or .hasAuthority
