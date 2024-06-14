@@ -13,7 +13,6 @@ version = '1.0-SNAPSHOT'
 
 java {
     sourceCompatibility = '17'
-    targetCompatibility = '17'
 }
 
 repositories {
@@ -28,12 +27,12 @@ jacocoTestReport {
 }
 
 flyway {
-//    url = 'jdbc:mysql://localhost:3306/fitsphere'
-//    user = 'root'
-//    password = 'rihanna2912'
-    url = 'jdbc:mysql://fitsphere-mysql-db-kulovkaloyan-5407.g.aivencloud.com:14206/defaultdb'
-    user = 'avnadmin'
-    password = 'AVNS_SaOAQ8IN496K-Sq6dud'
+    url = 'jdbc:mysql://localhost:3306/fitsphere'
+    user = 'root'
+    password = 'rihanna2912'
+//    url = 'jdbc:mysql://fitsphere-mysql-db-kulovkaloyan-5407.g.aivencloud.com:14206/defaultdb'
+//    user = 'avnadmin'
+//    password = 'AVNS_SaOAQ8IN496K-Sq6dud'
     driver = 'com.mysql.cj.jdbc.Driver'
     connectRetries = 10
     baselineOnMigrate = true

@@ -12,7 +12,8 @@ import fontys.ind.domain.response.LoginResponse;
 @RestController
 @RequestMapping("/tokens")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173")
+// @CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins={"http://localhost:5173", "https://superb-kari-fitsphere-554f9337.koyeb.app"})
 public class LoginController {
     private final LoginUseCase loginUseCase;
 
