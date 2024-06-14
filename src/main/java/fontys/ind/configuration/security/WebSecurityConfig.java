@@ -52,7 +52,8 @@ public class WebSecurityConfig {
                                 .anyRequest().authenticated()                                             // Everything else --> authentication required, which is Spring security's default behaviour
                 )
                 .exceptionHandling(configure -> configure.authenticationEntryPoint(authenticationEntryPoint))
-                .addFilterBefore(authenticationRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(authenticationRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .cors();
         return httpSecurity.build();
 
         // TODO: add .hasRole or .hasAuthority
@@ -64,8 +65,12 @@ public class WebSecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
+<<<<<<< HEAD
                         // .allowedOrigins("http://localhost:5173")
                         .allowedOrigins(System.getenv("ALLOWED_ORIGINS"))
+=======
+                        .allowedOrigins("http://localhost:5173", "https://superb-kari-fitsphere-554f9337.koyeb.app")
+>>>>>>> 510e0ee586ab4abf7be4b14ac61fa70021057b77
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
