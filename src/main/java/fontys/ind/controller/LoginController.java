@@ -13,7 +13,7 @@ import fontys.ind.domain.response.LoginResponse;
 @RequestMapping("/tokens")
 @RequiredArgsConstructor
 // @CrossOrigin(origins = "http://localhost:5173")
-@CrossOrigin(origins={"http://localhost:5173", "https://kaloyankulov.netlify.app"})
+@CrossOrigin(origins={"http://localhost:5173", "https://fitsphere-fontys.netlify.app"})
 public class LoginController {
     private final LoginUseCase loginUseCase;
 
