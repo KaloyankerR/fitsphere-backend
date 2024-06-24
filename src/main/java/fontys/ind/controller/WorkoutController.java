@@ -17,7 +17,7 @@ import fontys.ind.domain.response.workout.GetWorkoutsResponse;
 @RequestMapping("/workouts")
 @AllArgsConstructor
 //@CrossOrigin(origins = "http://localhost:5173")
-@CrossOrigin(origins={"http://localhost:5173", "https://kaloyankulov.netlify.app"})
+@CrossOrigin(origins={"http://localhost:5173", "https://fitsphere-fontys.netlify.app"})
 public class WorkoutController {
     private WorkoutService workoutService;
 
