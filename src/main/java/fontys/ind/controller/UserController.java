@@ -23,7 +23,7 @@ import java.util.*;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 //@CrossOrigin(origins = "http://localhost:5173")
-@CrossOrigin(origins={"http://localhost:5173", "https://superb-kari-fitsphere-554f9337.koyeb.app"})
+@CrossOrigin(origins={"http://localhost:5173", "https://kaloyankulov.netlify.app"})
 public class UserController {
     private final UserService userService;
 
@@ -56,8 +56,8 @@ public class UserController {
     }
 
     @PostMapping("/trainer")
-    @RolesAllowed("ADMIN")
-    public ResponseEntity<CreateUserResponse> createUser(@RequestBody @Valid CreateTrainerRequest request) {
+    @RolesAllowed({"ADMIN"})
+    public ResponseEntity<CreateUserResponse> createTrainer(@RequestBody @Valid CreateTrainerRequest request) {
         CreateUserResponse response = userService.createTrainer(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

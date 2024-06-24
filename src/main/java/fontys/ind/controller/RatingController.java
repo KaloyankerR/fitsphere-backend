@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/ratings")
 @AllArgsConstructor
 //@CrossOrigin(origins = "http://localhost:5173")
-@CrossOrigin(origins={"http://localhost:5173", "https://superb-kari-fitsphere-554f9337.koyeb.app"})
+@CrossOrigin(origins={"http://localhost:5173", "https://kaloyankulov.netlify.app"})
 public class RatingController {
     private RatingService ratingService;
 

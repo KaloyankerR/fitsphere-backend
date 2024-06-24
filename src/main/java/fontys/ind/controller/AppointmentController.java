@@ -16,7 +16,7 @@ import fontys.ind.domain.response.appointment.CreateAppointmentResponse;
 @RequestMapping("/appointments")
 @AllArgsConstructor
 // @CrossOrigin(origins = "http://localhost:5173")
-@CrossOrigin(origins={"http://localhost:5173", "https://superb-kari-fitsphere-554f9337.koyeb.app"})
+@CrossOrigin(origins={"http://localhost:5173", "https://kaloyankulov.netlify.app"})
 public class AppointmentController {
     private AppointmentService appointmentService;
 
