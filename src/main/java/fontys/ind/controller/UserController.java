@@ -23,7 +23,7 @@ import java.util.*;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 //@CrossOrigin(origins = "http://localhost:5173")
-@CrossOrigin(origins={"http://localhost:5173", "https://kaloyankulov.netlify.app"})
+@CrossOrigin(origins={"http://localhost:5173", "https://fitsphere-fontys.netlify.app"})
 public class UserController {
     private final UserService userService;
 
