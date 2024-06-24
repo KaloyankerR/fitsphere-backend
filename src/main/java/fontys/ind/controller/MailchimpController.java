@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/subscribe")
-@CrossOrigin(origins={"http://localhost:5173", "https://kaloyankulov.netlify.app"})
+@CrossOrigin(origins={"http://localhost:5173", "https://fitsphere-fontys.netlify.app"})
 public class MailchimpController {
 
 //    @Value("${mailchimp.api.key}")
